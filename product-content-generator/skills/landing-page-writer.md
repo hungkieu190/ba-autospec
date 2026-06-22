@@ -6,7 +6,7 @@ Use this skill to create a WooCommerce-style product landing page structure and 
 
 ## WooCommerce Product Page Pattern
 
-Model the structure and tone after WooCommerce extension pages like WooCommerce Subscriptions:
+Model the structure and tone after the local reference in `product-content-generator/woocommerce-style-reference.md`:
 
 - Breadcrumb/category context.
 - Product icon/title/vendor line.

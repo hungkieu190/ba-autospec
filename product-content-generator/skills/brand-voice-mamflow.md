@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use this skill to keep product content consistent with MamFlow/ThimPress-style WordPress product marketing while borrowing the structure and clarity of WooCommerce marketplace pages.
+Use this skill to keep product content consistent with MamFlow/ThimPress-style WordPress product marketing while borrowing the structure and clarity documented in `product-content-generator/woocommerce-style-reference.md`.
 
 ## Voice Attributes
 

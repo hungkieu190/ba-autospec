@@ -85,14 +85,15 @@ Hãy đọc input của project và toàn bộ skill package của Product Conte
 
 \`projects/${projectName}/questions.md\`
 
-Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm theo phong cách WooCommerce product page, đặc biệt tham chiếu cấu trúc WooCommerce Subscriptions.
+Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm theo phong cách WooCommerce product page. Không cần search WooCommerce mỗi lần; hãy dùng local style reference đã được cô đọng trong repo.
 
 ## Files Bắt Buộc Phải Đọc
 
 1. \`projects/${projectName}/input.md\`
 2. \`product-content-generator/skills/mandatory-skills.md\`
 3. \`product-content-generator/skills/skill-map.md\`
-4. Toàn bộ skill trong \`product-content-generator/skills/\`
+4. \`product-content-generator/woocommerce-style-reference.md\`
+5. Toàn bộ skill trong \`product-content-generator/skills/\`
 
 ## Tóm Tắt Input Hiện Tại
 
@@ -116,8 +117,9 @@ Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm 
 2. Chỉ tạo \`questions.md\`, chưa tạo nội dung sản phẩm cuối cùng.
 3. Câu hỏi phải phục vụ trực tiếp cho product page, landing page, SEO keywords, competitor comparison, FAQ, và blog content.
 4. Hỏi kỹ về proof points, pricing, compatibility, active installs/reviews/version, support/docs, quality checks, refund/guarantee nếu có.
-5. Nếu cần mô phỏng phong cách WooCommerce, hỏi về product icon, hero image, pricing block, CTA, demo/docs links, support links, compatibility, related products.
-6. Không yêu cầu người dùng cung cấp số liệu nếu họ không có; cho phép ghi \`Không biết\`.
+5. Nếu cần mô phỏng phong cách WooCommerce, dùng local style reference để hỏi về product icon, hero image, pricing block, CTA, demo/docs links, support links, compatibility, related products.
+6. Không tự web search WooCommerce Subscriptions trừ khi người dùng yêu cầu rõ.
+7. Không yêu cầu người dùng cung cấp số liệu nếu họ không có; cho phép ghi \`Không biết\`.
 
 ## Cấu Trúc questions.md Bắt Buộc
 

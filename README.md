@@ -144,4 +144,10 @@ content-output/index.md
 content-output/quality-report.md
 ```
 
-The style reference is WooCommerce product pages, especially WooCommerce Subscriptions: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, and related/comparison content.
+The WooCommerce style reference is stored locally in:
+
+```text
+product-content-generator/woocommerce-style-reference.md
+```
+
+The AI agent should use that local file instead of searching WooCommerce every run. It captures the WooCommerce product page pattern: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, and related/comparison content.
