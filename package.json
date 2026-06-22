@@ -1,0 +1,15 @@
+{
+  "name": "ba-autospec",
+  "version": "0.1.0",
+  "description": "AI-powered business analysis and product documentation generator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "init": "node scripts/init.js",
+    "start": "node scripts/start.js",
+    "create": "node scripts/create.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

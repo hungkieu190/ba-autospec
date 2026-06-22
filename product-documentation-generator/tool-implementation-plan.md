@@ -17,83 +17,108 @@ The tool must use the skill package in `product-documentation-generator/skills/`
   - `skill-selection-report.md`
 - No application framework currently exists in this repo.
 
-## Recommended Tool Shape
+## Implemented Tool Shape
 
-Create a self-contained Python CLI because the repo has no existing Node, Python package, or app framework.
+Use a simple npm workflow with no external dependencies.
 
-Recommended path:
+Implemented paths:
 
 ```text
-product-documentation-generator/
-bin/
-  generate-product-docs.py
-templates/
-  optional-template-files.md
-examples/
-  sample-idea.md
-  sample-output/
+package.json
+scripts/
+  init.js
+  start.js
+  shared.js
+projects/
+  <project-name>/
+    input.md
+    output/
 ```
 
 ## CLI Interface
 
-Recommended command:
+Create a project:
 
 ```bash
-python product-documentation-generator/bin/generate-product-docs.py \
-  --idea "Create a LearnPress Chat Room Add-on that allows instructors and enrolled students to communicate in real time inside a course." \
-  --output ./output/learnpress-chat-room
+npm run init
 ```
 
-Optional flags:
+Or create a project without prompts:
 
 ```bash
---idea-file ./idea.md
---product-name "LearnPress Chat Room"
---platform wordpress-plugin
---assumptions-mode explicit
---overwrite
+npm run init -- "LearnPress Chat Room"
+```
+
+Generate the prompt that asks the AI agent to create follow-up questions after filling `input.md`:
+
+```bash
+npm run start -- <project-name>
+```
+
+This creates:
+
+```text
+projects/<project-name>/create-question-by-agent.md
+```
+
+Paste `create-question-by-agent.md` into the AI agent chat. The AI agent then creates:
+
+```text
+projects/<project-name>/questions.md
+```
+
+After the user answers `questions.md`, generate the prompt that asks the AI agent to create the final documents:
+
+```bash
+npm run create -- <project-name>
+```
+
+This creates:
+
+```text
+projects/<project-name>/create-documents-by-agent.md
+```
+
+Paste `create-documents-by-agent.md` into the AI agent chat. The AI agent then uses `input.md`, `questions.md`, and all skills to produce the final Vietnamese documentation.
+
+Generate deterministic skeleton documents only when explicitly requested:
+
+```bash
+npm run start -- <project-name> --generate-docs
 ```
 
 ## Required Behavior
 
-The CLI should:
+The CLI does:
 
-1. Read either `--idea` or `--idea-file`.
+1. Create `projects/<project-name>/input.md` through `npm run init`.
 2. Load mandatory skills from `skills/mandatory-skills.md`.
 3. Load skill-to-document mapping from `skills/skill-map.md`.
-4. Create the output directory.
-5. Generate all required markdown files:
-   - `00-market-validation.md`
-   - `01-search-demand-analysis.md`
-   - `02-competitor-landscape.md`
-   - `03-competitor-gap-analysis.md`
-   - `04-revenue-potential.md`
-   - `05-product-complexity.md`
-   - `06-risk-assessment.md`
-   - `07-product-strategy.md`
-   - `08-product-brief.md`
-   - `09-competitor-analysis.md`
-   - `10-feature-comparison.md`
-   - `11-user-flow.md`
-   - `12-prd.md`
-   - `13-wireframe.md`
-   - `14-test-plan.md`
-   - `15-documentation-outline.md`
-   - `16-product-page-outline.md`
-   - `17-product-naming.md`
-   - `18-taglines.md`
-   - `19-product-descriptions.md`
-   - `20-seo-content-plan.md`
-   - `21-launch-assets.md`
-   - `22-build-or-not-build.md`
-6. Generate an `index.md` that links all output files.
-7. Mark unsupported market/search/competitor claims as assumptions.
+4. Read `projects/<project-name>/input.md` through `npm run start -- <project-name>`.
+5. Generate `projects/<project-name>/create-question-by-agent.md` for pasting into the AI agent chat.
+6. Generate `projects/<project-name>/create-documents-by-agent.md` through `npm run create -- <project-name>` after `questions.md` exists.
+7. Keep final documents in Vietnamese, while preserving English technical terms where clearer.
+8. Generate all required markdown files only when running `npm run start -- <project-name> --generate-docs`:
+   - `01-discovery.md`
+   - `02-product-strategy.md`
+   - `03-prd.md`
+   - `04-ux-and-wireframe.md`
+   - `05-qa-and-documentation.md`
+   - `06-seo-and-marketing.md`
+   - `07-build-or-not-build.md`
+9. Generate an `index.md` that links all output files.
+10. Generate a basic `quality-report.md`.
+11. Generate `asana-task.html` with a `Copy for Asana` button and the required task sections.
+12. Mark unsupported market/search/competitor claims as assumptions.
+13. Do not use the old 23-file output structure unless explicitly reintroduced later.
 
 ## Implementation Phases
 
 ### Phase 1: Deterministic Template Generator
 
-Build a non-AI template generator first.
+Status: implemented as npm scripts behind `--generate-docs`.
+
+The default `start` workflow now creates an AI-agent prompt because the intended runtime is an AI-agent environment such as Codex, Antigravity, or Claude. The external AI agent is the reasoning engine; this repo prepares structured prompts, project files, and skill references.
 
 It should create structured markdown files with:
 
@@ -155,11 +180,12 @@ Recommended flag:
 
 Add a final pass that checks:
 
-- All 23 files exist.
+- All 7 main files exist.
+- `asana-task.html` exists and includes a working copy button.
 - Required headings exist.
 - No empty critical sections.
 - Assumptions are explicitly marked.
-- Build recommendation is consistent across `00-market-validation.md` and `22-build-or-not-build.md`.
+- Build recommendation is consistent across `01-discovery.md` and `07-build-or-not-build.md`.
 
 Generate:
 
@@ -167,39 +193,30 @@ Generate:
 quality-report.md
 ```
 
-## Suggested Python Structure
+## Current JavaScript Structure
 
 ```text
-product-documentation-generator/
-bin/
-  generate-product-docs.py
-src/
-  product_docs_generator/
-    __init__.py
-    cli.py
-    config.py
-    skills.py
-    documents.py
-    templates.py
-    quality.py
-    providers/
-      __init__.py
-      base.py
+scripts/
+  init.js
+  start.js
+  shared.js
 ```
 
-If keeping the first implementation minimal, start with a single script in `bin/` and refactor later only when needed.
+Keep this structure until AI provider integration or richer templates require refactoring.
 
 ## Minimum Viable Implementation
 
-The first working version should include:
+The current working version includes:
 
-- `argparse` CLI.
+- npm scripts.
 - File-safe product slug generation.
 - Output directory creation.
-- Static list of 23 document filenames.
-- Template functions for each document.
+- Static list of 7 document filenames.
+- Template sections for each document.
 - Skill loader that reads markdown files and embeds skill references into generated docs.
 - `index.md` generation.
+- `quality-report.md` generation.
+- `asana-task.html` generation.
 - Basic existence checks.
 
 ## Example Generated Header
@@ -224,20 +241,38 @@ This document contains assumptions where market, keyword, competitor, or pricing
 
 ## Validation Commands
 
-After implementation, run:
+Run:
 
 ```bash
-python product-documentation-generator/bin/generate-product-docs.py --help
-python product-documentation-generator/bin/generate-product-docs.py --idea "Create a LearnPress Chat Room Add-on" --output /tmp/opencode/learnpress-chat-room-docs --overwrite
+npm run init
+npm run start -- <project-name>
 ```
 
 Then verify:
 
 ```bash
-ls /tmp/opencode/learnpress-chat-room-docs
+ls projects/<project-name>/create-question-by-agent.md
 ```
 
-Expected result: 23 numbered markdown documents plus `index.md` and optionally `quality-report.md`.
+Expected result: a paste-ready `[create-question-by-agent]` prompt.
+
+After the AI agent creates and the user answers `questions.md`, run:
+
+```bash
+npm run create -- <project-name>
+ls projects/<project-name>/create-documents-by-agent.md
+```
+
+Expected result: a paste-ready `[create-documents-by-agent]` prompt.
+
+For skeleton documents:
+
+```bash
+npm run start -- <project-name> --generate-docs
+ls projects/<project-name>/output
+```
+
+Expected result: 7 numbered markdown documents plus `index.md`, `quality-report.md`, and `asana-task.html`.
 
 ## Important Rules To Preserve
 
@@ -251,4 +286,4 @@ Expected result: 23 numbered markdown documents plus `index.md` and optionally `
 
 ## Next Step
 
-Start by implementing the deterministic CLI in `product-documentation-generator/bin/generate-product-docs.py`.
+Improve templates and optionally add AI provider integration.

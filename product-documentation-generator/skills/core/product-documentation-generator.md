@@ -33,26 +33,18 @@ Use this skill as the orchestration layer for generating complete product discov
 
 ## Standard Output Package
 
-- `00-market-validation.md`
-- `01-search-demand-analysis.md`
-- `02-competitor-landscape.md`
-- `03-competitor-gap-analysis.md`
-- `04-revenue-potential.md`
-- `05-product-complexity.md`
-- `06-risk-assessment.md`
-- `07-product-strategy.md`
-- `08-product-brief.md`
-- `09-competitor-analysis.md`
-- `10-feature-comparison.md`
-- `11-user-flow.md`
-- `12-prd.md`
-- `13-wireframe.md`
-- `14-test-plan.md`
-- `15-documentation-outline.md`
-- `16-product-page-outline.md`
-- `17-product-naming.md`
-- `18-taglines.md`
-- `19-product-descriptions.md`
-- `20-seo-content-plan.md`
-- `21-launch-assets.md`
-- `22-build-or-not-build.md`
+- `01-discovery.md`
+- `02-product-strategy.md`
+- `03-prd.md`
+- `04-ux-and-wireframe.md`
+- `05-qa-and-documentation.md`
+- `06-seo-and-marketing.md`
+- `07-build-or-not-build.md`
+
+## Output Constraints
+
+- Generate exactly 7 main documents by default.
+- Do not split the package into the older 23-file structure.
+- Add only `index.md` and `quality-report.md` as supporting files.
+- Consolidate related sections into the closest matching document instead of creating new files.
+- Every document must include `Assumptions And Open Questions` and `Next Actions`.
