@@ -19,36 +19,164 @@ Hãy đọc input, câu trả lời trong questions.md, và toàn bộ skill pac
 
 ## Output Bắt Buộc
 
-Tạo thư mục `projects/learnpress-membership/output/` nếu chưa có, rồi tạo đủ các file:
+Tạo thư mục `projects/learnpress-membership/output/` nếu chưa có, rồi tạo đúng 7 file tài liệu chính sau:
 
-- `projects/learnpress-membership/output/00-market-validation.md`
-- `projects/learnpress-membership/output/01-search-demand-analysis.md`
-- `projects/learnpress-membership/output/02-competitor-landscape.md`
-- `projects/learnpress-membership/output/03-competitor-gap-analysis.md`
-- `projects/learnpress-membership/output/04-revenue-potential.md`
-- `projects/learnpress-membership/output/05-product-complexity.md`
-- `projects/learnpress-membership/output/06-risk-assessment.md`
-- `projects/learnpress-membership/output/07-product-strategy.md`
-- `projects/learnpress-membership/output/08-product-brief.md`
-- `projects/learnpress-membership/output/09-competitor-analysis.md`
-- `projects/learnpress-membership/output/10-feature-comparison.md`
-- `projects/learnpress-membership/output/11-user-flow.md`
-- `projects/learnpress-membership/output/12-prd.md`
-- `projects/learnpress-membership/output/13-wireframe.md`
-- `projects/learnpress-membership/output/14-test-plan.md`
-- `projects/learnpress-membership/output/15-documentation-outline.md`
-- `projects/learnpress-membership/output/16-product-page-outline.md`
-- `projects/learnpress-membership/output/17-product-naming.md`
-- `projects/learnpress-membership/output/18-taglines.md`
-- `projects/learnpress-membership/output/19-product-descriptions.md`
-- `projects/learnpress-membership/output/20-seo-content-plan.md`
-- `projects/learnpress-membership/output/21-launch-assets.md`
-- `projects/learnpress-membership/output/22-build-or-not-build.md`
+- `projects/learnpress-membership/output/01-discovery.md`
+- `projects/learnpress-membership/output/02-product-strategy.md`
+- `projects/learnpress-membership/output/03-prd.md`
+- `projects/learnpress-membership/output/04-ux-and-wireframe.md`
+- `projects/learnpress-membership/output/05-qa-and-documentation.md`
+- `projects/learnpress-membership/output/06-seo-and-marketing.md`
+- `projects/learnpress-membership/output/07-build-or-not-build.md`
 
 Tạo thêm:
 
 - `projects/learnpress-membership/output/index.md`
 - `projects/learnpress-membership/output/quality-report.md`
+- `projects/learnpress-membership/output/asana-task.html`
+
+## Luật Output Nghiêm Ngặt
+
+1. Chỉ tạo đúng 7 file tài liệu chính trong danh sách trên.
+2. Không tạo lại bộ 23 file cũ từ `00-market-validation.md` đến `22-build-or-not-build.md`.
+3. Không tạo thêm file tài liệu chính ngoài danh sách, trừ `index.md`, `quality-report.md`, và `asana-task.html`.
+4. Nếu nội dung thuộc nhiều nhóm, hãy gộp vào file phù hợp nhất theo mapping bên dưới.
+5. Mỗi file phải đủ sâu để team thực thi, nhưng không được viết lan man hoặc lặp ý.
+6. Mỗi section phải có quyết định, bảng, checklist, criteria, hoặc next action rõ ràng.
+7. Nếu thiếu dữ liệu, ghi rõ `Assumption`, `Cần validate`, hoặc `Câu hỏi còn mở`; không tự bịa.
+
+## Mapping 7 Tài Liệu
+
+### 1. `01-discovery.md`
+
+Gộp các phần:
+
+- Market Validation
+- Search Demand Analysis
+- Competitor Landscape
+- Competitor Gap Analysis
+- Product Complexity
+- Risk Assessment
+
+Bắt buộc có: Market Opportunity Score, Build Recommendation sơ bộ, competitor/alternative table, gap opportunities, complexity score, risk table, assumptions to validate.
+
+### 2. `02-product-strategy.md`
+
+Gộp các phần:
+
+- Product Strategy
+- Product Brief
+- Revenue Potential
+- Roadmap
+
+Bắt buộc có: positioning, USP, differentiators, target audience, user roles, scope, out of scope, revenue model, pricing hypothesis, roadmap v1/v1.1/v2.
+
+### 3. `03-prd.md`
+
+Gộp các phần:
+
+- PRD
+- Feature Comparison
+- Permission Matrix
+- Acceptance Criteria
+- Success Metrics
+
+Bắt buộc có: objectives, user stories, functional requirements, non-functional requirements, permission matrix, acceptance criteria, success metrics, dependencies.
+
+### 4. `04-ux-and-wireframe.md`
+
+Gộp các phần:
+
+- User Flow
+- Admin/Customer/Instructor/Student Flow nếu liên quan
+- Wireframe Specification
+
+Bắt buộc có: Mermaid user flow, role-based flows, screen list, ASCII wireframes, empty/error states, navigation rules.
+
+### 5. `05-qa-and-documentation.md`
+
+Gộp các phần:
+
+- Test Plan
+- Documentation Outline
+- Support/FAQ planning
+
+Bắt buộc có: functional tests, permission tests, regression tests, security tests, performance tests, edge cases, documentation pages, troubleshooting topics, FAQ topics.
+
+### 6. `06-seo-and-marketing.md`
+
+Gộp các phần:
+
+- Product Page Outline
+- SEO Content Plan
+- Product Naming Ideas
+- Taglines
+- Product Descriptions
+- Launch Assets
+
+Bắt buộc có: SEO title, meta description, hero, product page outline, keyword groups, at least 25 content ideas, 10 names, 10 taglines, short/medium/long descriptions, launch announcement, newsletter, social post.
+
+### 7. `07-build-or-not-build.md`
+
+Gộp executive decision:
+
+- Should We Build This Product?
+- Why / Why Not
+- Expected ROI
+- Estimated Development Cost
+- Estimated Maintenance Cost
+- Revenue Potential
+- Strategic Fit
+- Final Recommendation
+
+Bắt buộc chọn một: Build Now, Build Later, Validate First, Reject. Phải giải thích bằng evidence và assumptions từ các file trước.
+
+## Asana Task HTML Bắt Buộc
+
+Tạo thêm file `projects/learnpress-membership/output/asana-task.html` để người dùng mở trong trình duyệt, bấm copy, rồi paste vào Asana task.
+
+### Mục Tiêu HTML
+
+- HTML phải là standalone file, không cần build step, không cần external dependency.
+- Có style đẹp, sạch, dễ đọc, phù hợp để review trước khi copy.
+- Có nút `Copy for Asana`.
+- Khi bấm copy, copy nội dung task dạng HTML/rich text nếu browser hỗ trợ; fallback sang plain text nếu không hỗ trợ.
+- Nội dung copy phải paste vào Asana giữ được heading/list cơ bản.
+- Không nhúng script remote, không dùng CDN.
+
+### Cấu Trúc Nội Dung Asana Task
+
+HTML phải có đúng các section sau, theo thứ tự:
+
+1. Business Goal
+2. Problem Statement
+3. Target Users
+4. Functional Requirements
+5. UI References
+6. Technical Notes
+7. Acceptance Criteria
+8. Subtasks
+9. Release Notes
+
+### Quy Tắc Nội Dung Asana
+
+- Viết bằng tiếng Việt, giữ technical terms bằng English khi cần.
+- Nội dung phải ngắn gọn hơn tài liệu đầy đủ, đủ để tạo Asana task cho feature.
+- Functional Requirements phải dùng checklist hoặc bullet rõ ràng.
+- UI References phải trỏ tới `04-ux-and-wireframe.md` và mô tả màn hình/flow liên quan.
+- Technical Notes phải nêu integration, dependency, data, security, performance, permission nếu có.
+- Acceptance Criteria phải testable.
+- Subtasks phải là checklist có owner gợi ý theo team: Product, Design, Engineering, QA, Docs, Marketing nếu liên quan.
+- Release Notes phải có bản ngắn có thể copy vào changelog/release note.
+
+### HTML Implementation Requirements
+
+- File phải có `<!doctype html>`, `<meta charset="utf-8">`, và responsive CSS.
+- Nội dung task cần nằm trong element có `id="asana-content"`.
+- Nút copy cần có `id="copy-button"`.
+- Sau khi copy thành công, đổi text nút thành `Copied` trong thời gian ngắn.
+- Include fallback function copy plain text từ `innerText`.
+- Không dùng markdown thô trong HTML; render thành headings, paragraphs, ul/ol/li, checkboxes nếu phù hợp.
 
 ## Ngôn Ngữ Đầu Ra
 
@@ -66,14 +194,31 @@ Tạo thêm:
 6. Mọi tài liệu phải actionable cho Product, Design, Engineering, QA, Documentation, Marketing, SEO.
 7. Tối ưu cho product viability, development efficiency, support cost, SEO potential, và revenue generation.
 8. Dùng bảng, checklist, Mermaid, ASCII wireframe khi phù hợp.
+9. Không dùng câu chung chung như "giải pháp mạnh mẽ", "trải nghiệm liền mạch", "tối ưu toàn diện" nếu không có proof cụ thể.
+10. Mỗi recommendation phải có lý do: user value, business value, technical feasibility, risk reduction, hoặc SEO/revenue potential.
+11. Mỗi tài liệu phải có section `Assumptions And Open Questions`.
+12. Mỗi tài liệu phải có section `Next Actions` với việc cụ thể cho team liên quan.
 
 ## Workflow Bắt Buộc
 
 1. Tổng hợp thông tin từ `input.md` và câu trả lời trong `questions.md`.
-2. Chạy discovery trước: market validation, search demand, competitor landscape, gap analysis, revenue, complexity, risk.
-3. Chỉ sau đó mới tạo product docs: product brief, competitor analysis, feature comparison, user flow, PRD, wireframe, test plan, docs outline, product page outline.
-4. Cuối cùng tạo marketing assets: naming, taglines, descriptions, SEO content plan, launch assets, build-or-not-build report.
-5. Chạy quality review và tạo `quality-report.md`.
+2. Tạo 7 file theo đúng mapping ở trên, không dùng output structure 23 file cũ.
+3. Chạy discovery trước trong `01-discovery.md`.
+4. Dùng kết luận discovery để viết strategy, PRD, UX, QA/docs, SEO/marketing.
+5. Viết `07-build-or-not-build.md` cuối cùng sau khi đã có đủ context.
+6. Chạy quality review và tạo `quality-report.md`.
+
+## Quality Report Bắt Buộc
+
+Trong `quality-report.md`, kiểm tra:
+
+- Đã tạo đúng 7 file chính hay chưa.
+- Có tạo nhầm 23 file cũ hay không.
+- Có tạo `asana-task.html` đúng cấu trúc 9 section và có nút copy hay không.
+- File nào còn assumption quan trọng.
+- File nào thiếu evidence.
+- Có competitor/search volume/pricing nào bị bịa không.
+- Final recommendation có nhất quán với discovery không.
 
 ## Mandatory Skills Reference
 
@@ -111,29 +256,13 @@ This file maps every generated document to the minimum skills required to produc
 
 | Generated Document | Required Skills |
 | --- | --- |
-| `00-market-validation.md` | `core/product-documentation-generator.md`, `discovery/assumption-mapping.md`, `discovery/market-validation.md`, `research/competitor-analysis.md` |
-| `01-search-demand-analysis.md` | `research/search-demand-analysis.md`, `seo/seo-content-plan.md` |
-| `02-competitor-landscape.md` | `research/competitor-analysis.md`, `discovery/market-validation.md` |
-| `03-competitor-gap-analysis.md` | `research/competitor-analysis.md`, `product/product-strategy.md` |
-| `04-revenue-potential.md` | `product/product-strategy.md`, `marketing/growth-loops.md`, `discovery/market-validation.md` |
-| `05-product-complexity.md` | `discovery/market-validation.md`, `product/prd.md`, `qa/test-plan.md` |
-| `06-risk-assessment.md` | `discovery/assumption-mapping.md`, `discovery/market-validation.md`, `product/prd.md`, `qa/test-plan.md` |
-| `07-product-strategy.md` | `product/product-strategy.md`, `research/competitor-analysis.md`, `research/search-demand-analysis.md`, `marketing/growth-loops.md` |
-| `08-product-brief.md` | `product/product-brief.md`, `product/product-strategy.md` |
-| `09-competitor-analysis.md` | `research/competitor-analysis.md` |
-| `10-feature-comparison.md` | `research/competitor-analysis.md`, `product/prd.md` |
-| `11-user-flow.md` | `ux/user-flow.md`, `product/product-brief.md`, `product/prd.md` |
-| `12-prd.md` | `product/prd.md`, `product/product-brief.md`, `product/product-strategy.md`, `ux/user-flow.md` |
-| `13-wireframe.md` | `ux/wireframe-specification.md`, `ux/user-flow.md`, `product/product-brief.md` |
-| `14-test-plan.md` | `qa/test-plan.md`, `product/prd.md`, `ux/user-flow.md`, `ux/wireframe-specification.md` |
-| `15-documentation-outline.md` | `docs/documentation-outline.md`, `product/prd.md`, `qa/test-plan.md` |
-| `16-product-page-outline.md` | `seo/product-page-outline.md`, `research/search-demand-analysis.md`, `research/competitor-analysis.md`, `marketing/positioning-and-copy.md` |
-| `17-product-naming.md` | `marketing/positioning-and-copy.md`, `product/product-strategy.md` |
-| `18-taglines.md` | `marketing/positioning-and-copy.md`, `product/product-strategy.md` |
-| `19-product-descriptions.md` | `marketing/positioning-and-copy.md`, `product/product-brief.md`, `seo/product-page-outline.md` |
-| `20-seo-content-plan.md` | `seo/seo-content-plan.md`, `research/search-demand-analysis.md`, `research/competitor-analysis.md` |
-| `21-launch-assets.md` | `marketing/positioning-and-copy.md`, `docs/documentation-outline.md`, `product/product-strategy.md` |
-| `22-build-or-not-build.md` | `discovery/market-validation.md`, `discovery/assumption-mapping.md`, `product/product-strategy.md`, `core/quality-review.md` |
+| `01-discovery.md` | `core/product-documentation-generator.md`, `discovery/assumption-mapping.md`, `discovery/market-validation.md`, `research/search-demand-analysis.md`, `research/competitor-analysis.md`, `product/product-strategy.md`, `qa/test-plan.md` |
+| `02-product-strategy.md` | `product/product-strategy.md`, `product/product-brief.md`, `research/competitor-analysis.md`, `research/search-demand-analysis.md`, `marketing/growth-loops.md` |
+| `03-prd.md` | `product/prd.md`, `product/product-brief.md`, `product/product-strategy.md`, `research/competitor-analysis.md`, `ux/user-flow.md` |
+| `04-ux-and-wireframe.md` | `ux/user-flow.md`, `ux/wireframe-specification.md`, `product/product-brief.md`, `product/prd.md` |
+| `05-qa-and-documentation.md` | `qa/test-plan.md`, `docs/documentation-outline.md`, `product/prd.md`, `ux/user-flow.md`, `ux/wireframe-specification.md` |
+| `06-seo-and-marketing.md` | `seo/product-page-outline.md`, `seo/seo-content-plan.md`, `marketing/positioning-and-copy.md`, `marketing/growth-loops.md`, `research/search-demand-analysis.md`, `research/competitor-analysis.md`, `product/product-strategy.md` |
+| `07-build-or-not-build.md` | `discovery/market-validation.md`, `discovery/assumption-mapping.md`, `product/product-strategy.md`, `qa/test-plan.md`, `core/quality-review.md` |
 
 ## Cross-Cutting Skill
 

@@ -2,7 +2,7 @@
 
 ## Hướng Dẫn Trả Lời
 
-Hãy trả lời trực tiếp dưới từng câu hỏi. Có thể bỏ qua câu không liên quan hoặc ghi **"Không biết"** nếu chưa có dữ liệu. Mục tiêu là thu thập đủ thông tin để tạo bộ **Product Discovery + Product Documentation + Marketing Package** hoàn chỉnh (23 tài liệu).
+Hãy trả lời trực tiếp dưới từng câu hỏi. Có thể bỏ qua câu không liên quan hoặc ghi **"Không biết"** nếu chưa có dữ liệu. Mục tiêu là thu thập đủ thông tin để tạo bộ **Product Discovery + Product Documentation + Marketing Package** hoàn chỉnh theo workflow mới gồm 7 tài liệu chính, `index.md`, `quality-report.md`, và `asana-task.html`.
 
 Thuật ngữ chuyên ngành giữ nguyên tiếng Anh khi tự nhiên hơn: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook, hook, filter...
 
@@ -311,4 +311,4 @@ Sau khi trả lời các câu hỏi ở trên:
    ```
    npm run create -- learnpress-membership
    ```
-3. Hệ thống sẽ đọc `input.md` + `questions.md` + skill package để tạo 23 tài liệu output trong `projects/learnpress-membership/output/`.
+3. Hệ thống sẽ đọc `input.md` + `questions.md` + skill package để tạo 7 tài liệu chính và `asana-task.html` trong `projects/learnpress-membership/output/`.
