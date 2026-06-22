@@ -9,10 +9,18 @@ Create a new project input file:
 npm run init
 ```
 
+The interactive command lets you choose one of the available tools:
+
+```text
+1. Product Documentation & Discovery Generator
+2. Product Content Generator
+```
+
 You can also create one non-interactively:
 
 ```bash
 npm run init -- "LearnPress Chat Room"
+npm run init -- --tool product-content-generator "Woo Add-on Product Page"
 ```
 
 The command creates:
@@ -114,3 +122,26 @@ projects/<project-name>/output/
 ```
 
 The current tool is `Product Documentation & Discovery Generator`.
+
+## Product Content Generator
+
+The second workflow creates product marketing content using skills in:
+
+```text
+product-content-generator/skills/
+```
+
+It generates AI-agent prompts for WooCommerce-style product content. The generated content prompt asks the AI agent to create:
+
+```text
+content-output/01-product-analysis.md
+content-output/02-seo-keyword-plan.md
+content-output/03-product-page-copy.md
+content-output/04-landing-page.html
+content-output/05-comparison-faq.md
+content-output/06-blog-content-plan.md
+content-output/index.md
+content-output/quality-report.md
+```
+
+The style reference is WooCommerce product pages, especially WooCommerce Subscriptions: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, and related/comparison content.

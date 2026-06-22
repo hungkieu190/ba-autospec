@@ -3,10 +3,13 @@ import path from "node:path";
 import {
   DOCUMENTS,
   ensureDir,
+  getTool,
   loadMandatorySkills,
+  loadSkillFilesSummary,
   loadSkillMap,
   parseInputMarkdown,
   PROJECTS_DIR,
+  readProjectConfig,
   TOOL_NAME,
 } from "./shared.js";
 
@@ -23,6 +26,8 @@ if (!projectName) {
 const projectDir = path.join(PROJECTS_DIR, projectName);
 const inputFile = path.join(projectDir, "input.md");
 const outputDir = path.join(projectDir, "output");
+const projectConfig = readProjectConfig(projectDir);
+const tool = getTool(projectConfig.tool);
 
 if (!fs.existsSync(inputFile)) {
   console.error(`Missing input file: ${inputFile}`);
@@ -32,16 +37,26 @@ if (!fs.existsSync(inputFile)) {
 
 const inputContent = fs.readFileSync(inputFile, "utf8");
 const answers = parseInputMarkdown(inputContent);
-const skillMap = loadSkillMap();
-const mandatorySkills = loadMandatorySkills();
+const skillMap = loadSkillMap(tool.id);
+const mandatorySkills = loadMandatorySkills(tool.id);
+const skillFiles = loadSkillFilesSummary(tool.id);
 
 const questionPromptFile = path.join(projectDir, "create-question-by-agent.md");
 
 if (!generateDocs) {
-  fs.writeFileSync(questionPromptFile, renderQuestionAgentPrompt(answers, skillMap, mandatorySkills));
+  const prompt = tool.id === "product-content-generator"
+    ? renderContentQuestionAgentPrompt(answers, skillMap, mandatorySkills, skillFiles)
+    : renderQuestionAgentPrompt(answers, skillMap, mandatorySkills);
+  fs.writeFileSync(questionPromptFile, prompt);
   console.log(`Generated agent prompt in ${path.relative(process.cwd(), questionPromptFile)}`);
   console.log("Next: paste that prompt into your AI agent chat. The agent should create questions.md.");
   process.exit(0);
+}
+
+if (tool.id !== "product-documentation-generator") {
+  console.error("--generate-docs is only available for Product Documentation & Discovery Generator.");
+  console.error("For Product Content Generator, run npm run create -- <project-name> and paste the generated prompt into your AI agent.");
+  process.exit(1);
 }
 
 ensureDir(outputDir);
@@ -56,6 +71,91 @@ fs.writeFileSync(path.join(outputDir, "quality-report.md"), renderQualityReport(
 fs.writeFileSync(path.join(outputDir, "asana-task.html"), renderAsanaTaskHtml(answers));
 
 console.log(`Generated ${DOCUMENTS.length} documents plus Asana HTML in ${path.relative(process.cwd(), outputDir)}`);
+
+function renderContentQuestionAgentPrompt(answers, skillMapContent, mandatorySkillsContent, skillFilesContent) {
+  const projectTitle = answers["Project Name"] || projectName;
+
+  return `# [create-content-question-by-agent]
+
+Bạn là AI agent đang làm việc trực tiếp trong repo này.
+
+## Nhiệm vụ
+
+Hãy đọc input của project và toàn bộ skill package của Product Content Generator, sau đó tạo file câu hỏi bổ sung bằng tiếng Việt tại:
+
+\`projects/${projectName}/questions.md\`
+
+Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm theo phong cách WooCommerce product page, đặc biệt tham chiếu cấu trúc WooCommerce Subscriptions.
+
+## Files Bắt Buộc Phải Đọc
+
+1. \`projects/${projectName}/input.md\`
+2. \`product-content-generator/skills/mandatory-skills.md\`
+3. \`product-content-generator/skills/skill-map.md\`
+4. Toàn bộ skill trong \`product-content-generator/skills/\`
+
+## Tóm Tắt Input Hiện Tại
+
+| Mục | Nội dung |
+| --- | --- |
+| Project Name | ${escapeTable(projectTitle)} |
+| Product URL Or Reference | ${escapeTable(answers["Product URL Or Reference"])} |
+| Product Name | ${escapeTable(answers["Product Name"])} |
+| Product Type | ${escapeTable(answers["Product Type"])} |
+| Product One-Liner | ${escapeTable(answers["Product One-Liner"])} |
+| Target Customers | ${escapeTable(answers["Target Customers"])} |
+| Customer Problems | ${escapeTable(answers["Customer Problems"])} |
+| Core Features | ${escapeTable(answers["Core Features"])} |
+| Key Benefits | ${escapeTable(answers["Key Benefits"])} |
+| Competitors Or Alternatives | ${escapeTable(answers["Competitors Or Alternatives"])} |
+| SEO Keywords | ${escapeTable(answers["SEO Keywords"])} |
+
+## Quy Tắc Tạo questions.md
+
+1. Viết bằng tiếng Việt, giữ technical terms bằng English khi cần.
+2. Chỉ tạo \`questions.md\`, chưa tạo nội dung sản phẩm cuối cùng.
+3. Câu hỏi phải phục vụ trực tiếp cho product page, landing page, SEO keywords, competitor comparison, FAQ, và blog content.
+4. Hỏi kỹ về proof points, pricing, compatibility, active installs/reviews/version, support/docs, quality checks, refund/guarantee nếu có.
+5. Nếu cần mô phỏng phong cách WooCommerce, hỏi về product icon, hero image, pricing block, CTA, demo/docs links, support links, compatibility, related products.
+6. Không yêu cầu người dùng cung cấp số liệu nếu họ không có; cho phép ghi \`Không biết\`.
+
+## Cấu Trúc questions.md Bắt Buộc
+
+\`\`\`markdown
+# Câu Hỏi Bổ Sung Cho ${projectTitle}
+
+## Hướng Dẫn Trả Lời
+
+## Tóm Tắt Những Gì Đã Biết
+## Các Assumption Đang Có
+## Câu Hỏi Cần Trả Lời
+### Product And Positioning
+### Customer Persona
+### SEO And Keywords
+### WooCommerce-Style Page Modules
+### WordPress/WooCommerce/LearnPress Compatibility
+### Competitors And Comparisons
+### Proof, Trust, Pricing, Support
+### FAQ And Objections
+### Blog/Content Ideas
+## Câu Hỏi Ưu Tiên Cao
+## Bước Tiếp Theo
+Hướng dẫn người dùng sau khi trả lời xong chạy: npm run create -- ${projectName}
+\`\`\`
+
+## Mandatory Skills Reference
+
+${mandatorySkillsContent || "Không load được mandatory skills."}
+
+## Skill Map Reference
+
+${skillMapContent || "Không load được skill map."}
+
+## Full Skill Package
+
+${skillFilesContent || "Không load được skill files."}
+`;
+}
 
 function renderQuestionAgentPrompt(answers, skillMapContent, mandatorySkillsContent) {
   const projectTitle = answers["Project Name"] || projectName;

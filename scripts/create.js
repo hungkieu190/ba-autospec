@@ -1,6 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
-import { DOCUMENTS, loadMandatorySkills, loadSkillMap, PROJECTS_DIR } from "./shared.js";
+import {
+  DOCUMENTS,
+  getTool,
+  loadMandatorySkills,
+  loadSkillFilesSummary,
+  loadSkillMap,
+  PROJECTS_DIR,
+  readProjectConfig,
+} from "./shared.js";
 
 const projectName = process.argv.slice(2).find((arg) => !arg.startsWith("--"));
 
@@ -14,6 +22,8 @@ const projectDir = path.join(PROJECTS_DIR, projectName);
 const inputFile = path.join(projectDir, "input.md");
 const questionsFile = path.join(projectDir, "questions.md");
 const promptFile = path.join(projectDir, "create-documents-by-agent.md");
+const projectConfig = readProjectConfig(projectDir);
+const tool = getTool(projectConfig.tool);
 
 if (!fs.existsSync(inputFile)) {
   console.error(`Missing input file: ${inputFile}`);
@@ -27,10 +37,108 @@ if (!fs.existsSync(questionsFile)) {
   process.exit(1);
 }
 
-fs.writeFileSync(promptFile, renderCreateDocumentsPrompt());
+fs.writeFileSync(
+  promptFile,
+  tool.id === "product-content-generator" ? renderCreateContentPrompt() : renderCreateDocumentsPrompt(),
+);
 
 console.log(`Generated agent prompt in ${path.relative(process.cwd(), promptFile)}`);
-console.log("Next: paste that prompt into your AI agent chat. The agent should create the final Vietnamese documents.");
+console.log("Next: paste that prompt into your AI agent chat. The agent should create the final output.");
+
+function renderCreateContentPrompt() {
+  const mandatorySkills = loadMandatorySkills(tool.id);
+  const skillMap = loadSkillMap(tool.id);
+  const skillFiles = loadSkillFilesSummary(tool.id);
+
+  return `# [create-product-content-by-agent]
+
+Bạn là AI agent đang làm việc trực tiếp trong repo này.
+
+## Nhiệm vụ
+
+Hãy đọc input, câu trả lời trong questions.md, và toàn bộ skill package của Product Content Generator. Sau đó tạo bộ nội dung sản phẩm bằng tiếng Việt theo phong cách WooCommerce product page, đặc biệt tham chiếu WooCommerce Subscriptions.
+
+## Files Bắt Buộc Phải Đọc
+
+1. \`projects/${projectName}/input.md\`
+2. \`projects/${projectName}/questions.md\`
+3. \`product-content-generator/skills/mandatory-skills.md\`
+4. \`product-content-generator/skills/skill-map.md\`
+5. Toàn bộ skill trong \`product-content-generator/skills/\`
+
+## Output Bắt Buộc
+
+Tạo thư mục \`projects/${projectName}/content-output/\` nếu chưa có, rồi tạo đúng các file sau:
+
+- \`projects/${projectName}/content-output/01-product-analysis.md\`
+- \`projects/${projectName}/content-output/02-seo-keyword-plan.md\`
+- \`projects/${projectName}/content-output/03-product-page-copy.md\`
+- \`projects/${projectName}/content-output/04-landing-page.html\`
+- \`projects/${projectName}/content-output/05-comparison-faq.md\`
+- \`projects/${projectName}/content-output/06-blog-content-plan.md\`
+- \`projects/${projectName}/content-output/index.md\`
+- \`projects/${projectName}/content-output/quality-report.md\`
+
+## Luật Output Nghiêm Ngặt
+
+1. Chỉ tạo đúng các file trong danh sách trên.
+2. Không tạo bộ tài liệu discovery/PRD 7 file của workflow trước.
+3. Không tạo lại bộ 23 file cũ.
+4. Nội dung chính viết bằng tiếng Việt; technical terms có thể giữ English khi tự nhiên hơn.
+5. Không bịa reviews, rating, active installs, latest version, compatibility, pricing, support policy, refund policy, quality checks, hoặc customer evidence.
+6. Nếu thiếu dữ liệu, ghi rõ \`Assumption\`, \`Cần validate\`, hoặc \`Unknown\`.
+7. Phong cách phải giống cấu trúc WooCommerce marketplace page: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, related/comparison content.
+8. Không copy nguyên văn WooCommerce Subscriptions; chỉ học cấu trúc, nhịp nội dung, độ rõ ràng, và marketplace feel.
+
+## Landing Page HTML Requirements
+
+File \`04-landing-page.html\` phải:
+
+- Là standalone HTML, không cần build step.
+- Có responsive CSS đẹp, sạch, giống marketplace product page.
+- Có hero, CTA, pricing/license block, feature bullets, benefits, feature sections, getting started, FAQ, support/docs/compatibility modules.
+- Có nút copy HTML hoặc copy page content nếu phù hợp.
+- Không dùng CDN hoặc script remote.
+
+## Required Content Detail
+
+### \`01-product-analysis.md\`
+
+Product summary, personas, problems, feature-benefit table, differentiators, proof gaps, positioning notes.
+
+### \`02-seo-keyword-plan.md\`
+
+Keyword groups, search intent, funnel stage, target page/asset, priority, schema recommendations, content opportunities.
+
+### \`03-product-page-copy.md\`
+
+Hero headline/subheadline, CTA copy, short/medium/long description, feature blurbs, benefit bullets, marketplace summary, trust modules.
+
+### \`04-landing-page.html\`
+
+Finished WooCommerce-style product landing page HTML.
+
+### \`05-comparison-faq.md\`
+
+Competitor/alternative comparison, buyer objections, FAQ, compatibility questions, pricing/support questions.
+
+### \`06-blog-content-plan.md\`
+
+At least 20 blog ideas, 3 detailed article briefs, launch announcement, internal linking plan.
+
+## Mandatory Skills Reference
+
+${mandatorySkills || "Không load được mandatory skills."}
+
+## Skill Map Reference
+
+${skillMap || "Không load được skill map."}
+
+## Full Skill Package
+
+${skillFiles || "Không load được skill files."}
+`;
+}
 
 function renderCreateDocumentsPrompt() {
   const documentList = DOCUMENTS.map(([filename]) => `- \`projects/${projectName}/output/${filename}\``).join("\n");

@@ -3,10 +3,24 @@ import path from "node:path";
 
 export const ROOT_DIR = process.cwd();
 export const PROJECTS_DIR = path.join(ROOT_DIR, "projects");
-export const SKILLS_DIR = path.join(ROOT_DIR, "product-documentation-generator", "skills");
+export const DEFAULT_TOOL_ID = "product-documentation-generator";
 
-export const TOOL_ID = "product-documentation-generator";
-export const TOOL_NAME = "Product Documentation & Discovery Generator";
+export const TOOLS = {
+  "product-documentation-generator": {
+    id: "product-documentation-generator",
+    name: "Product Documentation & Discovery Generator",
+    skillsDir: path.join(ROOT_DIR, "product-documentation-generator", "skills"),
+  },
+  "product-content-generator": {
+    id: "product-content-generator",
+    name: "Product Content Generator",
+    skillsDir: path.join(ROOT_DIR, "product-content-generator", "skills"),
+  },
+};
+
+export const TOOL_ID = DEFAULT_TOOL_ID;
+export const TOOL_NAME = TOOLS[DEFAULT_TOOL_ID].name;
+export const SKILLS_DIR = TOOLS[DEFAULT_TOOL_ID].skillsDir;
 
 export const DOCUMENTS = [
   ["01-discovery.md", "Discovery, Market Validation, and Risks"],
@@ -36,7 +50,11 @@ export function readIfExists(filePath) {
   return fs.existsSync(filePath) ? fs.readFileSync(filePath, "utf8") : "";
 }
 
-export function inputTemplate(projectName) {
+export function inputTemplate(projectName, toolId = DEFAULT_TOOL_ID) {
+  if (toolId === "product-content-generator") {
+    return productContentInputTemplate(projectName);
+  }
+
   return `# Product Documentation Generator Input
 
 ## Project Name
@@ -99,6 +117,71 @@ Any extra context.
 `;
 }
 
+function productContentInputTemplate(projectName) {
+  return `# Product Content Generator Input
+
+## Project Name
+${projectName}
+
+## Product URL Or Reference
+Link to existing product page, repo, docs, competitor page, or write Unknown.
+
+## Product Name
+Product name.
+
+## Product Type
+Choose one: WordPress Plugin, WooCommerce Extension, LearnPress Add-on, LMS Add-on, SaaS, Shopify App, Other.
+
+## Product One-Liner
+One sentence that explains what the product does.
+
+## Target Customers
+Who buys this product? Include store owner/admin/developer/instructor/student if relevant.
+
+## Customer Problems
+- Problem 1
+- Problem 2
+- Problem 3
+
+## Core Features
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Key Benefits
+- Benefit 1
+- Benefit 2
+- Benefit 3
+
+## Differentiators
+Why should someone choose this instead of alternatives?
+
+## Competitors Or Alternatives
+List known competitors or alternatives. If unknown, write Unknown.
+
+## Pricing And License
+Annual, one-time, subscription, freemium, bundle, marketplace pricing, or Unknown.
+
+## Compatibility And Requirements
+WordPress/WooCommerce/LearnPress/PHP versions, HPOS, Cart and Checkout Blocks, themes, plugins, payment gateways, or Unknown.
+
+## Proof Points
+Reviews, active installs, version, testimonials, case studies, docs links, changelog, or Unknown.
+
+## SEO Keywords
+Primary and secondary keywords. If unknown, write Unknown.
+
+## Brand Voice Notes
+Default: MamFlow voice with WooCommerce marketplace structure. Add any special tone requirements.
+
+## Required Assets
+Choose needed assets: Product page copy, landing page, SEO keywords, competitor comparison, FAQ, blog ideas, launch post, product descriptions.
+
+## Notes
+Any extra context.
+`;
+}
+
 export function parseInputMarkdown(content) {
   const result = {};
   let currentKey = null;
@@ -123,10 +206,47 @@ export function parseInputMarkdown(content) {
   return result;
 }
 
-export function loadSkillMap() {
-  return readIfExists(path.join(SKILLS_DIR, "skill-map.md"));
+export function getTool(toolId = DEFAULT_TOOL_ID) {
+  return TOOLS[toolId] || TOOLS[DEFAULT_TOOL_ID];
 }
 
-export function loadMandatorySkills() {
-  return readIfExists(path.join(SKILLS_DIR, "mandatory-skills.md"));
+export function readProjectConfig(projectDir) {
+  const configPath = path.join(projectDir, "project.json");
+  if (!fs.existsSync(configPath)) {
+    return { tool: DEFAULT_TOOL_ID };
+  }
+
+  try {
+    const parsed = JSON.parse(fs.readFileSync(configPath, "utf8"));
+    return { tool: parsed.tool || DEFAULT_TOOL_ID };
+  } catch {
+    return { tool: DEFAULT_TOOL_ID };
+  }
+}
+
+export function loadSkillMap(toolId = DEFAULT_TOOL_ID) {
+  const tool = getTool(toolId);
+  return readIfExists(path.join(tool.skillsDir, "skill-map.md"));
+}
+
+export function loadMandatorySkills(toolId = DEFAULT_TOOL_ID) {
+  const tool = getTool(toolId);
+  return readIfExists(path.join(tool.skillsDir, "mandatory-skills.md"));
+}
+
+export function listSkillFiles(toolId = DEFAULT_TOOL_ID) {
+  const tool = getTool(toolId);
+  if (!fs.existsSync(tool.skillsDir)) return [];
+
+  return fs
+    .readdirSync(tool.skillsDir)
+    .filter((file) => file.endsWith(".md"))
+    .sort()
+    .map((file) => path.join(tool.skillsDir, file));
+}
+
+export function loadSkillFilesSummary(toolId = DEFAULT_TOOL_ID) {
+  return listSkillFiles(toolId)
+    .map((filePath) => `## ${path.relative(ROOT_DIR, filePath)}\n\n${readIfExists(filePath)}`)
+    .join("\n\n---\n\n");
 }
