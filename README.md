@@ -109,6 +109,39 @@ The old 23-file structure is intentionally not used by the default workflow.
 
 Technical terms such as PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, LTV, CAC, MVP, API, and webhook can stay in English.
 
+After the AI agent creates the markdown files, export them to PDF:
+
+```bash
+npm run pdf -- <project-name>
+```
+
+If there is only one documentation project with `output/*.md`, this also works:
+
+```bash
+npm run pdf
+```
+
+PDF files are written to:
+
+```text
+projects/<project-name>/output/pdf/
+```
+
+The command creates one combined PDF plus one PDF per markdown file:
+
+```text
+product-documentation.pdf
+01-discovery.pdf
+02-product-strategy.pdf
+...
+```
+
+PDF export requires WeasyPrint:
+
+```bash
+python -m pip install weasyprint
+```
+
 To generate the current deterministic document skeletons directly, use:
 
 ```bash
