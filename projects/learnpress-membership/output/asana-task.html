@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asana Task - LearnPress Membership Woo Checkout</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d8dee9;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #047857;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .shell {
+      max-width: 980px;
+      margin: 32px auto;
+      padding: 0 18px;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .toolbar h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+    .toolbar p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    button {
+      border: 0;
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      white-space: nowrap;
+    }
+    button:hover { background: var(--primary-dark); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+      padding: 28px;
+    }
+    h2 {
+      border-bottom: 1px solid var(--border);
+      font-size: 18px;
+      margin: 28px 0 12px;
+      padding-bottom: 8px;
+    }
+    h2:first-child { margin-top: 0; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    .meta {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      color: #1e3a8a;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+    }
+    .muted { color: var(--muted); }
+    .checklist li { list-style: none; margin-left: -20px; }
+    .checklist li::before { content: "☐ "; color: var(--success); font-weight: 700; }
+    @media (max-width: 720px) {
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      button { width: 100%; }
+      .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="toolbar">
+      <div>
+        <h1>Asana Task Preview</h1>
+        <p>Copy nội dung dưới đây để paste vào Asana task.</p>
+      </div>
+      <button id="copy-button" type="button">Copy for Asana</button>
+    </div>
+
+    <article id="asana-content" class="card">
+      <div class="meta">
+        <strong>Task:</strong> Build WooCommerce Membership Checkout for Memberships &amp; Subscriptions Add-on for LearnPress<br>
+        <strong>Recommendation:</strong> Build Now với phased scope. Woo checkout trước, Restrict Content sau.
+      </div>
+
+      <h2>1. Business Goal</h2>
+      <p>Tăng license revenue cho paid standalone add-on bằng cách cho phép site LearnPress bán membership plan qua WooCommerce checkout, tận dụng Woo gateways, coupons, tax, invoices và Woo Subscriptions.</p>
+
+      <h2>2. Problem Statement</h2>
+      <p>LearnPress Membership hiện đã có plan/member lifecycle nhưng membership purchase còn phụ thuộc LearnPress checkout. Nhiều site LMS muốn dùng WooCommerce cho thanh toán, subscription billing, order management và invoice. Nếu không có Woo checkout cho membership, admin phải bán course riêng lẻ hoặc tự mapping thủ công.</p>
+
+      <h2>3. Target Users</h2>
+      <ul>
+        <li>Admin/LMS owner bán course library theo membership plan.</li>
+        <li>Education business cần WooCommerce checkout và subscription billing.</li>
+        <li>Student/customer mua membership và xem trạng thái trong LearnPress profile + Woo account.</li>
+        <li>Manager/support chỉ xem thông tin để hỗ trợ, không cấu hình.</li>
+      </ul>
+
+      <h2>4. Functional Requirements</h2>
+      <ul class="checklist">
+        <li>Admin có thể bán membership plan qua WooCommerce checkout.</li>
+        <li>Guest phải login/register trước khi membership được activate.</li>
+        <li>Woo order paid phải tạo hoặc link LearnPress order để giữ membership lifecycle.</li>
+        <li>Membership activation dựa trên Woo order/subscription status khi mua qua Woo.</li>
+        <li>Woo Subscriptions cần xử lý active, on-hold, cancelled, expired, pending-cancel, payment failed, renewal, switch, resubscribe.</li>
+        <li>CTA xuất hiện ở pricing block, shortcode, course page, restricted message, profile renew button và email.</li>
+        <li>Purchase success đưa customer về membership dashboard.</li>
+        <li>Không phá LP checkout, plan-course mapping, member activation, expiry cron, reminder email, profile tab và pricing block hiện tại.</li>
+      </ul>
+
+      <h2>5. UI References</h2>
+      <p>Xem `04-ux-and-wireframe.md` và `output/wireframes/wireframes.html`.</p>
+      <ul>
+        <li>Plan edit screen: cấu hình Woo checkout và phase sau Restrict Content tab.</li>
+        <li>Pricing/restricted message: CTA về Buy Now hoặc pricing page.</li>
+        <li>Membership dashboard/profile: giữ logic hiện tại, thêm flow từ Woo success.</li>
+        <li>Images reference nằm trong `projects/learnpress-membership/images/`.</li>
+      </ul>
+
+      <h2>6. Technical Notes</h2>
+      <ul>
+        <li>Dependencies: WordPress 6.0+, PHP 7.2+, LearnPress 4.0.0+, WooCommerce 6.0.0+, LearnPress Woo Payment 4.0.0+, Woo Subscriptions.</li>
+        <li>Backend quyết định chi tiết mapping giữa Woo order/subscription status và membership lifecycle.</li>
+        <li>Cần idempotency để renewal/webhook/status change không tạo duplicate member.</li>
+        <li>Cần chặn hoặc định nghĩa rõ duplicate purchase khi user đã có active membership.</li>
+        <li>Phase sau: Restrict Content admin-only trong plan edit tab, table rule builder, hide content only.</li>
+      </ul>
+
+      <h2>7. Acceptance Criteria</h2>
+      <ul class="checklist">
+        <li>Logged-in customer mua membership qua Woo checkout và membership active đúng.</li>
+        <li>Guest không thể activate membership nếu chưa login/register.</li>
+        <li>Woo paid order tạo/link LP order đúng một lần.</li>
+        <li>Woo Subscriptions status changes không tạo duplicate membership.</li>
+        <li>Customer được đưa tới membership dashboard sau khi mua thành công.</li>
+        <li>LP checkout flow cũ vẫn hoạt động.</li>
+        <li>Profile tab và pricing block hiện tại không regression.</li>
+      </ul>
+
+      <h2>8. Subtasks</h2>
+      <ul class="checklist">
+        <li>Product: xác nhận refund/cancel access policy và final lifecycle status matrix.</li>
+        <li>Design: review wireframes với screenshots trong thư mục images.</li>
+        <li>Engineering: implement Woo membership purchase flow và LP order linking.</li>
+        <li>Engineering: implement Woo Subscriptions lifecycle handling and idempotency.</li>
+        <li>QA: test Woo order/subscription matrix, guest checkout, duplicate purchase và LP checkout regression.</li>
+        <li>Docs: viết English setup docs cho Woo checkout, Woo Subscriptions và membership dashboard.</li>
+        <li>Marketing: update product page copy với CTA Buy Now và pricing discount mới nếu được approve.</li>
+      </ul>
+
+      <h2>9. Release Notes</h2>
+      <p>Added WooCommerce checkout support for LearnPress membership plans, including subscription billing support through Woo Subscriptions and updated membership purchase CTAs across key LearnPress touchpoints. Existing LearnPress checkout and membership lifecycle behavior remain supported.</p>
+    </article>
+  </main>
+
+  <script>
+    const button = document.getElementById('copy-button');
+    const content = document.getElementById('asana-content');
+
+    async function copyForAsana() {
+      const html = content.innerHTML;
+      const text = content.innerText;
+
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/html': new Blob([html], { type: 'text/html' }),
+              'text/plain': new Blob([text], { type: 'text/plain' })
+            })
+          ]);
+        } else if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          textarea.remove();
+        }
+        button.textContent = 'Copied';
+        setTimeout(() => { button.textContent = 'Copy for Asana'; }, 1600);
+      } catch (error) {
+        alert('Copy failed. Select the task content and copy manually.');
+      }
+    }
+
+    button.addEventListener('click', copyForAsana);
+  </script>
+</body>
+</html>

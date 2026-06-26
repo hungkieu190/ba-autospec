@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframes - LearnPress Membership</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans">
+  <header class="bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h1 class="text-xl font-semibold">Memberships &amp; Subscriptions Add-on for LearnPress - Wireframes</h1>
+        <p class="text-sm text-slate-500">Low-to-mid fidelity HTML wireframes for Woo checkout and Restrict Content phases.</p>
+      </div>
+      <nav class="flex flex-wrap gap-2 text-sm" aria-label="Wireframe navigation">
+        <a class="rounded-md border border-slate-300 bg-white px-3 py-1 hover:bg-slate-50" href="#s01">S01</a>
+        <a class="rounded-md border border-slate-300 bg-white px-3 py-1 hover:bg-slate-50" href="#s02">S02</a>
+        <a class="rounded-md border border-slate-300 bg-white px-3 py-1 hover:bg-slate-50" href="#s03">S03</a>
+        <a class="rounded-md border border-slate-300 bg-white px-3 py-1 hover:bg-slate-50" href="#s04">S04</a>
+        <a class="rounded-md border border-slate-300 bg-white px-3 py-1 hover:bg-slate-50" href="#s05">S05</a>
+        <a class="rounded-md border border-slate-300 bg-white px-3 py-1 hover:bg-slate-50" href="#s06">S06</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto p-6 space-y-10">
+    <!-- WP Admin wireframe — Plan Edit Woo Checkout — Admin -->
+    <section id="s01" class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="bg-indigo-50 border-b border-indigo-100 px-4 py-3">
+        <h2 class="text-lg font-semibold">WIREFRAME — Plan Edit: Woo Checkout — Admin</h2>
+      </div>
+      <div class="relative min-h-[680px] bg-gray-100">
+        <div class="fixed top-0 left-0 right-0 h-8 bg-gray-800 text-gray-200 text-xs flex items-center px-3 gap-4 z-50">
+          <span class="font-bold">WP</span><span>LearnPress Demo</span><span>+ New</span><span class="ml-auto">Howdy, Admin</span>
+        </div>
+        <aside class="absolute top-0 left-0 w-48 bg-gray-900 text-gray-100 min-h-full pt-8">
+          <div class="bg-gray-800 p-3 text-sm font-semibold">WordPress</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Dashboard</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Posts</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Pages</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Comments</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Appearance</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Plugins</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Users</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Settings</div>
+          <div class="px-3 py-2 text-sm bg-blue-600 text-white cursor-pointer">Memberships</div>
+          <div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">All Plans</div>
+          <div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">Add New Plan</div>
+          <div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">Members</div>
+          <div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">Settings</div>
+        </aside>
+        <div class="ml-48 mt-8 p-6 bg-gray-100 min-h-[680px]">
+          <div class="flex justify-between text-xs text-gray-500 mb-4"><span></span><span>Screen Options ▾ &nbsp; Help ▾</span></div>
+          <h1 class="text-2xl font-normal text-gray-900 mb-4">Edit Membership Plan</h1>
+          <div class="border-l-4 border-green-500 bg-white p-3 text-sm text-green-800 mb-4">Plan saved. WooCommerce checkout is enabled.</div>
+          <div class="flex border-b border-gray-200 mb-6 gap-0">
+            <div class="px-4 py-2 text-sm text-gray-600 border-b-2 border-transparent hover:text-gray-900 cursor-pointer -mb-px">General</div>
+            <div class="px-4 py-2 text-sm text-gray-600 border-b-2 border-transparent hover:text-gray-900 cursor-pointer -mb-px">Courses</div>
+            <div class="px-4 py-2 text-sm border-b-2 border-blue-500 text-blue-600 font-medium -mb-px">Woo Checkout</div>
+            <div class="px-4 py-2 text-sm text-gray-600 border-b-2 border-transparent hover:text-gray-900 cursor-pointer -mb-px">Restrict Content</div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-4 mb-4">
+            <h2 class="text-base font-semibold text-gray-800 mb-2">WooCommerce Membership Purchase</h2>
+            <p class="text-xs text-gray-500 mb-4">Configure this plan so customers can buy it through WooCommerce checkout.</p>
+            <table class="w-full text-sm">
+              <tbody>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Enable Woo checkout</td>
+                  <td class="py-2">
+                    <!-- Toggle enables/disables Woo checkout for this membership plan. -->
+                    <label class="inline-flex items-center gap-2"><input aria-label="Enable Woo checkout" type="checkbox" checked class="h-4 w-4 focus:ring-2 focus:ring-blue-500 focus:outline-none"> Enabled</label>
+                    <p class="text-xs text-gray-500 mt-1">When enabled, Buy buttons route to WooCommerce checkout.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Woo product</td>
+                  <td class="py-2">
+                    <!-- Product selector maps Woo products to this membership plan. -->
+                    <select aria-label="Woo product mapping" class="border border-gray-300 rounded px-2 py-1 text-sm w-80 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                      <option>Premium Membership Product</option>
+                      <option>Monthly Membership Subscription</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Backend confirms whether single or multiple product mapping is supported.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Guest checkout</td>
+                  <td class="py-2"><span class="inline-flex rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800">Login/register required</span></td>
+                </tr>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Success redirect</td>
+                  <td class="py-2">
+                    <!-- Selects destination after successful Woo purchase. -->
+                    <select aria-label="Success redirect" class="border border-gray-300 rounded px-2 py-1 text-sm w-80 focus:ring-2 focus:ring-blue-500 focus:outline-none"><option>Membership Dashboard</option></select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="border-l-4 border-red-500 bg-white p-3 text-sm text-red-800 mb-4">Error state: Woo Subscriptions is missing. Subscription plans cannot be sold until the dependency is active.</div>
+          <!-- Save button persists plan Woo checkout settings. -->
+          <button type="button" aria-label="Save plan" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-1.5 rounded">Save Plan</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WP Admin wireframe — Plan Edit Restrict Content — Admin -->
+    <section id="s02" class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="bg-indigo-50 border-b border-indigo-100 px-4 py-3">
+        <h2 class="text-lg font-semibold">WIREFRAME — Plan Edit: Restrict Content — Admin</h2>
+      </div>
+      <div class="relative min-h-[620px] bg-gray-100">
+        <aside class="absolute top-0 left-0 w-48 bg-gray-900 text-gray-100 min-h-full">
+          <div class="bg-gray-800 p-3 text-sm font-semibold">WordPress</div>
+          <div class="px-3 py-2 text-sm">Dashboard</div><div class="px-3 py-2 text-sm">Posts</div><div class="px-3 py-2 text-sm">Pages</div><div class="px-3 py-2 text-sm bg-blue-600 text-white">Memberships</div>
+          <div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">All Plans</div><div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">Members</div><div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">Settings</div>
+        </aside>
+        <div class="ml-48 p-6 bg-gray-100 min-h-[620px]">
+          <div class="flex justify-between text-xs text-gray-500 mb-4"><span></span><span>Screen Options ▾ &nbsp; Help ▾</span></div>
+          <h1 class="text-2xl font-normal text-gray-900 mb-4">Edit Membership Plan</h1>
+          <div class="flex border-b border-gray-200 mb-6 gap-0">
+            <div class="px-4 py-2 text-sm text-gray-600 border-b-2 border-transparent">General</div>
+            <div class="px-4 py-2 text-sm text-gray-600 border-b-2 border-transparent">Courses</div>
+            <div class="px-4 py-2 text-sm text-gray-600 border-b-2 border-transparent">Woo Checkout</div>
+            <div class="px-4 py-2 text-sm border-b-2 border-blue-500 text-blue-600 font-medium -mb-px">Restrict Content</div>
+          </div>
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-4 mb-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h2 class="text-base font-semibold text-gray-800">Content Restriction Rules</h2>
+                <p class="text-xs text-gray-500">Admin-only table rule builder. Phase 2 scope.</p>
+              </div>
+              <!-- Add row inserts a blank rule row in the table. -->
+              <button type="button" aria-label="Add restriction rule" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-1.5 rounded">Add Rule</button>
+            </div>
+            <table class="w-full border-collapse bg-white shadow-sm">
+              <thead>
+                <tr>
+                  <th class="bg-gray-50 text-xs font-semibold text-gray-600 uppercase tracking-wide px-3 py-2 border-b border-gray-200 text-left">Content Type</th>
+                  <th class="bg-gray-50 text-xs font-semibold text-gray-600 uppercase tracking-wide px-3 py-2 border-b border-gray-200 text-left">Target</th>
+                  <th class="bg-gray-50 text-xs font-semibold text-gray-600 uppercase tracking-wide px-3 py-2 border-b border-gray-200 text-left">Mode</th>
+                  <th class="bg-gray-50 text-xs font-semibold text-gray-600 uppercase tracking-wide px-3 py-2 border-b border-gray-200 text-left">Message</th>
+                  <th class="bg-gray-50 text-xs font-semibold text-gray-600 uppercase tracking-wide px-3 py-2 border-b border-gray-200 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="px-3 py-2 text-sm text-gray-700 border-b border-gray-100"><select aria-label="Rule content type" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"><option>Course</option><option>Post</option><option>Page</option><option>Lesson</option><option>Quiz</option><option>Custom post type</option></select></td>
+                  <td class="px-3 py-2 text-sm text-gray-700 border-b border-gray-100"><select aria-label="Rule target" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"><option>All items in post type</option></select></td>
+                  <td class="px-3 py-2 text-sm text-gray-700 border-b border-gray-100"><select aria-label="Restriction mode" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"><option>Hide content only</option></select></td>
+                  <td class="px-3 py-2 text-sm text-gray-700 border-b border-gray-100"><button type="button" aria-label="Edit restricted messages" class="bg-white border border-gray-300 text-gray-700 text-sm px-3 py-1 rounded hover:bg-gray-50">Edit messages</button></td>
+                  <td class="px-3 py-2 text-sm text-gray-700 border-b border-gray-100"><button type="button" aria-label="Delete rule" class="bg-red-600 hover:bg-red-700 text-white text-sm px-3 py-1 rounded">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-4 mb-4">
+            <h3 class="text-base font-semibold text-gray-800 mb-2">Empty state</h3>
+            <p class="text-sm text-gray-600">No restriction rules yet. Add a rule to protect content with this plan.</p>
+          </div>
+          <div class="border-l-4 border-red-500 bg-white p-3 text-sm text-red-800 mb-4">Error state: Content type is required before saving this rule.</div>
+          <button type="button" aria-label="Save restriction rules" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-1.5 rounded">Save Plan</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WP Admin wireframe — Membership Settings Dependencies — Admin -->
+    <section id="s03" class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="bg-indigo-50 border-b border-indigo-100 px-4 py-3"><h2 class="text-lg font-semibold">WIREFRAME — Membership Settings: Dependencies — Admin</h2></div>
+      <div class="relative min-h-[520px] bg-gray-100">
+        <aside class="absolute top-0 left-0 w-48 bg-gray-900 text-gray-100 min-h-full"><div class="bg-gray-800 p-3 text-sm font-semibold">WordPress</div><div class="px-3 py-2 text-sm">Dashboard</div><div class="px-3 py-2 text-sm bg-blue-600 text-white">Memberships</div><div class="pl-6 bg-gray-950 text-gray-300 text-xs py-1">Settings</div></aside>
+        <div class="ml-48 p-6 bg-gray-100 min-h-[520px]">
+          <div class="flex justify-between text-xs text-gray-500 mb-4"><span></span><span>Screen Options ▾ &nbsp; Help ▾</span></div>
+          <h1 class="text-2xl font-normal text-gray-900 mb-4">Membership Settings</h1>
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-4 mb-4">
+            <h2 class="text-base font-semibold text-gray-800 mb-3">Checkout Dependencies</h2>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center justify-between border-b border-gray-100 py-2"><span>WooCommerce</span><span class="rounded bg-green-100 px-2 py-1 text-xs text-green-800">Active</span></li>
+              <li class="flex items-center justify-between border-b border-gray-100 py-2"><span>LearnPress Woo Payment</span><span class="rounded bg-green-100 px-2 py-1 text-xs text-green-800">Active</span></li>
+              <li class="flex items-center justify-between border-b border-gray-100 py-2"><span>Woo Subscriptions</span><span class="rounded bg-red-100 px-2 py-1 text-xs text-red-800">Missing</span></li>
+            </ul>
+          </div>
+          <div class="border-l-4 border-yellow-500 bg-white p-3 text-sm text-yellow-800 mb-4">Warning state: Subscription plans require Woo Subscriptions before launch.</div>
+          <table class="bg-white border border-gray-200 rounded shadow-sm p-4 w-full text-sm">
+            <tbody>
+              <tr><td class="text-sm font-medium text-gray-700 w-48 align-top p-3">Guest checkout</td><td class="p-3"><label class="inline-flex items-center gap-2"><input aria-label="Require login register" type="checkbox" checked class="focus:ring-2 focus:ring-blue-500 focus:outline-none"> Require login/register before membership activation</label></td></tr>
+              <tr><td class="text-sm font-medium text-gray-700 w-48 align-top p-3">Default success page</td><td class="p-3"><select aria-label="Default success page" class="border border-gray-300 rounded px-2 py-1 text-sm w-80 focus:ring-2 focus:ring-blue-500 focus:outline-none"><option>Membership Dashboard</option></select></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="s04" class="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+      <h2 class="text-lg font-semibold mb-4">WIREFRAME — Pricing / Restricted Message CTA — Guest</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="border border-slate-200 rounded-lg p-4 shadow-sm">
+          <h3 class="text-xl font-semibold">Basic</h3><p class="text-sm text-slate-500">For starter course access</p><p class="text-3xl font-bold my-4">$29</p>
+          <!-- Buy button sends logged-in users to Woo checkout or guests to login/register. -->
+          <button aria-label="Buy Basic membership" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">Buy Now</button>
+        </article>
+        <article class="border-2 border-indigo-500 rounded-lg p-4 shadow-sm"><span class="rounded-full bg-indigo-100 px-2 py-1 text-xs text-indigo-700">Popular</span><h3 class="text-xl font-semibold mt-2">Premium</h3><p class="text-sm text-slate-500">Full course library membership</p><p class="text-3xl font-bold my-4">$49</p><button aria-label="Buy Premium membership" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">Buy Now</button></article>
+        <article class="border border-slate-200 rounded-lg p-4 shadow-sm"><h3 class="text-xl font-semibold">Pro</h3><p class="text-sm text-slate-500">Subscription membership</p><p class="text-3xl font-bold my-4">$99</p><button aria-label="Buy Pro membership" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">Buy Now</button></article>
+      </div>
+      <div class="mt-6 border border-yellow-200 bg-yellow-50 rounded-lg p-4">
+        <h3 class="font-semibold text-yellow-900">Restricted content message</h3>
+        <p class="text-sm text-yellow-800 mt-1">This lesson is available to active members. Choose a membership plan to continue learning.</p>
+        <!-- CTA points users to pricing page from restricted content. -->
+        <button aria-label="View pricing plans" class="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">View Pricing</button>
+      </div>
+      <div class="mt-4 border border-red-200 bg-red-50 rounded-lg p-4"><strong>Error state:</strong> Payment pending. Membership access will be available after payment is confirmed.</div>
+    </section>
+
+    <section id="s05" class="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+      <h2 class="text-lg font-semibold mb-4">WIREFRAME — Membership Dashboard / Profile — Student</h2>
+      <div class="grid gap-4 lg:grid-cols-[260px_1fr]">
+        <aside class="border border-slate-200 rounded-lg p-4"><nav class="space-y-2 text-sm" aria-label="Account navigation"><a class="block rounded bg-indigo-50 px-3 py-2 text-indigo-700" href="#">Membership</a><a class="block rounded px-3 py-2 hover:bg-slate-50" href="#">Courses</a><a class="block rounded px-3 py-2 hover:bg-slate-50" href="#">Orders</a><a class="block rounded px-3 py-2 hover:bg-slate-50" href="#">Woo Account</a></nav></aside>
+        <div class="border border-slate-200 rounded-lg p-4">
+          <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"><div><h3 class="text-xl font-semibold">Premium Membership</h3><p class="text-sm text-slate-500">Active until Dec 31, 2026</p></div><span class="rounded-full bg-green-100 px-3 py-1 text-sm text-green-800">Active</span></div>
+          <dl class="grid gap-3 md:grid-cols-3 mt-6 text-sm"><div class="rounded bg-slate-50 p-3"><dt class="text-slate-500">Start date</dt><dd class="font-semibold">Jan 1, 2026</dd></div><div class="rounded bg-slate-50 p-3"><dt class="text-slate-500">Renewal</dt><dd class="font-semibold">Auto-renews</dd></div><div class="rounded bg-slate-50 p-3"><dt class="text-slate-500">Source</dt><dd class="font-semibold">WooCommerce</dd></div></dl>
+          <!-- Renew button routes to Woo checkout when renewal is available. -->
+          <button aria-label="Renew membership" class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">Renew Membership</button>
+          <div class="mt-6 border border-slate-200 rounded-lg p-4"><h4 class="font-semibold">Empty state</h4><p class="text-sm text-slate-500">No active membership. Choose a plan to start learning.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="s06" class="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+      <h2 class="text-lg font-semibold mb-4">WIREFRAME — Woo Checkout Success — Student</h2>
+      <div class="max-w-2xl mx-auto border border-green-200 bg-green-50 rounded-lg p-6 text-center">
+        <div class="mx-auto h-12 w-12 rounded-full bg-green-600 text-white flex items-center justify-center text-xl font-bold">✓</div>
+        <h3 class="text-2xl font-semibold mt-4">Membership activated</h3>
+        <p class="text-sm text-green-800 mt-2">Your WooCommerce order is complete and your LearnPress membership is ready.</p>
+        <!-- Dashboard button takes the customer to membership dashboard after successful purchase. -->
+        <button aria-label="Go to membership dashboard" class="mt-6 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">Go to Membership Dashboard</button>
+      </div>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <div class="border border-yellow-200 bg-yellow-50 rounded-lg p-4"><h4 class="font-semibold text-yellow-900">Pending state</h4><p class="text-sm text-yellow-800">Payment is pending. Membership will activate after payment confirmation.</p></div>
+        <div class="border border-red-200 bg-red-50 rounded-lg p-4"><h4 class="font-semibold text-red-900">Error state</h4><p class="text-sm text-red-800">We could not activate your membership yet. Contact support with your order number.</p></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

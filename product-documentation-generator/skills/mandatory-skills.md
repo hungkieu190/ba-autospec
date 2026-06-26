@@ -17,8 +17,13 @@ Load these skills before generating any full product documentation package:
 13. `marketing/positioning-and-copy.md`
 14. `core/quality-review.md`
 
+## UX Wireframe Skills (load when UI screens are required)
+
+- `ux/user-flow.md` — role-based flows and Mermaid diagrams.
+- `ux/wireframe-specification.md` — screen planning and per-screen requirements.
+- `ux/html-wireframe.md` — HTML5 + Tailwind CSS wireframe rendering rules (mandatory when wireframes are produced).
+- `ux/wp-admin-ui.md` — WordPress admin chrome rules; load when product type is WordPress Plugin or LMS Add-on and any screen lives in wp-admin.
+
 ## Optional But Recommended
 
-- `ux/user-flow.md` when the product has multi-step workflows or multiple roles.
-- `ux/wireframe-specification.md` when UI screens are required.
 - `marketing/growth-loops.md` when launch strategy, PLG, SEO loop, referral loop, or expansion mechanics matter.

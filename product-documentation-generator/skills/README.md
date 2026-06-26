@@ -16,7 +16,9 @@ This skill package supports a Product Documentation & Discovery Generator that c
 | Product Brief | `product/product-brief.md` | Aligns stakeholders on problem, solution, audience, value, scope, and out-of-scope. | For the product brief deliverable. |
 | PRD | `product/prd.md` | Converts strategy into user stories, requirements, permissions, acceptance criteria, and success metrics. | For engineering, QA, design, and docs readiness. |
 | User Flow | `ux/user-flow.md` | Defines role-based flows and Mermaid diagrams. | Before wireframes and PRD validation. |
-| Wireframe Specification | `ux/wireframe-specification.md` | Creates low-fidelity ASCII wireframes. | For UI screens and workflow visualization. |
+| Wireframe Specification | `ux/wireframe-specification.md` | Plans screen list and per-screen requirements. | For screen inventory and state planning. |
+| HTML Wireframe | `ux/html-wireframe.md` | Renders HTML5 + Tailwind CSS wireframes. Load when wireframes are produced. | Whenever wireframes are part of the deliverable. |
+| WordPress Admin UI | `ux/wp-admin-ui.md` | Defines WP admin chrome (sidebar, admin bar, tabs, notices) for Tailwind wireframes. | When product type is WordPress Plugin or LMS Add-on and screens live in wp-admin. |
 | Test Plan | `qa/test-plan.md` | Creates functional, permission, regression, security, performance, and edge-case test plans. | After PRD and flows exist. |
 | Documentation Outline | `docs/documentation-outline.md` | Plans user, admin, developer, support, and changelog documentation. | For documentation package generation. |
 | Product Page Outline | `seo/product-page-outline.md` | Builds SEO-ready and conversion-focused product page structure. | For product page deliverable. |
@@ -34,6 +36,8 @@ This skill package supports a Product Documentation & Discovery Generator that c
 | PRD | Product Brief, Product Strategy, User Flow |
 | User Flow | Product Brief, PRD assumptions when available |
 | Wireframe Specification | User Flow, Product Brief |
+| HTML Wireframe | Wireframe Specification, User Flow, Product Brief |
+| WordPress Admin UI | HTML Wireframe (provides base rendering), Wireframe Specification |
 | Test Plan | PRD, User Flow, Wireframe Specification |
 | Documentation Outline | PRD, User Flow, Test Plan |
 | Product Page Outline | Search Demand Analysis, Competitor Analysis, Product Strategy, Positioning and Copy |
@@ -54,6 +58,8 @@ This skill package supports a Product Documentation & Discovery Generator that c
 8. `product/prd.md`
 9. `ux/user-flow.md`
 10. `ux/wireframe-specification.md`
+11. `ux/html-wireframe.md`
+12. `ux/wp-admin-ui.md` (WordPress/LMS products only)
 11. `qa/test-plan.md`
 12. `docs/documentation-outline.md`
 13. `seo/product-page-outline.md`

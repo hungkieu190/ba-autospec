@@ -1,23 +1,23 @@
 # Product Documentation Generator Input
 
 ## Project Name
-learnpress-membership
+Memberships & Subscriptions Add-on for LearnPress
 
 ## Product Idea
-Nâng cấp `learnpress-membership` thành add-on membership đầy đủ cho LearnPress, tập trung vào 2 năng lực chính:
+Nâng cấp `Memberships & Subscriptions Add-on for LearnPress` thành add-on membership đầy đủ cho LearnPress, tập trung vào 2 năng lực chính:
 
-1. Restrict Content: cho phép admin giới hạn quyền xem nội dung WordPress/LearnPress dựa trên membership plan, tham chiếu cách thiết kế restriction của `woocommerce-memberships` nhưng triển khai native trong `learnpress-membership`.
+1. Restrict Content: cho phép admin giới hạn quyền xem nội dung WordPress/LearnPress dựa trên membership plan, tham chiếu cách thiết kế restriction của `woocommerce-memberships` nhưng triển khai native trong `Memberships & Subscriptions Add-on for LearnPress`.
 2. WooCommerce Membership Checkout: cho phép khách hàng mua membership plan thông qua WooCommerce bằng cơ chế tích hợp với `learnpress-woo-payment`, để tận dụng Woo cart, Woo checkout, Woo gateways, coupon, tax, invoice và Woo Subscriptions khi cần.
 
 Hiện trạng code:
 
-- `learnpress-membership` đã có plan/member model, bảng riêng, course-plan mapping, checkout item type ẩn `lp_membership`, lifecycle activation theo LP order, cron expire/reminder, profile tab, pricing block/shortcode.
+- `Memberships & Subscriptions Add-on for LearnPress` đã có plan/member model, bảng riêng, course-plan mapping, checkout item type ẩn `lp_membership`, lifecycle activation theo LP order, cron expire/reminder, profile tab, pricing block/shortcode.
 - Restrict content hiện chưa có module rule/filter chuyên biệt; mới có course purchase mode và kiểm tra `PlanHelper::user_has_access_to_course()`.
 - `woocommerce-memberships` dùng mô hình rules, restriction mode, content/query filtering, capability checks, message rendering và block member/non-member content.
 - `learnpress-woo-payment` đã có đường tạo LP order từ Woo order qua `_learn_press_order_id`, hook `woocommerce_order_status_changed`, custom WC product/course item và filter cho item type ngoài `lp_course`.
 
 ## Product Type
-WordPress Plugin, LMS Add-on, eCommerce Extension.
+WordPress Plugin, LMS Add-on, eCommerce Extension, LearnPress Add-on
 
 ## Target Users
 Primary users:
@@ -36,19 +36,19 @@ Secondary users:
 Admin, Instructor, Student, Customer, Guest, Manager, Developer.
 
 ## Core Problem
-`learnpress-membership` hiện mới quản lý plan, member và quyền truy cập course theo plan. Sản phẩm còn thiếu 2 mảnh quan trọng để cạnh tranh với các membership plugin lớn:
+`Memberships & Subscriptions Add-on for LearnPress` hiện mới quản lý plan, member và quyền truy cập course theo plan. Sản phẩm còn thiếu 2 mảnh quan trọng để cạnh tranh với các membership plugin lớn:
 
 - Admin chưa có hệ thống restrict content linh hoạt cho post/page/course/lesson/topic/taxonomy/block/shortcode giống trải nghiệm của WooCommerce Memberships.
 - Luồng mua membership đang phụ thuộc LP checkout/gateway, trong khi nhiều site WordPress đã vận hành bán hàng bằng WooCommerce và cần dùng Woo gateways, coupons, taxes, subscriptions, order management, invoice và reporting.
 
 ## Proposed Solution
-Xây dựng 2 module nâng cấp trong `learnpress-membership`:
+Xây dựng 2 module nâng cấp trong `Memberships & Subscriptions Add-on for LearnPress`:
 
 1. Membership Restriction Engine
 
 Áp dụng pattern từ `woocommerce-memberships`:
 
-- Tạo rule model riêng cho restriction, tương tự `wc_memberships_rules` nhưng lưu native theo schema của `learnpress-membership`.
+- Tạo rule model riêng cho restriction, tương tự `wc_memberships_rules` nhưng lưu native theo schema của `Memberships & Subscriptions Add-on for LearnPress`.
 - Hỗ trợ rule type `content_restriction` trước, mở rộng sau cho product/purchase discount nếu cần.
 - Hỗ trợ content target theo `post_type`, object cụ thể, taxonomy term và LearnPress object.
 - Hỗ trợ restriction mode: hide completely, hide content only, redirect to page.
@@ -59,8 +59,8 @@ Xây dựng 2 module nâng cấp trong `learnpress-membership`:
 2. WooCommerce Membership Purchase Integration
 
 Tận dụng kiến trúc hiện có của `learnpress-woo-payment`:
-
-- Cho phép membership plan được add vào Woo cart như một purchasable item/product.
+plan
+- Cho phép membership  được add vào Woo cart như một purchasable item/product.
 - Khi Woo order paid/completed/processing, tạo hoặc cập nhật LP order bằng path của `LPWooOrderHandler`.
 - Đảm bảo LP order item giữ `_plan_id` để `MembershipCheckout::on_order_completed()` kích hoạt member.
 - Đồng bộ trạng thái Woo order sang LP order/member: completed/processing kích hoạt, cancelled/failed/refunded thu hồi hoặc hủy access theo logic hiện tại.
@@ -127,14 +127,14 @@ Paid add-on / marketplace extension. Có thể bán one-time license hoặc subs
 learnpress membership, learnpress restrict content, learnpress woocommerce membership, sell membership with learnpress, woocommerce lms membership, learnpress subscriptions, wordpress lms membership plugin, restrict course content wordpress.
 
 ## Business Goals
-- Tăng giá trị thương mại của `learnpress-membership` bằng cách biến add-on từ course-plan access thành membership platform thực sự.
+- Tăng giá trị thương mại của `Memberships & Subscriptions Add-on for LearnPress` bằng cách biến add-on từ course-plan access thành membership platform thực sự.
 - Giảm nhu cầu khách hàng phải mua/thêm plugin membership ngoài hệ sinh thái LearnPress.
 - Tận dụng WooCommerce để mở rộng payment gateway coverage và giảm chi phí duy trì gateway riêng.
 - Tăng conversion cho site LMS nhờ pricing page, Woo checkout, coupon, tax và subscription workflows.
 - Tăng khả năng bundle/cross-sell với `learnpress-woo-payment`.
 
 ## Success Metrics
-- Số site active sử dụng `learnpress-membership` sau release.
+- Số site active sử dụng `Memberships & Subscriptions Add-on for LearnPress` sau release.
 - Tỷ lệ plan được mua qua WooCommerce checkout.
 - Tỷ lệ ticket support liên quan đến payment gateway giảm so với LP-only checkout.
 - Số rule restrict content được tạo trung bình trên mỗi site active.
@@ -191,13 +191,13 @@ Phase 4: Woo Subscriptions and lifecycle hardening
 
 Key code references reviewed:
 
-- `learnpress-membership/inc/load.php`
-- `learnpress-membership/inc/Models/PlanModel.php`
-- `learnpress-membership/inc/Models/MemberModel.php`
-- `learnpress-membership/inc/Helpers/PlanHelper.php`
-- `learnpress-membership/inc/Admin/CourseMetaBox.php`
-- `learnpress-membership/inc/TemplateHooks/SingleCourseHooks.php`
-- `learnpress-membership/inc/Checkout/MembershipCheckout.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/load.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/Models/PlanModel.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/Models/MemberModel.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/Helpers/PlanHelper.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/Admin/CourseMetaBox.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/TemplateHooks/SingleCourseHooks.php`
+- `Memberships & Subscriptions Add-on for LearnPress/inc/Checkout/MembershipCheckout.php`
 - `woocommerce-memberships/src/Restrictions.php`
 - `woocommerce-memberships/src/Restrictions/Posts.php`
 - `woocommerce-memberships/src/class-wc-memberships-rules.php`
@@ -209,3 +209,6 @@ Key code references reviewed:
 - `learnpress-woo-payment/incs/class-lp-wc-hooks.php`
 - `learnpress-woo-payment/incs/LPWooSubscription.php`
 - `learnpress-woo-payment/incs/class-wc-product-lp-course.php`
+
+----
+Bạn cần tôi cung cấp ảnh của những màn hình gì thì note vào question để tôi cung cấp cho bạn vẽ wireframe cho chuẩn

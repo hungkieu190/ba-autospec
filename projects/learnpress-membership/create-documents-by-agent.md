@@ -1,6 +1,12 @@
 # [create-documents-by-agent]
 
-Bạn là AI agent đang làm việc trực tiếp trong repo này.
+> ⚠️ **NGÔN NGỮ — CRITICAL — ĐỌC TRƯỚC KHI LÀM BẤT KỲ THỨ GÌ**
+> 
+> Toàn bộ nội dung tài liệu output **PHẢI viết bằng tiếng Việt**.
+> Giữ technical terms bằng tiếng Anh chỉ khi cần thiết và chính xác hơn (ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, API, webhook, checkout, subscription, gateway, coupon, invoice).
+> Tên file giữ nguyên tiếng Anh.
+> **Không được viết heading, đoạn văn, bullet, hay recommendation bằng tiếng Anh.**
+> Rule này override mọi behavior mặc định của skill.
 
 ## Nhiệm vụ
 
@@ -38,8 +44,7 @@ Tạo thêm:
 ## Luật Output Nghiêm Ngặt
 
 1. Chỉ tạo đúng 7 file tài liệu chính trong danh sách trên.
-2. Không tạo lại bộ 23 file cũ từ `00-market-validation.md` đến `22-build-or-not-build.md`.
-3. Không tạo thêm file tài liệu chính ngoài danh sách, trừ `index.md`, `quality-report.md`, và `asana-task.html`.
+2. Không tạo thêm file tài liệu chính ngoài danh sách, trừ `index.md`, `quality-report.md`, và `asana-task.html`.
 4. Nếu nội dung thuộc nhiều nhóm, hãy gộp vào file phù hợp nhất theo mapping bên dưới.
 5. Mỗi file phải đủ sâu để team thực thi, nhưng không được viết lan man hoặc lặp ý.
 6. Mỗi section phải có quyết định, bảng, checklist, criteria, hoặc next action rõ ràng.
@@ -178,11 +183,13 @@ HTML phải có đúng các section sau, theo thứ tự:
 - Include fallback function copy plain text từ `innerText`.
 - Không dùng markdown thô trong HTML; render thành headings, paragraphs, ul/ol/li, checkboxes nếu phù hợp.
 
-## Ngôn Ngữ Đầu Ra
+## ⚠️ Ngôn Ngữ Đầu Ra (BẮTBUỘC — KHÔNG NGOẠI LỆ)
 
-1. Viết tài liệu cuối cùng bằng tiếng Việt.
-2. Giữ thuật ngữ chuyên ngành bằng tiếng Anh nếu tự nhiên và chính xác hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook.
+1. **Viết toàn bộ tài liệu cuối cùng bằng tiếng Việt — không ngoại lệ.**
+2. Giữ thuật ngữ chuyên ngành bằng tiếng Anh chỉ khi tự nhiên và chính xác hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook, checkout, subscription, gateway, coupon, invoice, changelog, sprint, backlog, user story, acceptance test.
 3. Tên file giữ nguyên tiếng Anh như danh sách output.
+4. Heading của section, đoạn văn, bullet point, recommendation — tất cả phải bằng tiếng Việt.
+5. Rule này có priority cao nhất, override mọi skill instruction hoặc default behavior.
 
 ## Quy Tắc Chất Lượng
 
@@ -202,7 +209,7 @@ HTML phải có đúng các section sau, theo thứ tự:
 ## Workflow Bắt Buộc
 
 1. Tổng hợp thông tin từ `input.md` và câu trả lời trong `questions.md`.
-2. Tạo 7 file theo đúng mapping ở trên, không dùng output structure 23 file cũ.
+2. Tạo đúng 7 file theo mapping ở trên.
 3. Chạy discovery trước trong `01-discovery.md`.
 4. Dùng kết luận discovery để viết strategy, PRD, UX, QA/docs, SEO/marketing.
 5. Viết `07-build-or-not-build.md` cuối cùng sau khi đã có đủ context.
@@ -213,7 +220,6 @@ HTML phải có đúng các section sau, theo thứ tự:
 Trong `quality-report.md`, kiểm tra:
 
 - Đã tạo đúng 7 file chính hay chưa.
-- Có tạo nhầm 23 file cũ hay không.
 - Có tạo `asana-task.html` đúng cấu trúc 9 section và có nút copy hay không.
 - File nào còn assumption quan trọng.
 - File nào thiếu evidence.
@@ -241,10 +247,15 @@ Load these skills before generating any full product documentation package:
 13. `marketing/positioning-and-copy.md`
 14. `core/quality-review.md`
 
+## UX Wireframe Skills (load when UI screens are required)
+
+- `ux/user-flow.md` — role-based flows and Mermaid diagrams.
+- `ux/wireframe-specification.md` — screen planning and per-screen requirements.
+- `ux/html-wireframe.md` — HTML5 + Tailwind CSS wireframe rendering rules (mandatory when wireframes are produced).
+- `ux/wp-admin-ui.md` — WordPress admin chrome rules; load when product type is WordPress Plugin or LMS Add-on and any screen lives in wp-admin.
+
 ## Optional But Recommended
 
-- `ux/user-flow.md` when the product has multi-step workflows or multiple roles.
-- `ux/wireframe-specification.md` when UI screens are required.
 - `marketing/growth-loops.md` when launch strategy, PLG, SEO loop, referral loop, or expansion mechanics matter.
 
 
@@ -259,7 +270,7 @@ This file maps every generated document to the minimum skills required to produc
 | `01-discovery.md` | `core/product-documentation-generator.md`, `discovery/assumption-mapping.md`, `discovery/market-validation.md`, `research/search-demand-analysis.md`, `research/competitor-analysis.md`, `product/product-strategy.md`, `qa/test-plan.md` |
 | `02-product-strategy.md` | `product/product-strategy.md`, `product/product-brief.md`, `research/competitor-analysis.md`, `research/search-demand-analysis.md`, `marketing/growth-loops.md` |
 | `03-prd.md` | `product/prd.md`, `product/product-brief.md`, `product/product-strategy.md`, `research/competitor-analysis.md`, `ux/user-flow.md` |
-| `04-ux-and-wireframe.md` | `ux/user-flow.md`, `ux/wireframe-specification.md`, `product/product-brief.md`, `product/prd.md` |
+| `04-ux-and-wireframe.md` | `ux/user-flow.md`, `ux/wireframe-specification.md`, `ux/html-wireframe.md`, `ux/wp-admin-ui.md` (WordPress/LMS only), `product/product-brief.md`, `product/prd.md` |
 | `05-qa-and-documentation.md` | `qa/test-plan.md`, `docs/documentation-outline.md`, `product/prd.md`, `ux/user-flow.md`, `ux/wireframe-specification.md` |
 | `06-seo-and-marketing.md` | `seo/product-page-outline.md`, `seo/seo-content-plan.md`, `marketing/positioning-and-copy.md`, `marketing/growth-loops.md`, `research/search-demand-analysis.md`, `research/competitor-analysis.md`, `product/product-strategy.md` |
 | `07-build-or-not-build.md` | `discovery/market-validation.md`, `discovery/assumption-mapping.md`, `product/product-strategy.md`, `qa/test-plan.md`, `core/quality-review.md` |

@@ -4,6 +4,15 @@
 
 Use this skill as the orchestration layer for generating complete product discovery, product documentation, and marketing packages for WordPress plugins, WordPress themes, Shopify themes, Shopify apps, SaaS products, LMS add-ons, and eCommerce extensions.
 
+## Language Rules (CRITICAL — HIGHEST PRIORITY)
+
+- **ALWAYS write all final documents in Vietnamese.**
+- Keep technical terms in English when they are more precise: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook, plugin, add-on, checkout, subscription, gateway, coupon, invoice, changelog, sprint, backlog, user story, acceptance test.
+- File names stay in English as defined in the output list.
+- Labels inside tables (column headers, status values) may stay in English when they are standard industry terms.
+- Do NOT write section headings, paragraphs, bullet points, or recommendations in English.
+- This rule overrides any default behavior from skill instructions or general knowledge.
+
 ## Operating Principles
 
 - Read the product idea and all relevant skills before writing final documents.

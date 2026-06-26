@@ -1,314 +1,446 @@
-# Câu Hỏi Bổ Sung Cho learnpress-membership
+# Câu Hỏi Bổ Sung Cho Memberships & Subscriptions Add-on for LearnPress
 
 ## Hướng Dẫn Trả Lời
 
-Hãy trả lời trực tiếp dưới từng câu hỏi. Có thể bỏ qua câu không liên quan hoặc ghi **"Không biết"** nếu chưa có dữ liệu. Mục tiêu là thu thập đủ thông tin để tạo bộ **Product Discovery + Product Documentation + Marketing Package** hoàn chỉnh theo workflow mới gồm 7 tài liệu chính, `index.md`, `quality-report.md`, và `asana-task.html`.
-
-Thuật ngữ chuyên ngành giữ nguyên tiếng Anh khi tự nhiên hơn: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook, hook, filter...
-
----
+Hãy trả lời trực tiếp dưới từng câu hỏi ở dòng `Trả lời:`. Bạn có thể bỏ qua câu không liên quan, ghi `Không biết` nếu chưa có dữ liệu, hoặc ghi `Quyết định sau` nếu cần team thảo luận thêm. Ưu tiên trả lời phần `Câu Hỏi Ưu Tiên Cao` trước để có đủ dữ liệu tạo Product Discovery, Product Documentation, UX/Wireframe, QA, SEO và Marketing Package.
 
 ## Tóm Tắt Những Gì Đã Biết
 
-Input hiện tại rất chi tiết ở phần kỹ thuật. Dưới đây là tóm tắt:
+Sản phẩm là `Memberships & Subscriptions Add-on for LearnPress`, một add-on WordPress/LearnPress hiện đã có plan/member model, bảng riêng, course-plan mapping, checkout item type ẩn `lp_membership`, lifecycle activation theo LP order, cron expire/reminder, profile tab và pricing block/shortcode.
 
-| Mục | Trạng thái |
-| --- | --- |
-| Product idea & proposed solution | ✅ Rõ ràng: 2 module — Restriction Engine + Woo Checkout Integration |
-| Product type | ✅ WordPress Plugin / LMS Add-on / eCommerce Extension |
-| Target users (primary + secondary) | ✅ 7 nhóm: Admin, LMS Owner, Education Business, Instructor, Student, Developer, Guest |
-| User roles | ✅ Admin, Instructor, Student, Customer, Guest, Manager, Developer |
-| Core problem | ✅ Thiếu restrict content linh hoạt + thiếu Woo checkout cho membership |
-| Proposed solution (2 modules) | ✅ Chi tiết kiến trúc, pattern tham chiếu, code references |
-| Must-have features | ✅ 14 features cụ thể |
-| Nice-to-have features | ✅ 8 features mở rộng |
-| Out of scope | ✅ 6 mục loại trừ rõ |
-| Competitors | ✅ 7 đối thủ/giải pháp thay thế được liệt kê |
-| Integrations | ✅ 10 hệ thống tích hợp |
-| Risks & constraints | ✅ 10 rủi ro cụ thể kèm context kỹ thuật |
-| Pricing model | ⚠️ Sơ lược: paid add-on, one-time hoặc subscription, bundle |
-| SEO keywords | ⚠️ 8 keywords, chưa phân nhóm intent |
-| Business goals | ✅ 5 mục tiêu kinh doanh |
-| Success metrics | ✅ 8 metrics |
-| Implementation phases | ✅ 4 phases chi tiết |
-| Code references | ✅ 17 file paths thực tế |
+Mục tiêu nâng cấp là biến add-on này thành membership platform đầy đủ hơn bằng 2 module chính: `Membership Restriction Engine` và `WooCommerce Membership Purchase Integration`. Restriction Engine cần cho phép admin giới hạn post/page/course/lesson/quiz/custom post type theo membership plan, có rule model, mode ẩn nội dung, ẩn khỏi listing/query hoặc redirect, message/CTA, block/shortcode member-only và helper API. WooCommerce integration cần cho phép mua membership plan qua Woo cart/checkout/gateway bằng cách tận dụng `learnpress-woo-payment`, tạo hoặc đồng bộ LP order item type `lp_membership`, kích hoạt hoặc thu hồi membership theo trạng thái Woo order và có khả năng mở rộng sang Woo Subscriptions.
 
----
+Người dùng chính gồm website admin, LMS owner, education business, instructor, student/customer, guest và developer/customizer. Đối thủ hoặc giải pháp thay thế đã nêu gồm WooCommerce Memberships, Paid Memberships Pro, MemberPress, Restrict Content Pro, WooCommerce Subscriptions, LearnPress Woo Payment bán course riêng lẻ và workflow thủ công enroll user sau khi mua Woo product.
+
+Rủi ro lớn hiện tại gồm quyết định kiến trúc `lp_membership` shadow post hay WC product class riêng, tương thích 2 mode của `learnpress-woo-payment`, mapping total/subtotal cho item type mới, lifecycle lifetime/subscription/refund/cancel, guest checkout, query restriction performance, không copy code từ WooCommerce Memberships và cần migration DB mới.
 
 ## Các Assumption Đang Có
 
-Dựa trên phân tích input theo framework VUBF (Value, Usability, Business Viability, Feasibility):
+1. Khách hàng LearnPress hiện có nhu cầu thực tế muốn bán membership theo plan thay vì chỉ bán từng course.
 
-### Value Risk
+Trả lời: chính xác, và module bán membership đã có ở bản 4.0.0 rồi
 
-| # | Assumption | Mức độ quan trọng | Bằng chứng hiện có |
-| --- | --- | --- | --- |
-| V1 | Admin LearnPress thực sự cần restrict content ngoài course-level access, không chỉ cần restrict course. | Cao | Yếu — chưa có dữ liệu support ticket, survey, hoặc feature request cụ thể. |
-| V2 | Khách hàng sẵn sàng trả thêm tiền cho add-on membership nâng cấp thay vì dùng plugin membership bên thứ 3. | Cao | Yếu — chưa có dữ liệu pricing willingness hoặc conversion từ pricing page hiện tại. |
-| V3 | Nhu cầu mua membership qua WooCommerce checkout đủ lớn để justify effort tích hợp. | Cao | Trung bình — dựa trên lập luận logic rằng nhiều site đã dùng Woo, nhưng chưa có số liệu cụ thể. |
-| V4 | User sẽ chuyển từ WooCommerce Memberships / MemberPress sang LearnPress Membership. | Trung bình | Yếu — chưa có switching cost analysis hoặc migration path. |
+2. Khách hàng muốn dùng WooCommerce checkout cho membership vì đã dùng Woo gateways, coupon, tax, invoice hoặc Woo Subscriptions.
 
-### Usability Risk
+Trả lời: chính xác, tận dụng các lợi thế thanh toán của woocommerce
 
-| # | Assumption | Mức độ quan trọng | Bằng chứng hiện có |
-| --- | --- | --- | --- |
-| U1 | Admin có thể hiểu và tạo restriction rules mà không cần training. | Cao | Yếu — chưa có wireframe hoặc usability benchmark. |
-| U2 | Luồng mua membership qua Woo không gây confusion so với LP checkout hiện tại khi cả 2 cùng tồn tại. | Cao | Yếu — chưa mô tả cách user phân biệt 2 luồng checkout. |
+3. MVP cần có cả Restrict Content và WooCommerce Membership Checkout, thay vì tách thành 2 release độc lập.
 
-### Business Viability Risk
+Trả lời: 2 release độc lập, checkout trước, restrict content phase sau
 
-| # | Assumption | Mức độ quan trọng | Bằng chứng hiện có |
-| --- | --- | --- | --- |
-| B1 | Revenue từ membership add-on nâng cấp sẽ cao hơn chi phí phát triển + maintain Woo integration + restriction engine. | Cao | Yếu — chưa có estimated dev cost, pricing target, hoặc revenue projection. |
-| B2 | Support cost sẽ không tăng quá mức do phức tạp của Woo lifecycle mapping + restriction edge cases. | Trung bình | Yếu — Woo Subscriptions lifecycle rất phức tạp, chưa ước lượng support burden. |
+4. Admin là người chính tạo restriction rules, nhưng có thể instructor hoặc manager cũng cần quyền cấu hình trong một số site.
 
-### Feasibility Risk
+Trả lời: chỉ riêng admin thôi nhé
 
-| # | Assumption | Mức độ quan trọng | Bằng chứng hiện có |
-| --- | --- | --- | --- |
-| F1 | `learnpress-woo-payment` đủ linh hoạt để mở rộng cho membership item type mà không cần refactor lớn. | Cao | Trung bình — đã review code references nhưng chưa confirm compatibility đầy đủ. |
-| F2 | Restriction hooks (`pre_get_posts`, `the_content`, `the_posts`) sẽ không gây side-effect nghiêm trọng với page builders, REST API, search, admin preview. | Cao | Yếu — risk đã được liệt kê nhưng chưa có POC hoặc compatibility matrix. |
-| F3 | Performance cache/memoization cho restriction rules sẽ đủ hiệu quả trên site có 500+ courses, 10k+ posts. | Trung bình | Yếu — chưa có benchmark hoặc load test plan cụ thể. |
+5. Rule model riêng trong plugin là hướng ưu tiên hơn so với phụ thuộc vào WooCommerce Memberships.
 
----
+Trả lời: đúng rồi, và không liên quan đến woo membership chứ, mình cần làm tính năng cho mình, k cần để ý đến woo membership
+
+6. `PlanHelper::get_user_active_plans()` sẽ là source of truth cho quyền truy cập content.
+
+Trả lời: đừng đề cập đến kỹ thuật, việc tạo hàm thế nào, tên hàm là gì sẽ do bên backend họ lo
+
+7. Guest checkout sẽ bị chặn hoặc buộc tạo/login user trước khi activate membership.
+
+Trả lời: chính xác
+
+8. Woo Subscriptions là optional integration, không phải dependency bắt buộc cho phase đầu.
+
+Trả lời: khả năng là sẽ phải bắt buộc, cần có nó mới thanh toán subcription được
+
+9. Product sẽ được bán như paid add-on hoặc bundled trong LearnPress Pro Bundle.
+
+Trả lời: không liên quan, nó là 1 addon độc lập, paid addons
+
+10. SEO và product page sẽ nhắm đến nhóm keyword `learnpress membership`, `learnpress restrict content`, và `learnpress woocommerce membership`.
+
+Trả lời: ok
 
 ## Câu Hỏi Cần Trả Lời
 
-### A. Product Context
+### Product Context
 
-**A1.** Phiên bản hiện tại của `learnpress-membership` đang bán ở đâu (ThimPress marketplace, WordPress.org, hoặc cả 2)? Giá bán hiện tại là bao nhiêu?
-đang bán trên thimpress.com
+1. Mục tiêu release gần nhất là gì: MVP nội bộ, beta cho khách hàng hiện tại, marketplace release, hay public stable release?
 
-**A2.** Có bao nhiêu site đang active sử dụng `learnpress-membership`? Tỉ lệ renewal/churn hiện tại ra sao?
-có khoảng 20 site
+Trả lời:marketplace release
 
-**A3.** Các ticket support phổ biến nhất liên quan đến `learnpress-membership` là gì? Có ticket nào liên quan đến nhu cầu restrict content hoặc Woo checkout không?
-không quan trọng, tính năng này là concept bắt buộc phải có
+2. Sản phẩm này là nâng cấp của add-on hiện tại, SKU mới, hay module premium nằm trong LearnPress Pro Bundle?
 
-**A4.** `learnpress-membership` hiện là sản phẩm standalone hay bắt buộc mua kèm LearnPress Pro Bundle? Có plan tách bán riêng restrict content hoặc Woo integration không?
-là sản phẩm bán riêng, 2 tính năng mới thêm nằm trong bản nâng cấp, không tách ra bán riêng
+Trả lời: nâng cấp của addon hiện tại, không liên quan gì đến learnpress pro bundle
 
----
+3. Version hiện tại của `Memberships & Subscriptions Add-on for LearnPress` đang có bao nhiêu active sites, license, khách hàng trả phí hoặc ticket support liên quan đến membership?
 
-### B. Market Validation
+Trả lời: không có thông tin, vì addon còn rất mới
 
-**B1.** Có dữ liệu nào cho thấy khách hàng LearnPress đang yêu cầu restrict content (feature request, forum post, support ticket, survey)? Nếu có, ước lượng bao nhiêu request trong 6-12 tháng gần nhất?
-k quan trọng, đấy là tín năng phải thêm vào
+4. Các version tối thiểu cần hỗ trợ là gì cho WordPress, PHP, LearnPress, WooCommerce, `learnpress-woo-payment` và Woo Subscriptions?
 
-**B2.** Có bao nhiêu % site LearnPress đang dùng WooCommerce song song? Có dữ liệu nào từ `learnpress-woo-payment` active installs không?
-không có dữ liệu
+Trả lời: min wp 6.0, php 7.2, learnpress 4.0.0, woocommerce 6.0.0, learnpress-woo-payment 4.0.0, woo subscriptions 
 
-**B3.** Trong số các competitors đã liệt kê (WooCommerce Memberships, MemberPress, Paid Memberships Pro, Restrict Content Pro), pé có insight nào về điểm yếu cụ thể của họ khi dùng với LMS/LearnPress không? Ví dụ: không hỗ trợ LearnPress course enrollment, phải mapping thủ công...
-không quan trọng, mình phải làm tốt hơn họ
+5. Team muốn định vị sản phẩm là `LearnPress-native membership add-on`, `WooCommerce membership checkout for LearnPress`, hay `all-in-one membership solution for LearnPress`?
 
-**B4.** Có khách hàng nào đang dùng WooCommerce Memberships + LearnPress cùng lúc không? Họ gặp pain point gì? Có case study hoặc feedback cụ thể không?
-không có, sản phẩm 1.0 chưa có nhiều dữ liệu
+Trả lời: all-in-one membership solution for LearnPress
 
-**B5.** Thị trường mục tiêu chính là global hay tập trung vào khu vực nào (English-speaking, SEA, specific country)?
-global
----
+6. Thành công sau 3 tháng và 12 tháng sẽ được đo bằng chỉ số nào: license revenue, activation, conversion qua Woo checkout, số rule tạo ra, giảm support ticket, hay chỉ số khác?
 
-### C. Users & Roles
+Trả lời: license revenue
 
-**C1.** Role "Manager" được đề cập nhưng chưa mô tả chi tiết. Manager có quyền gì khác Admin? Có thể tạo/sửa restriction rules không? Có thể quản lý membership plans không?
-only admin
-**C2.** Role "Developer" cần những developer hooks/filters cụ thể nào ngoài public helper API đã liệt kê? Ví dụ: filter message, filter rule evaluation, action khi access bị deny...
-only admin
-**C3.** Guest user khi truy cập nội dung restricted sẽ thấy gì? Login form, pricing table, redirect, hay custom message? Cần hỗ trợ nhiều hơn 1 hành vi cho guest không?
-only admin
+### Market Validation
 
-**C4.** Instructor có quyền tự tạo restriction rules cho course/lesson của mình không? Hay chỉ Admin mới được tạo rules?
+7. Có bằng chứng cụ thể nào từ khách hàng hiện tại không: ticket, feature request, review, forum, email, sale call, survey hoặc lost deal liên quan đến restrict content hoặc Woo checkout?
 
-chỉ admin mới được tạo, only admin
+Trả lời: không, tính năng này mình muốn làm, chứ k phải do nhu cầu thực tế
 
-### D. Scope & Features
+8. Trong 2 vấn đề chính, vấn đề nào đau hơn với khách hàng: thiếu restrict content linh hoạt hay thiếu WooCommerce checkout cho membership?
 
-**D1.** Restriction rule cho taxonomy term cụ thể hoạt động thế nào? Ví dụ: restrict tất cả course thuộc category "Premium"? Hay restrict tất cả post có tag "VIP"? Cần hỗ trợ bao nhiêu taxonomy types?
-restrict tất cả course thuộc category "Premium", hỗ trợ tất cả taxonomy types của learnpress,post
-**D2.** Restriction rule có hỗ trợ điều kiện kết hợp không? Ví dụ: user phải có Plan A **VÀ** Plan B, hay chỉ cần 1 trong nhiều plan (OR logic)? Hay Phase 1 chỉ cần OR?
-OR
+Trả lời: như nhau
 
-**D3.** Khi restriction mode là "hide completely", nội dung có bị ẩn khỏi WordPress search results, sitemap XML, RSS feed, và REST API `/wp/v2/posts` không? Hay chỉ ẩn khỏi archive/listing?
-bạn tự đề xuất nhé
+9. Khách hàng hiện đang dùng workaround nào phổ biến nhất: WooCommerce Memberships, MemberPress, PMPro, custom code, manual enroll, hay bán từng course?
 
-**D4.** Shortcode/block `[member_content]` có hỗ trợ hiển thị nội dung khác nhau cho từng plan level không? Ví dụ: Plan Bronze thấy nội dung A, Plan Gold thấy nội dung A + B?
-không
+Trả lời: bán từng course
 
-**D5.** Khi admin tạo WC product cho membership plan, mỗi plan tương ứng 1 WC product? Hay có 1 WC product "Membership" rồi chọn plan bên trong? Cách nào là preferred?
-quan trọng gì, dùng rule hiện tại của learnpress membership
-1 plan, add được nhiều products
+10. Có nhóm khách hàng cụ thể nào đã nói sẵn sàng trả tiền cho tính năng này không? Nếu có, họ thuộc phân khúc nào và ngân sách khoảng bao nhiêu?
 
-**D6.** Membership plan có hỗ trợ trial period (ví dụ: 7 ngày free trial) không? Nếu có, trial qua LP checkout hay chỉ qua Woo Subscriptions?
-có, và hỗ trợ luôn free trial, khi hết hạn thì trừ tiền bằng woo subscription
+Trả lời: không biết
 
-**D7.** Khi user đang có membership active qua LP checkout, rồi mua lại qua Woo checkout — hành vi mong muốn là gì? Extend duration? Override? Block duplicate purchase?
-block
+11. Thị trường mục tiêu chính là global English-speaking market, Việt Nam, marketplace LearnPress hiện tại, agency/developer, hay education business lớn hơn?
 
+Trả lời: global English-speaking market
 
-**D8.** Phase 1 (Restriction Foundation) và Phase 3 (Woo MVP) có release độc lập không? Hay phải ship cùng nhau?
-độc lập
----
+12. Trước khi build full, team muốn validate bằng cách nào: landing page, survey user hiện tại, preorder, beta waitlist, demo prototype, hay phỏng vấn 5-10 khách hàng?
 
-### E. Competitors
+Trả lời: không validate
 
-**E1.** Với mỗi competitor đã liệt kê, pé có biết mức giá cụ thể không?
+### Users & Roles
 
-| Competitor | Giá bán (nếu biết) |
-| --- | --- |
-| WooCommerce Memberships | |
-| Paid Memberships Pro | |
-| MemberPress | |
-| Restrict Content Pro | |
-đừng quan tâm giá bán bọn kia, lp membership có giá bán rồi
+13. Admin cần toàn quyền cấu hình plan, member, restriction rule, Woo checkout và settings đúng không? Có quyền nào admin không nên có không?
 
-**E2.** Competitor nào là mối đe dọa lớn nhất cho LearnPress Membership hiện tại? Vì sao?
+Trả lời: toàn quyền
 
-**E3.** Có competitor nào offer LearnPress integration sẵn không? Hay tất cả đều yêu cầu custom code/mapping thủ công?
+14. Manager có cần quản lý member/restriction rule không, hay chỉ xem report và support khách hàng?
 
-**E4.** Khách hàng thường so sánh `learnpress-membership` với giải pháp nào nhất? Có dữ liệu từ pre-sale questions hoặc comparison searches không?
+Trả lời: chỉ xem và support
 
----
+15. Instructor có được tạo restriction rule cho course/lesson của chính họ không, hay chỉ admin mới được cấu hình restriction?
 
-### F. Revenue & Pricing
+Trả lời: only admin
 
-**F1.** Giá bán mục tiêu cho `learnpress-membership` sau khi nâng cấp? Có tăng giá so với hiện tại không?
-có sẽ discount còn 25% thôi, hiện tại đang discount ~ 50%
+16. Student và Customer được xem membership status ở đâu: LearnPress profile tab, Woo account page, email, course page CTA, hay tất cả?
 
-**F2.** Restrict content module và Woo integration module sẽ bán chung 1 license hay tách riêng? Nếu tách, giá mỗi module ước lượng bao nhiêu?
-bán chung, nó vẫn làm learnpress membership bản 1.1 thôi,k tách riêng
+Trả lời: LearnPress profile tab + Woo account page
 
-**F3.** Có plan chuyển sang subscription license (gia hạn hàng năm) không? Nếu có, tỉ lệ renewal kỳ vọng là bao nhiêu?
-có, hiện tại đang có hàng năm mà
+17. Guest khi gặp content bị restricted sẽ thấy gì: login/register CTA, buy membership CTA, danh sách plan, redirect pricing page, hay ?
 
-**F4.** Ước lượng revenue target cho 12 tháng đầu sau launch? (Ví dụ: số license bán được, ARR mục tiêu)
+Trả lời: message tùy chỉnh
 
-**F5.** Bundle LearnPress Pro Bundle hiện giá bao nhiêu? `learnpress-membership` upgrade có thay đổi giá bundle không?
-không
+18. Developer/customizer cần hook/filter/API nào là bắt buộc trong v1 để mở rộng rule, message, access check, lifecycle hoặc Woo order mapping?
 
----
+Trả lời: tạm thời bỏ các vấn đề liên quan đến developer
 
-### G. UX / User Flow
+### Scope & Features
 
-**G1.** Admin tạo restriction rule ở đâu trong admin UI? Các option:
-- Trong màn hình edit Plan → tab "Protected Content"?
-- Trong màn hình edit Post/Page/Course → metabox "Membership Required"?
-- Cả 2?
-- Màn hình quản lý rules riêng biệt?
-trong màn hình edit plan
-**G2.** Khi user truy cập nội dung restricted, ưu tiên hiển thị CTA gì? Pricing table của membership plans? Nút "Mua membership"? Link đến trang pricing riêng? Hay tuỳ admin cấu hình?
-Link đến trang pricing riêng
+19. MVP v1 bắt buộc phải có cả Restrict Content và WooCommerce checkout không, hay nên release Restrict Content trước rồi Woo checkout sau?
 
-**G3.** Khi admin cấu hình Woo checkout cho membership, luồng mong muốn là:
-- Admin bật toggle "Enable WooCommerce Checkout" → hệ thống tự tạo shadow WC product?
-- Admin tự tạo WC product rồi map với plan?
-- Cả 2 option?
-Admin tự tạo WC product rồi map với các course thuộc plan đó
+Trả lời: woo trước restrict content sau
 
-**G4.** Profile tab hiện tại của membership trên frontend có cần thay đổi gì khi membership được mua qua Woo? Ví dụ: hiển thị thêm Woo order reference, link sang Woo account?
-Không cần thay đổi gì, vẫn như cũ
+20. Những content type nào bắt buộc hỗ trợ ở v1: post, page, course, lesson, quiz, assignment, question, attachment, custom post type, taxonomy term, category/tag, course category?
 
-**G5.** Membership pricing page/block hiện tại có tự detect và hiển thị nút "Buy via WooCommerce" thay vì "Buy via LearnPress" khi Woo mode active không?
-có
+Trả lời: post/page, course, lesson, quiz, question, và custom post type
 
----
+21. Rule targeting cần hỗ trợ mức nào trong v1: toàn bộ post type, taxonomy term, từng object cụ thể, course hierarchy, hoặc rule theo author/instructor?
 
-### H. Technical / Integrations
+Trả lời: toàn bộ post type
 
-**H1.** `learnpress-woo-payment` hiện có version nào đang active? Có breaking changes nào đã biết giữa các version không?
+22. Khi nhiều rule cùng áp vào một object, rule conflict sẽ xử lý thế nào: allow nếu user có một trong các plan, yêu cầu tất cả plan, rule ưu tiên cao nhất, hay deny luôn thắng?
 
-**H2.** Khi `learnpress-woo-payment` có 2 mode (LP course product vs assigned Woo product), membership sẽ chọn mode nào ở Phase 1? Hay cần support cả 2?
-cả 2
+Trả lời: allow nếu user có một trong các plan
 
-**H3.** Schema DB table `lp_membership_rules` dự kiến ra sao? Có draft schema chưa? Hay cần thiết kế từ đầu dựa trên pattern `wc_memberships_rules`?
+23. `Restriction mode` nào là bắt buộc cho v1: hide content only, hide completely khỏi listing/query, redirect to page, hoặc custom template?
 
-để team backend thiết kế, mình k cần làm
+Trả lời: hide content only
 
-**H4.** Restriction rule evaluation sẽ cache ở đâu? Object cache (Redis/Memcached)? Transient? Static variable per-request? Hay tuỳ server setup?
-cách nào optimize nhất thì dùng, k rành lắm về cái này :v
+24. Restricted message cần biến thể theo context nào: guest, logged-in non-member, expired member, cancelled/refunded member, wrong plan, hoặc pending payment?
 
-**H5.** LearnPress REST API hiện có endpoint nào liên quan đến membership/enrollment không? Restriction cần filter response ở level nào (controller, query, output)?
+Trả lời: guest, logged-in non-member, expired member, cancelled/refunded member, wrong plan, hoặc pending payment
 
-**H6.** Cần support multisite WordPress không? Nếu có, restriction rules là per-site hay network-wide?
+25. CTA trong restricted message cần dẫn về đâu: pricing page, plan detail, Woo product/cart, LearnPress checkout, login/register, hay contact admin?
 
-**H7.** Elementor integration (nice-to-have) có cần trong Phase 1 không? Hay chỉ cần đảm bảo restriction không break Elementor preview/editor?
+Trả lời:pricing page
 
----
+26. Gutenberg block/shortcode member-only và non-member content cần hỗ trợ điều kiện nào: theo plan, theo member status, theo logged-in, theo course enrollment, hoặc theo expiry date?
 
-### I. SEO / Go-to-Market
+Trả lời: không tạo shortcode cho gutenberg (tất cả sẽ config và check qua plan)
 
-**I1.** Product page cho `learnpress-membership` hiện đang ở URL nào? Có trang pricing riêng không?
-có trang pricing riêng đấy
+27. Drip/delayed access có nằm trong v1 không, hay để v1.1/v2? ()
 
-**I2.** Có blog/content nào đã publish liên quan đến LearnPress membership chưa (tutorial, comparison, announcement)?
+Trả lời: để phase sau
 
-**I3.** Kênh distribution chính là ThimPress website, WordPress.org, hoặc marketplace khác? Có plan list trên CodeCanyon/Envato không?
+28. Khi Woo order cancelled, failed, refunded hoặc chargeback, membership cần bị revoke ngay, chuyển suspended, đặt expired, hay giữ access đến cuối kỳ?
 
-**I4.** Có email list khách hàng LearnPress hiện tại để gửi launch announcement không? Ước lượng bao nhiêu subscribers?
+Trả lời: giữ access đến cuối kỳ?
 
-**I5.** Chiến lược SEO cho keywords đã liệt kê: ưu tiên target keyword nào đầu tiên? Có competitor nào đang rank mạnh cho các keywords này không?
+29. Existing LP checkout flow hiện tại cần giữ nguyên 100% hay có thể thay đổi CTA/default checkout để ưu tiên WooCommerce?
 
-**I6.** Có plan tạo demo site để khách hàng trải nghiệm membership + restrict content trước khi mua không?
+Trả lời: nó sẽ tự chuyển sang woo checkout, k cần quan tâm
 
----
+30. Có yêu cầu migration dữ liệu từ plan/course mapping hiện tại sang restriction rules mới không?
 
-### J. QA / Acceptance Criteria
+Trả lời: không
 
-**J1.** Danh sách page builders phải đảm bảo tương thích với restriction: Elementor, Beaver Builder, Divi, WPBakery, Gutenberg — cần test tất cả hay chỉ Elementor + Gutenberg?
-elementor + gutenberg
+### Competitors
 
-**J2.** Có test environment/staging site sẵn sàng cho membership testing không? Hay cần setup mới?
-sẽ tự setup 
+31. Đối thủ nào là benchmark quan trọng nhất cho sản phẩm này: WooCommerce Memberships, MemberPress, Paid Memberships Pro, Restrict Content Pro, hay plugin khác?
 
-**J3.** Performance target: trang có restriction rule phải load trong bao nhiêu ms? Query budget cho restriction check trên archive page có bao nhiêu posts?
+Trả lời:  WooCommerce Memberships, MemberPress, Paid Memberships Pro, Restrict Content Pro
 
-**J4.** Backward compatibility: khi nâng cấp từ version hiện tại sang version mới, data migration cho existing plans/members có cần automated migration script không?
+32. Tính năng nào của WooCommerce Memberships nên học theo về UX/architecture, và tính năng nào không nên đưa vào vì scope quá rộng?
 
-**J5.** Woo Subscriptions testing: cần test với Woo Subscriptions version nào? Có cần test cả HPOS (High-Performance Order Storage) compatibility không?
-woo subcriptions mới nhất
+Trả lời: Restrict content
 
----
+33. Có đối thủ nào khách hàng LearnPress đang chuyển sang thường xuyên không? Nếu có, lý do chính là feature, price, UX, support, hay Woo compatibility?
 
-### K. Documentation
+Trả lời: không biết
 
-**K1.** Documentation hiện tại của `learnpress-membership` ở đâu? Cần update docs hiện tại hay tạo docs section mới hoàn toàn?
-cần update docs
+34. Team muốn cạnh tranh bằng giá rẻ hơn, LearnPress-native integration tốt hơn, Woo checkout tốt hơn, ít plugin dependency hơn, hay support tốt hơn?
 
-**K2.** Developer docs cần ở mức nào? Chỉ liệt kê hooks/filters? Hay cần code examples, use cases, extension tutorials?
-tất cả
+Trả lời: giá rẻ hơn, LearnPress-native integration tốt hơn
 
-**K3.** Changelog hiện tại follow format nào? Semantic versioning? Version mới cho restriction + Woo sẽ là major bump (v2.0) hay minor (v1.x)?
-v 4.1
+35. Có thể dùng tên đối thủ trong SEO comparison/alternative pages không, hay cần tránh vì policy/brand/legal?
 
-**K4.** Ngôn ngữ docs chính: chỉ tiếng Anh? Hay cần tiếng Việt song song?
+Trả lời: có thể dùng tên đối thủ trong SEO comparison/alternative pages
 
----chỉ tiếng anh
+### Revenue & Pricing
+
+36. Pricing model mong muốn là one-time license, annual subscription, lifetime deal, bundle-only, hay tier theo số site?
+
+Trả lời: pricing vẫn thế, liên quan gì đến 2 tính năng mới thêm đâu
+
+37. Có cần tách tier theo feature không: Restrict Content basic, Woo checkout, Woo Subscriptions lifecycle, developer API, priority support?
+
+Trả lời:không
+
+38. Sản phẩm có free/lite version không, hay chỉ paid add-on?
+
+Trả lời: không có free
+
+39. Woo Subscriptions integration nếu có sẽ nằm trong cùng license, higher tier, hay add-on riêng?
+
+Trả lời:nằm cùng addon
+
+40. Team có target price range hoặc benchmark pricing từ LearnPress add-ons hiện tại không?
+
+Trả lời:  hiện tại addon này đang để giá 49$ discount 50% còn 29$, sau khi update tính năng nay sẽ tăng giá lên bằng với mức giảm discount 25%
+
+41. Chính sách renew, update, support và refund cần đưa vào product page/FAQ là gì?
+
+Trả lời: 1 năm update và support
+
+### UX/User Flow
+
+42. Admin flow ưu tiên là tạo plan trước rồi chọn content được bảo vệ, hay tạo restriction rule riêng rồi chọn plan/content?
+
+Trả lời: tạo plan trước rồi chọn content được bảo vệ, logic rõ ràng, hiện tại đang có luồng chọn course cho plan, thêm 1 luồng nữa là restrict content, nếu để trống phần chọn course thì sẽ là restrict content)
+
+43. Restriction UI nên nằm ở đâu: plan edit tab, menu `Restriction Rules`, metabox trên post/course edit, settings page, hay kết hợp nhiều vị trí?  
+
+Trả lời: plan edit tab
+
+44. Rule creation UX nên là form đơn giản, table rule builder, wizard theo bước, hay giống WooCommerce Memberships rules table?
+
+Trả lời: table rule builder
+
+45. Woo purchase CTA cần xuất hiện ở những nơi nào: pricing block, shortcode, course page, restricted message, profile renew button, email, hoặc plan archive?
+
+Trả lời: pricing block, shortcode, course page, restricted message, profile renew button, email
+
+46. Customer/student sau khi mua membership qua Woo cần được đưa tới đâu: Woo thank you page, LearnPress profile, course page, membership dashboard, hay custom success page?
+
+Trả lời: membership dashboard
+
+47. Profile tab cần hiển thị gì: current plan, start/end date, status, renewal link, cancelled/refunded reason, invoices/orders, accessible courses/content?
+
+Trả lời: giữ nguyên logic đang hiển thị
+
+48. Các error/empty states quan trọng cần wireframe là gì: chưa có plan, chưa có rule, WooCommerce inactive, `learnpress-woo-payment` inactive, missing user account, payment pending, access denied?
+
+Trả lời: toàn bộ
+
+49. Bạn có thể cung cấp ảnh màn hình hiện tại nào để vẽ wireframe chuẩn hơn: LearnPress membership plan edit, all plans table, member list/detail, settings, pricing block/shortcode, profile tab, course page CTA, LP checkout, Woo checkout, Woo order detail, `learnpress-woo-payment` settings, Woo product/course mapping?
+
+Trả lời: toàn bộ, xem trong thư mục /images cùng cấp với file này
+
+50. Có màn hình reference nào từ plugin khác bạn muốn dùng để tham khảo cấu trúc UX không? Chỉ cần dùng làm reference, không copy UI/code.
+
+Trả lời: màn hình restrict content của woo membership, sẽ để trong thư mục /images cùng cấp với file này
+
+### Technical/Integrations
+
+51. Hướng kỹ thuật ưu tiên cho Woo purchase là giữ `lp_membership` shadow post, tạo `WC_Product_LP_Membership`, hay tạo Woo product thật được map với membership plan?
+
+Trả lời: giữ lp_membership shadow post
+
+52. `learnpress-woo-payment` cần hỗ trợ membership trong cả 2 mode hiện có không: buy directly as LP item và assigned Woo product?
+
+Trả lời: trong mode 1 thì   sẽ mua membership bằng cách chọn mua trực tiếp với tư cách là 1 item của learnpress, và được trả tiền thông qua phương thức thanh toán của learnpress. 
+
+trong mode 2, người dùng sẽ được mua membership bằng cách chọn mua trực tiếp với tư cách là 1 sản phẩm của woocommerce và được trả tiền thông qua phương thức thanh toán của woocommerce
+
+53. Khi Woo order paid, hệ thống nên tạo LP order mới, cập nhật LP order có sẵn, hay có thể activate member trực tiếp không qua LP order?
+
+Trả lời: nên tạo LP order, nhưng check active hay không qua woo order
+
+54. Mapping trạng thái Woo order sang LP order/member chính xác cần như thế nào cho pending, processing, completed, cancelled, failed, refunded, partially refunded?
+
+Trả lời: toàn bộ
+
+55. Woo Subscriptions cần hỗ trợ trạng thái nào trong phase đầu: active, on-hold, cancelled, expired, pending-cancel, payment failed, renewal, switch, resubscribe?
+
+Trả lời: hỗ trợ hết chứ
+
+56. Cần đảm bảo idempotency thế nào để renewal/webhook/status change không tạo duplicate member hoặc kéo dài sai end_date?
+
+Trả lời: cái này đặt vấn đề cho team backend xử lý
+
+57. Coupon, tax, invoice, order note và refund của Woo cần đồng bộ sang LearnPress ở mức nào?
+
+Trả lời: mấy cái này cũng đặt vấn đề cho team backend
+
+58. Site lớn cần performance target gì: số plan, số member, số rule, số course/post, số order/ngày, response time khi check access?
+
+Trả lời: không quan tâm, không cần đưa vào
+
+59. Restriction có cần áp dụng cho REST API, AJAX, blocks, search, feeds, comments, sitemap, page builder preview hoặc headless frontend không?
+
+Trả lời: không cầ đưa vào kế hoạch
+
+60. Cần hỗ trợ multisite, multilingual plugin, currency switcher, cache plugin, page builder hoặc theme phổ biến nào ở v1 không?
+
+Trả lời: không cầ đưa vào kế hoạch
+
+### SEO/GTM
+
+61. Primary SEO keyword chính nên là gì: `learnpress membership`, `learnpress restrict content`, `learnpress woocommerce membership`, hay keyword khác?
+
+Trả lời: learnpress membership
+
+62. Ngôn ngữ và thị trường SEO ưu tiên là tiếng Anh global, tiếng Việt, hay đa ngôn ngữ?
+
+Trả lời: tiếng Anh global
+
+63. Product page CTA chính là `Buy Now`, `View Demo`, `Try Beta`, `Join Waitlist`, `Contact Sales`, hay `View Docs`?
+
+Trả lời: Buy Now
+
+64. Có proof point nào có thể dùng trong marketing không: số active sites LearnPress, khách hàng beta, testimonial, support request count, performance benchmark, hoặc compatibility badge?
+
+Trả lời: có, nhưng bên marketing sẽ tự thêm số liệu
+
+65. Launch channel dự kiến là gì: LearnPress marketplace, ThimPress site, email list, blog SEO, YouTube tutorial, partner agencies, affiliate, hoặc AppSumo/lifetime deal?
+
+Trả lời:ThimPress site
+
+66. Có muốn làm comparison/alternative content với WooCommerce Memberships, MemberPress, PMPro, Restrict Content Pro không?
+
+Trả lời: không
+
+### QA/Acceptance Criteria
+
+67. Acceptance criteria quan trọng nhất cho Restrict Content là gì? Ví dụ: guest không xem được lesson restricted, member đúng plan xem được, query listing ẩn đúng, admin preview không bị ảnh hưởng.
+
+Trả lời: toàn bộ
+
+68. Acceptance criteria quan trọng nhất cho Woo checkout là gì? Ví dụ: mua plan qua Woo thành công tạo LP order item `lp_membership`, kích hoạt member, refund revoke access, không phá LP checkout.
+
+Trả lời: toàn bộ
+
+69. Permission matrix cần test những capability nào cho Admin, Manager, Instructor, Student, Customer, Guest và Developer?
+
+Trả lời: toàn bộ, trừ developer
+
+70. Regression tests bắt buộc cần giữ cho flow hiện có là gì: plan-course mapping, LP checkout, member activation, expiry cron, reminder email, profile tab, shortcode/pricing block?
+
+Trả lời: toàn bộ
+
+71. Security tests cần ưu tiên gì: bypass content qua REST, direct lesson URL, shortcode/block leakage, nonce/capability admin, XSS trong restricted message, order spoofing, refund abuse?
+
+Trả lời: toàn bộ
+
+72. Performance test target cụ thể là gì cho access check, frontend query filtering, admin rule table và Woo order activation?
+
+Trả lời: ok toàn bộ
+
+73. Compatibility matrix cần bao gồm theme/plugin nào: LearnPress theme, WooCommerce gateway phổ biến, Woo Subscriptions, Elementor, cache plugin, multilingual plugin?
+
+Trả lời: WooCommerce gateway phổ biến, Woo Subscriptions
+
+### Documentation
+
+74. Documentation cần viết bằng tiếng Anh, tiếng Việt, hay cả hai?
+
+Trả lời: tiếng anh
+
+75. Những doc pages nào bắt buộc có khi launch: install, setup restriction rules, setup Woo checkout, pricing block/shortcode, member management, refunds/cancel, Woo Subscriptions, troubleshooting, hooks/filters/API, FAQ?
+
+Trả lời: toàn bộ, nhưng k cần developer docs
+
+76. Developer docs cần mức chi tiết nào: hook list, function reference, example snippets, lifecycle diagrams, order mapping examples, custom rule examples?
+
+Trả lời: tạm thời k cần developer docs
+
+77. Support docs cần xử lý các lỗi nào: user paid but no access, access not revoked after refund, content still visible, Woo order not linked to LP order, guest checkout issue, cache conflict, expired member issue?
+
+Trả lời: không cần, chỉ cần docs hướng dẫn, chưa cần docs sửa lỗi
+
+78. Bạn có ảnh màn hình hoặc video ngắn nào nên dùng cho docs/product page không: setup rule, pricing CTA, Woo checkout, member profile, restricted message, admin member status? không
+
+Trả lời:
 
 ## Câu Hỏi Ưu Tiên Cao
 
-Đây là 10 câu quan trọng nhất cần trả lời trước khi tạo bộ tài liệu đầy đủ:
+1. MVP v1 bắt buộc phải có cả Restrict Content và WooCommerce checkout không, hay nên tách release?
 
-| # | Câu hỏi | Lý do ưu tiên |
-| --- | --- | --- |
-| 1 | **B1** — Có dữ liệu feature request cho restrict content không? | Quyết định Market Opportunity Score và Build Recommendation. |
-| 2 | **B2** — Bao nhiêu % site LP đang dùng WooCommerce? | Xác nhận nhu cầu thực tế cho Woo checkout integration. |
-| 3 | **D8** — Phase 1 và Phase 3 release độc lập hay cùng nhau? | Ảnh hưởng PRD scope, roadmap, test plan, và launch timeline. |
-| 4 | **F1** — Giá bán mục tiêu sau nâng cấp? | Cần cho Revenue Potential, Build-or-Not-Build Report. |
-| 5 | **D2** — Rule logic AND hay OR cho multi-plan? | Ảnh hưởng trực tiếp đến DB schema, rule engine, PRD requirements. |
-| 6 | **G1** — Admin tạo restriction rule ở đâu trong UI? | Quyết định wireframe, user flow, và UX complexity. |
-| 7 | **D5** — 1 WC product per plan hay 1 product chung? | Ảnh hưởng kiến trúc Woo integration, user flow mua hàng. |
-| 8 | **H2** — Woo payment mode nào cho Phase 1? | Giảm ambiguity cho technical PRD và test plan. |
-| 9 | **A2** — Số site active và churn hiện tại? | Cần cho market sizing, revenue projection, competitive analysis. |
-| 10 | **A3** — Top support tickets hiện tại? | Xác nhận pain points thực tế, ưu tiên features đúng nhu cầu. |
+Trả lời: tách release, woocommerce checkout trước > Restrict Content
 
----
+2. Bằng chứng demand mạnh nhất hiện có là gì: ticket, khách hàng trả tiền, lost deal, survey, search demand, hay competitor switching?
+
+Trả lời: không có đâu, cái nay là concept team nghĩ ra và muốn làm
+
+3. Rule targeting và restriction mode tối thiểu cho v1 là gì?
+
+Trả lời: 
+
+4. Instructor/Manager có quyền tạo rule không, hay chỉ Admin?
+
+Trả lời: chỉ admin
+
+5. Woo purchase architecture ưu tiên là `lp_membership` shadow post, `WC_Product_LP_Membership`, hay mapped Woo product?
+
+Trả lời:  cái này để team backend quyết định, đừng nói sâu về code
+
+6. Mapping Woo order/subscription status sang membership lifecycle chính xác là gì?
+
+Trả lời: cái này để team backend quyết định, đừng nói sâu về code
+
+
+7. Guest checkout sẽ xử lý thế nào để đảm bảo membership luôn có user account?
+
+Trả lời: bắt đăng ký/ đăng nhập
+
+8. Pricing/package là paid add-on riêng, bundle, subscription license, hay tiered pricing?
+
+Trả lời: gói membership là paid add-on riêng
+
+9. Những màn hình hiện tại nào bạn có thể cung cấp ảnh để vẽ wireframe chuẩn theo UI thật?
+
+Trả lời: có sẽ để trong thư mục /images
+
+10. Acceptance criteria bắt buộc để nói release này không phá flow LP checkout và membership hiện tại là gì?
+
+Trả lời:
 
 ## Bước Tiếp Theo
 
-Sau khi trả lời các câu hỏi ở trên:
+Sau khi trả lời xong các câu hỏi quan trọng, chạy:
 
-1. Lưu file `questions.md` với câu trả lời điền trực tiếp bên dưới mỗi câu hỏi.
-2. Chạy lệnh generate bộ tài liệu đầy đủ:
-   ```
-   npm run create -- learnpress-membership
-   ```
-3. Hệ thống sẽ đọc `input.md` + `questions.md` + skill package để tạo 7 tài liệu chính và `asana-task.html` trong `projects/learnpress-membership/output/`.
+```bash
+npm run create -- learnpress-membership
+```
