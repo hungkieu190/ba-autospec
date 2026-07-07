@@ -14,13 +14,17 @@ import {
 } from "./shared.js";
 
 const args = process.argv.slice(2);
-const generateDocs = args.includes("--generate-docs");
+const generateSkeleton = args.includes("--generate-skeleton") || args.includes("--generate-docs");
 const projectName = args.find((arg) => !arg.startsWith("--"));
 
 if (!projectName) {
   console.error("Project name is required.");
   console.error("Usage: npm run start -- <project-name>");
   process.exit(1);
+}
+
+if (args.includes("--generate-docs")) {
+  console.warn("Warning: --generate-docs is deprecated. Use --generate-skeleton because this command only creates TODO skeleton files.");
 }
 
 const projectDir = path.join(PROJECTS_DIR, projectName);
@@ -43,10 +47,10 @@ const skillFiles = loadSkillFilesSummary(tool.id);
 
 const questionPromptFile = path.join(projectDir, "create-question-by-agent.md");
 
-if (!generateDocs) {
+if (!generateSkeleton) {
   const prompt = tool.id === "product-content-generator"
     ? renderContentQuestionAgentPrompt(answers, skillMap, mandatorySkills, skillFiles)
-    : renderQuestionAgentPrompt(answers, skillMap, mandatorySkills);
+    : renderQuestionAgentPrompt(answers, skillMap, mandatorySkills, skillFiles);
   fs.writeFileSync(questionPromptFile, prompt);
   console.log(`Generated agent prompt in ${path.relative(process.cwd(), questionPromptFile)}`);
   console.log("Next: paste that prompt into your AI agent chat. The agent should create questions.md.");
@@ -54,7 +58,7 @@ if (!generateDocs) {
 }
 
 if (tool.id !== "product-documentation-generator") {
-  console.error("--generate-docs is only available for Product Documentation & Discovery Generator.");
+  console.error("--generate-skeleton is only available for Product Documentation & Discovery Generator.");
   console.error("For Product Content Generator, run npm run create -- <project-name> and paste the generated prompt into your AI agent.");
   process.exit(1);
 }
@@ -70,7 +74,8 @@ fs.writeFileSync(path.join(outputDir, "index.md"), renderIndex(answers));
 fs.writeFileSync(path.join(outputDir, "quality-report.md"), renderQualityReport(answers, mandatorySkills));
 fs.writeFileSync(path.join(outputDir, "asana-task.html"), renderAsanaTaskHtml(answers));
 
-console.log(`Generated ${DOCUMENTS.length} documents plus Asana HTML in ${path.relative(process.cwd(), outputDir)}`);
+console.log(`Generated skeleton files in ${path.relative(process.cwd(), outputDir)}`);
+console.log("These files contain TODO sections. Use npm run create for the full AI-agent prompt workflow.");
 
 function renderContentQuestionAgentPrompt(answers, skillMapContent, mandatorySkillsContent, skillFilesContent) {
   const projectTitle = answers["Project Name"] || projectName;
@@ -87,7 +92,7 @@ Hãy đọc input của project và toàn bộ skill package của Product Conte
 
 Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm theo phong cách WooCommerce product page. Không cần search WooCommerce mỗi lần; hãy dùng local style reference đã được cô đọng trong repo.
 
-## Files Bắt Buộc Phải Đọc
+## Files bắt buộc phải đọc
 
 1. \`projects/${projectName}/input.md\`
 2. \`product-content-generator/skills/mandatory-skills.md\`
@@ -95,7 +100,7 @@ Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm 
 4. \`product-content-generator/woocommerce-style-reference.md\`
 5. Toàn bộ skill trong \`product-content-generator/skills/\`
 
-## Tóm Tắt Input Hiện Tại
+## Tóm tắt input hiện tại
 
 | Mục | Nội dung |
 | --- | --- |
@@ -111,7 +116,7 @@ Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm 
 | Competitors Or Alternatives | ${escapeTable(answers["Competitors Or Alternatives"])} |
 | SEO Keywords | ${escapeTable(answers["SEO Keywords"])} |
 
-## Quy Tắc Tạo questions.md
+## Quy tắc tạo questions.md
 
 1. Viết bằng tiếng Việt, giữ technical terms bằng English khi cần.
 2. Chỉ tạo \`questions.md\`, chưa tạo nội dung sản phẩm cuối cùng.
@@ -121,16 +126,16 @@ Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm 
 6. Không tự web search WooCommerce Subscriptions trừ khi người dùng yêu cầu rõ.
 7. Không yêu cầu người dùng cung cấp số liệu nếu họ không có; cho phép ghi \`Không biết\`.
 
-## Cấu Trúc questions.md Bắt Buộc
+## Cấu trúc questions.md bắt buộc
 
 \`\`\`markdown
-# Câu Hỏi Bổ Sung Cho ${projectTitle}
+# Câu hỏi bổ sung cho ${projectTitle}
 
-## Hướng Dẫn Trả Lời
+## Hướng dẫn trả lời
 
-## Tóm Tắt Những Gì Đã Biết
-## Các Assumption Đang Có
-## Câu Hỏi Cần Trả Lời
+## Tóm tắt những gì đã biết
+## Các assumption đang có
+## Câu hỏi cần trả lời
 ### Product And Positioning
 ### Customer Persona
 ### SEO And Keywords
@@ -140,8 +145,8 @@ Mục tiêu là thu thập đủ thông tin để tạo nội dung sản phẩm 
 ### Proof, Trust, Pricing, Support
 ### FAQ And Objections
 ### Blog/Content Ideas
-## Câu Hỏi Ưu Tiên Cao
-## Bước Tiếp Theo
+## Câu hỏi ưu tiên cao
+## Bước tiếp theo
 Hướng dẫn người dùng sau khi trả lời xong chạy: npm run create -- ${projectName}
 \`\`\`
 
@@ -159,7 +164,7 @@ ${skillFilesContent || "Không load được skill files."}
 `;
 }
 
-function renderQuestionAgentPrompt(answers, skillMapContent, mandatorySkillsContent) {
+function renderQuestionAgentPrompt(answers, skillMapContent, mandatorySkillsContent, skillFilesContent) {
   const projectTitle = answers["Project Name"] || projectName;
   const weakFields = findWeakFields(answers);
 
@@ -175,14 +180,14 @@ Hãy đọc input của project và toàn bộ skill package, sau đó tạo fil
 
 File \`questions.md\` phải giúp người dùng trả lời thêm những thông tin còn thiếu để sau đó có thể tạo bộ Product Discovery, Product Documentation, và Marketing Package hoàn chỉnh.
 
-## Files Bắt Buộc Phải Đọc
+## Files bắt buộc phải đọc
 
 1. \`projects/${projectName}/input.md\`
 2. \`product-documentation-generator/skills/mandatory-skills.md\`
 3. \`product-documentation-generator/skills/skill-map.md\`
 4. Toàn bộ skill liên quan trong \`product-documentation-generator/skills/\`
 
-## Tóm Tắt Input Hiện Tại
+## Tóm tắt input hiện tại
 
 | Mục | Nội dung |
 | --- | --- |
@@ -199,11 +204,11 @@ File \`questions.md\` phải giúp người dùng trả lời thêm những thô
 | SEO Keywords | ${escapeTable(answers["SEO Keywords"])} |
 | Risks Or Constraints | ${escapeTable(answers["Risks Or Constraints"])} |
 
-## Các Mục Tool Phát Hiện Còn Yếu
+## Các mục tool phát hiện còn yếu
 
 ${weakFields.length ? weakFields.map((field) => `- ${field}`).join("\n") : "- Không phát hiện mục trống theo kiểm tra cơ bản. Vẫn phải dùng skill để đánh giá độ đủ sâu của input."}
 
-## Quy Tắc Tạo questions.md
+## Quy tắc tạo questions.md
 
 1. Viết hoàn toàn bằng tiếng Việt.
 2. Giữ thuật ngữ chuyên ngành bằng tiếng Anh nếu tự nhiên và chính xác hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook.
@@ -213,32 +218,30 @@ ${weakFields.length ? weakFields.map((field) => `- ${field}`).join("\n") : "- Kh
 6. Ưu tiên hỏi về: market validation, target users, user roles, core workflow, feature scope, competitors, pricing, integrations, risks, SEO, QA, documentation, and launch assets.
 7. Nếu input đã đủ ở một mục, vẫn có thể hỏi câu nâng cao để làm rõ trade-off hoặc assumption.
 
-## Cấu Trúc questions.md Bắt Buộc
-
-Tạo file theo cấu trúc này:
+## Cấu trúc questions.md bắt buộc
 
 \`\`\`markdown
-# Câu Hỏi Bổ Sung Cho ${projectTitle}
+# Câu hỏi bổ sung cho ${projectTitle}
 
-## Hướng Dẫn Trả Lời
+## Hướng dẫn trả lời
 
 Giải thích ngắn gọn cho người dùng: hãy trả lời trực tiếp dưới từng câu hỏi, có thể bỏ qua câu không liên quan, ghi "Không biết" nếu chưa có dữ liệu.
 
-## Tóm Tắt Những Gì Đã Biết
+## Tóm tắt những gì đã biết
 
 Tóm tắt input hiện tại bằng tiếng Việt.
 
-## Các Assumption Đang Có
+## Các assumption đang có
 Liệt kê assumption AI phát hiện từ input.
 
-## Câu Hỏi Cần Trả Lời
+## Câu hỏi cần trả lời
 
 Chia theo nhóm: Product Context, Market Validation, Users & Roles, Scope & Features, Competitors, Revenue & Pricing, UX/User Flow, Technical/Integrations, SEO/GTM, QA/Acceptance Criteria, Documentation.
 
-## Câu Hỏi Ưu Tiên Cao
+## Câu hỏi ưu tiên cao
 Chọn 5-10 câu quan trọng nhất cần trả lời trước.
 
-## Bước Tiếp Theo
+## Bước tiếp theo
 Hướng dẫn người dùng sau khi trả lời xong chạy: npm run create -- ${projectName}
 \`\`\`
 
@@ -249,138 +252,10 @@ ${mandatorySkillsContent || "Không load được mandatory skills."}
 ## Skill Map Reference
 
 ${skillMapContent || "Không load được skill map."}
-`;
-}
 
-function renderQuestions(answers, skillMapContent, mandatorySkillsContent) {
-  const projectTitle = answers["Project Name"] || projectName;
-  const weakFields = findWeakFields(answers);
+## Full Skill Package
 
-  return `# Câu Hỏi Bổ Sung Cho ${projectTitle}
-
-## Mục Tiêu
-
-File này được tạo từ \`input.md\` để AI agent đọc lại thông tin đầu vào, sử dụng toàn bộ bộ skill trong \`product-documentation-generator/skills/\`, rồi hỏi thêm những điểm còn thiếu trước khi tạo tài liệu cuối cùng.
-
-Đầu ra tài liệu cuối cùng phải viết bằng tiếng Việt. Các thuật ngữ chuyên ngành nên giữ nguyên tiếng Anh khi tự nhiên hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook.
-
-## Tóm Tắt Input Hiện Tại
-
-| Mục | Nội dung |
-| --- | --- |
-| Project Name | ${escapeTable(projectTitle)} |
-| Product Idea | ${escapeTable(answers["Product Idea"])} |
-| Product Type | ${escapeTable(answers["Product Type"])} |
-| Target Users | ${escapeTable(answers["Target Users"])} |
-| User Roles | ${escapeTable(answers["User Roles"])} |
-| Core Problem | ${escapeTable(answers["Core Problem"])} |
-| Proposed Solution | ${escapeTable(answers["Proposed Solution"])} |
-| Must-Have Features | ${escapeTable(answers["Must-Have Features"])} |
-| Competitors Or Alternatives | ${escapeTable(answers["Competitors Or Alternatives"])} |
-| Pricing Or Revenue Model | ${escapeTable(answers["Pricing Or Revenue Model"])} |
-| SEO Keywords | ${escapeTable(answers["SEO Keywords"])} |
-| Risks Or Constraints | ${escapeTable(answers["Risks Or Constraints"])} |
-
-## Các Mục Đang Thiếu Hoặc Còn Yếu
-
-${weakFields.length ? weakFields.map((field) => `- ${field}`).join("\n") : "- Chưa phát hiện mục trống theo kiểm tra cơ bản. AI agent vẫn cần rà soát chất lượng và hỏi thêm nếu thông tin chưa đủ để ra quyết định."}
-
-## Câu Hỏi Cần Người Dùng Trả Lời
-
-### 1. Product Context
-
-1. Sản phẩm này dành cho thị trường nào trước tiên: Việt Nam, quốc tế, hay một niche cụ thể?
-2. Ai là người ra quyết định mua hoặc cài đặt sản phẩm?
-3. Người dùng cuối khác gì với người trả tiền?
-4. Sản phẩm này là standalone product hay add-on cho một hệ sinh thái có sẵn?
-5. Có platform/version cụ thể nào bắt buộc phải hỗ trợ không?
-
-### 2. Problem Validation
-
-1. Vấn đề này đang xảy ra trong tình huống thực tế nào?
-2. Người dùng hiện đang giải quyết vấn đề này bằng cách nào?
-3. Điều gì khiến giải pháp hiện tại tốn thời gian, tốn tiền, rủi ro, hoặc khó dùng?
-4. Có bằng chứng nào từ customer support, review, forum, ticket, sales call, hoặc khách hàng thật không?
-5. Nếu không xây sản phẩm này, người dùng sẽ tiếp tục chịu tổn thất gì?
-
-### 3. Target Users And Roles
-
-1. Liệt kê từng user role và việc chính họ cần làm trong sản phẩm.
-2. Role nào có quyền cấu hình, role nào chỉ sử dụng, role nào chỉ xem báo cáo?
-3. Có cần permission matrix chi tiết không?
-4. Có khác biệt workflow giữa free user, paid user, admin, customer, instructor, student, manager không?
-
-### 4. Scope And Features
-
-1. Ba tính năng bắt buộc nhất cho MVP là gì?
-2. Tính năng nào có thể để sau launch mà không làm mất giá trị cốt lõi?
-3. Có workflow nào tuyệt đối không được thiếu không?
-4. Có tính năng nào dễ gây support burden cao nên loại khỏi v1 không?
-5. Có cần import/export, notification, email, reporting, analytics, audit log, hoặc role management không?
-
-### 5. Competitors And Alternatives
-
-1. Bạn biết những competitor, plugin, app, SaaS, template, agency service, hoặc manual workaround nào?
-2. Người dùng đang trả tiền cho giải pháp nào hiện tại?
-3. Competitor nào mạnh nhất và vì sao?
-4. Competitor nào bị phàn nàn nhiều nhất và phàn nàn về điểm gì?
-5. Sản phẩm của mình phải khác biệt ở feature, UX, pricing, integration, support, hay positioning?
-
-### 6. Revenue And Pricing
-
-1. Muốn bán theo one-time purchase, subscription, freemium, bundle, marketplace, hay custom pricing?
-2. Mức giá kỳ vọng là bao nhiêu?
-3. Có plan free/pro/agency/enterprise không?
-4. Có cơ hội upsell hoặc cross-sell với sản phẩm hiện có không?
-5. Success metric về revenue là gì: số sale, MRR, ARPU, LTV, conversion rate, hay attach rate?
-
-### 7. UX And User Flow
-
-1. Core user flow từ lúc bắt đầu đến lúc nhận được giá trị là gì?
-2. First-run onboarding cần hỏi/cấu hình những gì?
-3. Người dùng cần thấy dashboard, wizard, settings page, embedded widget, modal, hay frontend screen?
-4. Empty state, error state, permission denied state cần xử lý thế nào?
-5. Có cần mobile-first, desktop-first, hoặc responsive admin UI không?
-
-### 8. Technical And Integration Constraints
-
-1. Có integration bắt buộc nào không: payment gateway, LMS, WooCommerce, Shopify, CRM, email service, API, webhook?
-2. Có giới hạn performance, data volume, realtime, cron job, queue, hoặc background processing không?
-3. Có yêu cầu bảo mật, privacy, GDPR, logging, data retention, export/delete data không?
-4. Có cần compatibility với theme/plugin/app khác không?
-5. Team hiện tại có constraint về timeline, skill, budget, hoặc maintenance không?
-
-### 9. SEO And Go-To-Market
-
-1. Người dùng sẽ search bằng keyword nào khi cần sản phẩm này?
-2. Có keyword thương mại hoặc comparison keyword nào đã biết không?
-3. Product page nên nhấn mạnh problem, benefit, feature, integration, hay comparison?
-4. Kênh launch chính là SEO, marketplace, email list, affiliate, cộng đồng, paid ads, hay existing users?
-5. Có cần tạo comparison articles, alternative articles, tutorial articles, hoặc use case articles không?
-
-### 10. Quality And Acceptance Criteria
-
-1. Điều kiện nào chứng minh MVP đã đủ để release?
-2. Những test case quan trọng nhất là gì?
-3. Role/permission nào cần test kỹ nhất?
-4. Edge case nào dễ gây bug hoặc support ticket?
-5. Sau launch, metric nào quyết định build tiếp, pivot, hoặc dừng?
-
-## Hướng Dẫn Cho AI Agent
-
-1. Đọc \`input.md\`, \`questions.md\`, và toàn bộ skill bắt buộc trước khi tạo tài liệu.
-2. Nếu người dùng chưa trả lời hết, đánh dấu rõ assumption thay vì bịa dữ liệu.
-3. Không tự tạo competitor giả, search volume giả, pricing benchmark giả, hoặc customer evidence giả.
-4. Tạo tài liệu đầu ra bằng tiếng Việt; giữ thuật ngữ chuyên ngành tiếng Anh khi cần độ chính xác.
-5. Ưu tiên tính khả thi thương mại, support cost, SEO potential, revenue potential, và development efficiency.
-
-## Mandatory Skills Loaded
-
-${mandatorySkillsContent || "Không load được mandatory skills."}
-
-## Skill Map Reference
-
-${skillMapContent || "Không load được skill map."}
+${skillFilesContent || "Không load được skill files."}
 `;
 }
 
@@ -420,7 +295,7 @@ ${productIdea}
 
 ## Evidence Status
 
-This document is generated from \`input.md\`. Market, keyword, competitor, pricing, or revenue claims must be treated as assumptions until independently verified.
+This skeleton is generated from \`input.md\`. Market, keyword, competitor, pricing, or revenue claims must be treated as assumptions until independently verified.
 
 ## Skills Used
 
@@ -587,7 +462,7 @@ function renderQualityReport(answers, mandatorySkillsContent) {
 
 ## Status
 
-${missing.length ? "Needs input completion" : "Input is present. Generated documents still require evidence validation and editorial completion."}
+${missing.length ? "Needs input completion" : "Input is present. Generated skeletons still require AI-agent completion and evidence validation."}
 
 ## Missing Or Weak Input Fields
 

@@ -58,7 +58,7 @@ Bạn là AI agent đang làm việc trực tiếp trong repo này.
 
 Hãy đọc input, câu trả lời trong questions.md, toàn bộ skill package của Product Content Generator, và local WooCommerce style reference. Sau đó tạo bộ nội dung sản phẩm bằng tiếng Việt theo phong cách WooCommerce product page.
 
-## Files Bắt Buộc Phải Đọc
+## Files bắt buộc phải đọc
 
 1. \`projects/${projectName}/input.md\`
 2. \`projects/${projectName}/questions.md\`
@@ -67,7 +67,7 @@ Hãy đọc input, câu trả lời trong questions.md, toàn bộ skill package
 5. \`product-content-generator/woocommerce-style-reference.md\`
 6. Toàn bộ skill trong \`product-content-generator/skills/\`
 
-## Output Bắt Buộc
+## Output bắt buộc
 
 Tạo thư mục \`projects/${projectName}/content-output/\` nếu chưa có, rồi tạo đúng các file sau:
 
@@ -80,16 +80,16 @@ Tạo thư mục \`projects/${projectName}/content-output/\` nếu chưa có, r�
 - \`projects/${projectName}/content-output/index.md\`
 - \`projects/${projectName}/content-output/quality-report.md\`
 
-## Luật Output Nghiêm Ngặt
+## Luật output nghiêm ngặt
 
 1. Chỉ tạo đúng các file trong danh sách trên.
 2. Không tạo bộ tài liệu discovery/PRD 7 file của workflow trước.
 3. Nội dung chính viết bằng tiếng Việt; technical terms có thể giữ English khi tự nhiên hơn.
-5. Không bịa reviews, rating, active installs, latest version, compatibility, pricing, support policy, refund policy, quality checks, hoặc customer evidence.
-6. Nếu thiếu dữ liệu, ghi rõ \`Assumption\`, \`Cần validate\`, hoặc \`Unknown\`.
-7. Phong cách phải theo \`product-content-generator/woocommerce-style-reference.md\`: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, related/comparison content.
-8. Không tự web search WooCommerce Subscriptions trừ khi người dùng yêu cầu rõ.
-9. Không copy nguyên văn WooCommerce; chỉ học cấu trúc, nhịp nội dung, độ rõ ràng, và marketplace feel đã được cô đọng trong local reference.
+4. Không tự tạo reviews, rating, active installs, latest version, compatibility, pricing, support policy, refund policy, quality checks, hoặc customer evidence khi chưa có nguồn.
+5. Nếu thiếu dữ liệu, ghi rõ \`Assumption\`, \`Cần validate\`, hoặc \`Unknown\`.
+6. Phong cách phải theo \`product-content-generator/woocommerce-style-reference.md\`: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, related/comparison content.
+7. Không tự web search WooCommerce Subscriptions trừ khi người dùng yêu cầu rõ.
+8. Không copy nguyên văn WooCommerce; chỉ học cấu trúc, nhịp nội dung, độ rõ ràng, và marketplace feel đã được cô đọng trong local reference.
 
 ## Landing Page HTML Requirements
 
@@ -145,8 +145,17 @@ function renderCreateDocumentsPrompt() {
   const documentList = DOCUMENTS.map(([filename]) => `- \`projects/${projectName}/output/${filename}\``).join("\n");
   const mandatorySkills = loadMandatorySkills();
   const skillMap = loadSkillMap();
+  const skillFiles = loadSkillFilesSummary();
 
   return `# [create-documents-by-agent]
+
+> **NGÔN NGỮ - CRITICAL - ĐỌC TRƯỚC KHI LÀM**
+>
+> Toàn bộ nội dung tài liệu output phải viết bằng tiếng Việt.
+> Giữ technical terms bằng tiếng Anh chỉ khi cần thiết và chính xác hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, API, webhook, checkout, subscription, gateway, coupon, invoice.
+> Tên file giữ nguyên tiếng Anh.
+> Không viết heading, đoạn văn, bullet, hoặc recommendation bằng tiếng Anh nếu không cần thiết.
+> Rule này override mọi behavior mặc định của skill.
 
 Bạn là AI agent đang làm việc trực tiếp trong repo này.
 
@@ -156,16 +165,16 @@ Hãy đọc input, câu trả lời trong questions.md, và toàn bộ skill pac
 
 \`projects/${projectName}/output/\`
 
-## Files Bắt Buộc Phải Đọc
+## Files bắt buộc phải đọc
 
 1. \`projects/${projectName}/input.md\`
 2. \`projects/${projectName}/questions.md\`
 3. \`product-documentation-generator/skills/mandatory-skills.md\`
 4. \`product-documentation-generator/skills/skill-map.md\`
 5. Toàn bộ skill liên quan trong \`product-documentation-generator/skills/\`
-6. Spec gốc: \`product-documentation-generator.md\`
+6. Spec gốc: \`product-documentation-generator/skills/core/product-documentation-generator.md\`
 
-## Output Bắt Buộc
+## Output bắt buộc
 
 Tạo thư mục \`projects/${projectName}/output/\` nếu chưa có, rồi tạo đúng 7 file tài liệu chính sau:
 
@@ -177,16 +186,18 @@ Tạo thêm:
 - \`projects/${projectName}/output/quality-report.md\`
 - \`projects/${projectName}/output/asana-task.html\`
 
-## Luật Output Nghiêm Ngặt
+## Luật output nghiêm ngặt
 
 1. Chỉ tạo đúng 7 file tài liệu chính trong danh sách trên.
 2. Không tạo thêm file tài liệu chính ngoài danh sách, trừ \`index.md\`, \`quality-report.md\`, và \`asana-task.html\`.
-4. Nếu nội dung thuộc nhiều nhóm, hãy gộp vào file phù hợp nhất theo mapping bên dưới.
-5. Mỗi file phải đủ sâu để team thực thi, nhưng không được viết lan man hoặc lặp ý.
-6. Mỗi section phải có quyết định, bảng, checklist, criteria, hoặc next action rõ ràng.
-7. Nếu thiếu dữ liệu, ghi rõ \`Assumption\`, \`Cần validate\`, hoặc \`Câu hỏi còn mở\`; không tự bịa.
+3. Nếu nội dung thuộc nhiều nhóm, hãy gộp vào file phù hợp nhất theo mapping bên dưới.
+4. Mỗi file phải đủ sâu để team thực thi, nhưng không viết lan man hoặc lặp ý.
+5. Mỗi section phải có quyết định, bảng, checklist, criteria, hoặc next action rõ ràng.
+6. Nếu thiếu dữ liệu, ghi rõ bằng ngôn ngữ production-safe như \`Assumption\`, \`Cần xác minh\`, hoặc \`Validation item\`. Không dùng câu meta/nội bộ trong tài liệu cuối.
 
-## Mapping 7 Tài Liệu
+7. Production wording guard: final output must not contain internal phrases such as "khong bia", "bia", "user tra loi", "nguoi dung tra loi", "khong ro version", "cau hoi con mo", "Không bịa", "bịa", "user trả lời", "người dùng trả lời", "không rõ version", or "Câu hỏi còn mở". Convert answered questions into decisions, requirements, assumptions, or validation items.
+
+## Mapping 7 tài liệu
 
 ### 1. \`01-discovery.md\`
 
@@ -232,7 +243,7 @@ Gộp các phần:
 - Admin/Customer/Instructor/Student Flow nếu liên quan
 - Wireframe Specification
 
-Bắt buộc có: Mermaid user flow, role-based flows, screen list, ASCII wireframes, empty/error states, navigation rules.
+Bắt buộc có: Mermaid user flow, role-based flows, screen list, ASCII wireframes hoặc link/support asset HTML wireframe, empty/error states, navigation rules.
 
 ### 5. \`05-qa-and-documentation.md\`
 
@@ -272,11 +283,11 @@ Gộp executive decision:
 
 Bắt buộc chọn một: Build Now, Build Later, Validate First, Reject. Phải giải thích bằng evidence và assumptions từ các file trước.
 
-## Asana Task HTML Bắt Buộc
+## Asana Task HTML bắt buộc
 
 Tạo thêm file \`projects/${projectName}/output/asana-task.html\` để người dùng mở trong trình duyệt, bấm copy, rồi paste vào Asana task.
 
-### Mục Tiêu HTML
+### Mục tiêu HTML
 
 - HTML phải là standalone file, không cần build step, không cần external dependency.
 - Có style đẹp, sạch, dễ đọc, phù hợp để review trước khi copy.
@@ -285,7 +296,7 @@ Tạo thêm file \`projects/${projectName}/output/asana-task.html\` để ngư�
 - Nội dung copy phải paste vào Asana giữ được heading/list cơ bản.
 - Không nhúng script remote, không dùng CDN.
 
-### Cấu Trúc Nội Dung Asana Task
+### Cấu trúc nội dung Asana Task
 
 HTML phải có đúng các section sau, theo thứ tự:
 
@@ -299,7 +310,7 @@ HTML phải có đúng các section sau, theo thứ tự:
 8. Subtasks
 9. Release Notes
 
-### Quy Tắc Nội Dung Asana
+### Quy tắc nội dung Asana
 
 - Viết bằng tiếng Việt, giữ technical terms bằng English khi cần.
 - Nội dung phải ngắn gọn hơn tài liệu đầy đủ, đủ để tạo Asana task cho feature.
@@ -319,28 +330,23 @@ HTML phải có đúng các section sau, theo thứ tự:
 - Include fallback function copy plain text từ \`innerText\`.
 - Không dùng markdown thô trong HTML; render thành headings, paragraphs, ul/ol/li, checkboxes nếu phù hợp.
 
-## Ngôn Ngữ Đầu Ra
-
-1. Viết tài liệu cuối cùng bằng tiếng Việt.
-2. Giữ thuật ngữ chuyên ngành bằng tiếng Anh nếu tự nhiên và chính xác hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, conversion, churn, LTV, CAC, MVP, API, webhook.
-3. Tên file giữ nguyên tiếng Anh như danh sách output.
-
-## Quy Tắc Chất Lượng
+## Quy tắc chất lượng
 
 1. Đọc skill trước khi viết tài liệu.
 2. Skill instructions ưu tiên hơn kiến thức chung.
 3. Không viết filler content.
-4. Không bịa competitor, search volume, pricing benchmark, customer evidence, hoặc số liệu thị trường.
-5. Nếu thiếu dữ liệu, ghi rõ \`Assumption\` hoặc \`Cần validate\`.
+4. Không tự tạo competitor, search volume, pricing benchmark, customer evidence, hoặc số liệu thị trường khi chưa có nguồn.
+5. Nếu thiếu dữ liệu, ghi rõ bằng ngôn ngữ chuyên nghiệp như \`Assumption\`, \`Cần xác minh\`, hoặc \`Validation item\`.
 6. Mọi tài liệu phải actionable cho Product, Design, Engineering, QA, Documentation, Marketing, SEO.
 7. Tối ưu cho product viability, development efficiency, support cost, SEO potential, và revenue generation.
 8. Dùng bảng, checklist, Mermaid, ASCII wireframe khi phù hợp.
 9. Không dùng câu chung chung như "giải pháp mạnh mẽ", "trải nghiệm liền mạch", "tối ưu toàn diện" nếu không có proof cụ thể.
 10. Mỗi recommendation phải có lý do: user value, business value, technical feasibility, risk reduction, hoặc SEO/revenue potential.
-11. Mỗi tài liệu phải có section \`Assumptions And Open Questions\`.
+11. Mỗi tài liệu phải có section \`Assumptions, Decisions, And Validation Items\` thay cho \`Assumptions And Open Questions\`. Nếu \`questions.md\` đã có câu trả lời, không được giữ lại dưới dạng câu hỏi mở.
 12. Mỗi tài liệu phải có section \`Next Actions\` với việc cụ thể cho team liên quan.
+13. Production wording guard: final output must not contain internal phrases such as "khong bia", "bia", "user tra loi", "nguoi dung tra loi", "khong ro version", "cau hoi con mo", "Không bịa", "bịa", "user trả lời", "người dùng trả lời", "không rõ version", or "Câu hỏi còn mở". Rephrase evidence gaps as professional validation items.
 
-## Workflow Bắt Buộc
+## Workflow bắt buộc
 
 1. Tổng hợp thông tin từ \`input.md\` và câu trả lời trong \`questions.md\`.
 2. Tạo đúng 7 file theo mapping ở trên.
@@ -349,7 +355,7 @@ HTML phải có đúng các section sau, theo thứ tự:
 5. Viết \`07-build-or-not-build.md\` cuối cùng sau khi đã có đủ context.
 6. Chạy quality review và tạo \`quality-report.md\`.
 
-## Quality Report Bắt Buộc
+## Quality Report bắt buộc
 
 Trong \`quality-report.md\`, kiểm tra:
 
@@ -367,5 +373,9 @@ ${mandatorySkills || "Không load được mandatory skills."}
 ## Skill Map Reference
 
 ${skillMap || "Không load được skill map."}
+
+## Full Skill Package
+
+${skillFiles || "Không load được skill files."}
 `;
 }

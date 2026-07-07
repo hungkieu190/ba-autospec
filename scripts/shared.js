@@ -3,6 +3,8 @@ import path from "node:path";
 
 export const ROOT_DIR = process.cwd();
 export const PROJECTS_DIR = path.join(ROOT_DIR, "projects");
+export const REFERENCES_DIR = path.join(ROOT_DIR, "references");
+export const LEARNPRESS_REFERENCE_DIR = path.join(REFERENCES_DIR, "learnpress", "core");
 export const DEFAULT_TOOL_ID = "product-documentation-generator";
 
 export const TOOLS = {
@@ -30,6 +32,17 @@ export const DOCUMENTS = [
   ["05-qa-and-documentation.md", "QA Plan and Documentation Outline"],
   ["06-seo-and-marketing.md", "SEO, Product Page, and Marketing Assets"],
   ["07-build-or-not-build.md", "Build Or Not Build Report"],
+];
+
+export const CONTENT_DOCUMENTS = [
+  ["01-product-analysis.md", "Product Analysis"],
+  ["02-seo-keyword-plan.md", "SEO Keyword Plan"],
+  ["03-product-page-copy.md", "Product Page Copy"],
+  ["04-landing-page.html", "Landing Page"],
+  ["05-comparison-faq.md", "Comparison And FAQ"],
+  ["06-blog-content-plan.md", "Blog Content Plan"],
+  ["index.md", "Content Index"],
+  ["quality-report.md", "Quality Report"],
 ];
 
 export function ensureDir(dir) {
@@ -186,16 +199,17 @@ export function parseInputMarkdown(content) {
   const result = {};
   let currentKey = null;
 
-  for (const line of content.split(/\r?\n/)) {
-    const heading = line.match(/^##\s+(.+)\s*$/);
+  for (const rawLine of content.replace(/^\uFEFF/, "").split(/\r?\n/)) {
+    const line = rawLine.replace(/\s+$/g, "");
+    const heading = line.match(/^##\s+(.+?)\s*#*\s*$/);
     if (heading) {
       currentKey = heading[1].trim();
-      result[currentKey] = "";
+      result[currentKey] = result[currentKey] || "";
       continue;
     }
 
     if (currentKey) {
-      result[currentKey] += `${line}\n`;
+      result[currentKey] += `${rawLine}\n`;
     }
   }
 
@@ -238,15 +252,22 @@ export function listSkillFiles(toolId = DEFAULT_TOOL_ID) {
   const tool = getTool(toolId);
   if (!fs.existsSync(tool.skillsDir)) return [];
 
-  return fs
-    .readdirSync(tool.skillsDir)
-    .filter((file) => file.endsWith(".md"))
-    .sort()
-    .map((file) => path.join(tool.skillsDir, file));
+  return walkMarkdownFiles(tool.skillsDir);
 }
 
 export function loadSkillFilesSummary(toolId = DEFAULT_TOOL_ID) {
   return listSkillFiles(toolId)
     .map((filePath) => `## ${path.relative(ROOT_DIR, filePath)}\n\n${readIfExists(filePath)}`)
     .join("\n\n---\n\n");
+}
+
+function walkMarkdownFiles(dir) {
+  return fs
+    .readdirSync(dir, { withFileTypes: true })
+    .flatMap((entry) => {
+      const entryPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) return walkMarkdownFiles(entryPath);
+      return entry.isFile() && entry.name.endsWith(".md") ? [entryPath] : [];
+    })
+    .sort();
 }

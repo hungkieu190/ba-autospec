@@ -20,6 +20,8 @@ Use this skill as the orchestration layer for generating complete product discov
 - Validate whether the product should be built before writing execution documents.
 - Mark assumptions explicitly when source evidence is unavailable.
 - Do not invent fake competitors, metrics, search volume, pricing, or customer evidence.
+- Keep final documents production-safe: do not copy internal instruction wording such as "do not invent", "fake", "hallucinate", "user answered", or "open question" into buyer-facing or executive sections. Rephrase evidence gaps professionally, for example "Chưa có dữ liệu xác minh" or "Cần xác minh bằng nguồn chính thức".
+- If the user has answered a question, convert the answer into a decision, requirement, assumption, or validation item. Do not keep it as an open question.
 - Prefer actionable decisions, checklists, tables, and concrete acceptance criteria.
 - Think commercially: viability, revenue, support cost, SEO potential, and defensibility matter as much as technical feasibility.
 - Keep every document useful for a real team: product, design, engineering, QA, docs, marketing, SEO, and leadership.
@@ -56,4 +58,4 @@ Use this skill as the orchestration layer for generating complete product discov
 - Do not split the package into the older 23-file structure.
 - Add only `index.md` and `quality-report.md` as supporting files.
 - Consolidate related sections into the closest matching document instead of creating new files.
-- Every document must include `Assumptions And Open Questions` and `Next Actions`.
+- Every document must include `Assumptions, Decisions, And Validation Items` and `Next Actions`.

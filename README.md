@@ -1,77 +1,90 @@
 # ba-autospec
-Your AI-Powered Business Analyst — Turn Ideas into Complete Features &amp; Documentation Instantly
 
-## Usage
+`ba-autospec` là CLI hỗ trợ Business Analysis và Product Documentation bằng AI agent.
 
-Create a new project input file:
+Tool này không tự gọi model. Nó tạo input template, gom skill package, sinh prompt chuẩn để bạn paste vào AI agent, rồi kiểm tra output bằng script nội bộ.
+
+## Luồng chuẩn
+
+Luồng làm việc chính:
+
+```text
+Lên kế hoạch draft -> Phản biện -> Sửa lại -> Validate bản hoàn chỉnh -> Xuất PDF
+```
+
+Chi tiết:
+
+1. `npm run init`
+   Tạo project và file `input.md`.
+
+2. Điền `projects/<project-name>/input.md`
+   Ghi rõ product idea, target users, problem, solution, features, competitors, pricing, SEO, risks, success metrics.
+
+3. `npm run start -- <project-name>`
+   Sinh `create-question-by-agent.md`.
+   Paste file này vào AI agent để agent tạo `questions.md`.
+
+4. Trả lời `projects/<project-name>/questions.md`
+   Trả lời trực tiếp dưới từng câu hỏi. Nếu chưa biết, ghi `Không biết` hoặc `Unknown`.
+
+5. `npm run plan -- <project-name>`
+   Sinh `create-documents-by-agent.md`.
+   Paste file này vào AI agent để agent tạo bản kế hoạch draft.
+
+6. `npm run validate -- <project-name>`
+   Kiểm tra draft có đủ file, không còn TODO, không lỗi encoding, HTML Asana đúng cấu trúc.
+
+7. `npm run critique -- <project-name>`
+   Sinh `critique-by-agent.md`.
+   Paste file này vào AI agent để agent tạo `critique-report.md`.
+
+8. `npm run revise -- <project-name>`
+   Sinh `revise-by-agent.md`.
+   Paste file này vào AI agent để agent sửa lại các tài liệu dựa trên `critique-report.md` và tạo `revision-report.md`.
+
+9. `npm run validate -- <project-name>`
+   Kiểm tra lại bản đã sửa.
+
+10. `npm run pdf -- <project-name>`
+    Xuất PDF cho bản hoàn chỉnh.
+
+Nếu critique vẫn còn vấn đề lớn, lặp lại:
+
+```text
+critique -> revise -> validate
+```
+
+## Tạo project
+
+Chạy interactive:
 
 ```bash
 npm run init
 ```
 
-The interactive command lets you choose one of the available tools:
-
-```text
-1. Product Documentation & Discovery Generator
-2. Product Content Generator
-```
-
-You can also create one non-interactively:
+Tạo nhanh:
 
 ```bash
 npm run init -- "LearnPress Chat Room"
 npm run init -- --tool product-content-generator "Woo Add-on Product Page"
 ```
 
-The command creates:
+Tool hiện có:
 
 ```text
-projects/<project-name>/input.md
+1. Product Documentation & Discovery Generator
+2. Product Content Generator
 ```
 
-Fill in `input.md`, then generate the prompt for your AI agent:
+## Product Documentation Generator
 
-```bash
-npm run start -- <project-name>
-```
-
-Example:
-
-```bash
-npm run start -- learnpress-chat-room
-```
-
-This creates:
-
-```text
-projects/<project-name>/create-question-by-agent.md
-```
-
-Paste the full content of `create-question-by-agent.md` into your AI agent chat. The AI agent will read `input.md` and the skill package, then create:
-
-```text
-projects/<project-name>/questions.md
-```
-
-Answer the questions directly in `questions.md`, then generate the final document-creation prompt:
-
-```bash
-npm run create -- <project-name>
-```
-
-This creates:
-
-```text
-projects/<project-name>/create-documents-by-agent.md
-```
-
-Paste that prompt into your AI agent chat. The AI agent will create the final documentation in Vietnamese under:
+Draft output nằm tại:
 
 ```text
 projects/<project-name>/output/
 ```
 
-The final package must contain exactly 7 main documents:
+Bắt buộc có 7 file chính:
 
 ```text
 01-discovery.md
@@ -83,7 +96,7 @@ The final package must contain exactly 7 main documents:
 07-build-or-not-build.md
 ```
 
-It must also contain:
+File hỗ trợ:
 
 ```text
 index.md
@@ -91,96 +104,252 @@ quality-report.md
 asana-task.html
 ```
 
-`asana-task.html` is a browser-friendly Asana task preview with a `Copy for Asana` button. It contains these sections:
+Sau vòng phản biện và sửa:
 
 ```text
-1. Business Goal
-2. Problem Statement
-3. Target Users
-4. Functional Requirements
-5. UI References
-6. Technical Notes
-7. Acceptance Criteria
-8. Subtasks
-9. Release Notes
+critique-report.md
+revision-report.md
 ```
 
-The old 23-file structure is intentionally not used by the default workflow.
-
-Technical terms such as PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, LTV, CAC, MVP, API, and webhook can stay in English.
-
-After the AI agent creates the markdown files, export them to PDF:
-
-```bash
-npm run pdf -- <project-name>
-```
-
-If there is only one documentation project with `output/*.md`, this also works:
-
-```bash
-npm run pdf
-```
-
-PDF files are written to:
-
-```text
-projects/<project-name>/output/pdf/
-```
-
-The command creates one combined PDF plus one PDF per markdown file:
-
-```text
-product-documentation.pdf
-01-discovery.pdf
-02-product-strategy.pdf
-...
-```
-
-PDF export requires WeasyPrint:
-
-```bash
-python -m pip install weasyprint
-```
-
-To generate the current deterministic document skeletons directly, use:
-
-```bash
-npm run start -- <project-name> --generate-docs
-```
-
-Generated 7-file skeletons are written to:
-
-```text
-projects/<project-name>/output/
-```
-
-The current tool is `Product Documentation & Discovery Generator`.
+`asana-task.html` là bản preview task để mở trong browser, bấm `Copy for Asana`, rồi paste vào Asana task description.
 
 ## Product Content Generator
 
-The second workflow creates product marketing content using skills in:
+Content output nằm tại:
 
 ```text
-product-content-generator/skills/
+projects/<project-name>/content-output/
 ```
 
-It generates AI-agent prompts for WooCommerce-style product content. The generated content prompt asks the AI agent to create:
+Bắt buộc có:
 
 ```text
-content-output/01-product-analysis.md
-content-output/02-seo-keyword-plan.md
-content-output/03-product-page-copy.md
-content-output/04-landing-page.html
-content-output/05-comparison-faq.md
-content-output/06-blog-content-plan.md
-content-output/index.md
-content-output/quality-report.md
+01-product-analysis.md
+02-seo-keyword-plan.md
+03-product-page-copy.md
+04-landing-page.html
+05-comparison-faq.md
+06-blog-content-plan.md
+index.md
+quality-report.md
 ```
 
-The WooCommerce style reference is stored locally in:
+Sau vòng phản biện và sửa:
+
+```text
+critique-report.md
+revision-report.md
+```
+
+Tool này dùng local style reference:
 
 ```text
 product-content-generator/woocommerce-style-reference.md
 ```
 
-The AI agent should use that local file instead of searching WooCommerce every run. It captures the WooCommerce product page pattern: product promise, pricing/CTA block, trust/support modules, compatibility, feature bullets, benefit-led sections, getting started, FAQ, and related/comparison content.
+## Validate
+
+Chạy:
+
+```bash
+npm run validate -- <project-name>
+```
+
+Script kiểm tra:
+
+- Có đủ file bắt buộc không.
+- Có file output ngoài whitelist không.
+- Markdown có H1 không.
+- Còn `TODO` trong file chính không.
+- Có lỗi mojibake tiếng Việt không.
+- `asana-task.html` có `<!doctype html>`, `charset="utf-8"`, `id="asana-content"`, `id="copy-button"`, và đủ 9 section không.
+
+## Lên kế hoạch draft
+
+Sau khi đã có `questions.md`, chạy:
+
+```bash
+npm run plan -- <project-name>
+```
+
+Lệnh này tương đương alias cũ:
+
+```bash
+npm run create -- <project-name>
+```
+
+Cả hai đều sinh:
+
+```text
+projects/<project-name>/create-documents-by-agent.md
+```
+
+Paste prompt này vào AI agent để tạo bản draft đầu tiên.
+
+## Lên kế hoạch code MVP
+
+Sau khi đã có bộ tài liệu sản phẩm trong `output/`, chạy:
+
+```bash
+npm run mvp:plan -- <project-name>
+```
+
+Lệnh này sinh:
+
+```text
+projects/<project-name>/mvp-plan-by-agent.md
+```
+
+Paste prompt này vào AI coding agent để tạo hoặc cập nhật:
+
+```text
+projects/<project-name>/mvp-build-plan/
+```
+
+Với sản phẩm LearnPress hoặc LearnPress add-on, chạy:
+
+```bash
+npm run mvp:plan -- <project-name> --learnpress
+```
+
+LearnPress core reference dùng chung nằm tại:
+
+```text
+references/learnpress/core/
+```
+
+AI agent phải đọc reference này trước khi lập plan, và không được sửa LearnPress core. Các project LearnPress sau này dùng chung reference này thay vì đặt source LearnPress trong từng project.
+
+## Phản biện
+
+Chạy:
+
+```bash
+npm run critique -- <project-name>
+```
+
+Lệnh này sinh:
+
+```text
+projects/<project-name>/critique-by-agent.md
+```
+
+AI agent sẽ tạo:
+
+```text
+projects/<project-name>/output/critique-report.md
+```
+
+hoặc với content workflow:
+
+```text
+projects/<project-name>/content-output/critique-report.md
+```
+
+Critique report phải kiểm tra:
+
+- Logic kế hoạch có nhất quán không.
+- Assumption nào yếu hoặc thiếu evidence.
+- Scope MVP có quá rộng không.
+- PRD có đủ requirement và acceptance criteria không.
+- UX có thiếu flow, empty state, error state, permission state không.
+- Technical plan có rủi ro dependency, lifecycle, data, security, performance không.
+- QA plan có test được không.
+- Build recommendation có khớp với discovery và risk không.
+
+## Sửa lại sau phản biện
+
+Chạy:
+
+```bash
+npm run revise -- <project-name>
+```
+
+Lệnh này sinh:
+
+```text
+projects/<project-name>/revise-by-agent.md
+```
+
+AI agent sẽ đọc `critique-report.md`, sửa lại output, và tạo:
+
+```text
+revision-report.md
+```
+
+Sau đó chạy lại:
+
+```bash
+npm run validate -- <project-name>
+```
+
+Nếu vẫn còn vấn đề lớn, chạy lại vòng:
+
+```bash
+npm run critique -- <project-name>
+npm run revise -- <project-name>
+npm run validate -- <project-name>
+```
+
+## Xuất PDF
+
+PDF chỉ hỗ trợ `Product Documentation & Discovery Generator`.
+
+Cài WeasyPrint:
+
+```bash
+python -m pip install weasyprint
+```
+
+Xuất PDF:
+
+```bash
+npm run pdf -- <project-name>
+```
+
+Nếu repo chỉ có một documentation project có `output/*.md`, có thể chạy:
+
+```bash
+npm run pdf
+```
+
+PDF được tạo tại:
+
+```text
+projects/<project-name>/output/pdf/
+```
+
+## Skeleton mode
+
+Nếu chỉ muốn tạo khung TODO deterministic:
+
+```bash
+npm run start -- <project-name> --generate-skeleton
+```
+
+Lệnh này chỉ tạo skeleton, không thay thế workflow AI agent. Alias cũ `--generate-docs` vẫn chạy nhưng đã deprecated.
+
+## Test tool
+
+Chạy:
+
+```bash
+npm test
+```
+
+Test kiểm tra:
+
+- `slugify`
+- parser `input.md`
+- recursive skill loading
+- lỗi mojibake trong README và script chính
+
+## Quy ước dữ liệu project
+
+Không nên commit file nặng, zip, source plugin giải nén, screenshot thô hoặc vendor code vào `projects/<project>/images/` nếu không thật sự cần review cùng tool.
+
+Nên ưu tiên link tới tài liệu/source bên ngoài, ảnh đã nén, file mẫu nhỏ, và ghi rõ nguồn trong `input.md` hoặc `questions.md`.
+
+## Ngôn ngữ
+
+Output chính nên viết bằng tiếng Việt. Technical terms có thể giữ tiếng Anh khi tự nhiên và chính xác hơn, ví dụ: PRD, roadmap, user flow, wireframe, acceptance criteria, SEO, LTV, CAC, MVP, API, webhook.

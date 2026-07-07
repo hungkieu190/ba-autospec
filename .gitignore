@@ -1,0 +1,8 @@
+node_modules/
+
+# Generated exports
+projects/*/output/pdf/
+
+# Heavy project references should stay outside git unless intentionally curated.
+projects/*/images/*.zip
+projects/*/images/**/vendor/

@@ -7,8 +7,14 @@
   "scripts": {
     "init": "node scripts/init.js",
     "start": "node scripts/start.js",
+    "plan": "node scripts/create.js",
+    "mvp:plan": "node scripts/mvp-plan.js",
     "create": "node scripts/create.js",
-    "pdf": "node scripts/pdf.js"
+    "critique": "node scripts/critique.js",
+    "revise": "node scripts/revise.js",
+    "pdf": "node scripts/pdf.js",
+    "validate": "node scripts/validate.js",
+    "test": "node scripts/test.js"
   },
   "engines": {
     "node": ">=18"

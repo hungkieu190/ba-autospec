@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { DEFAULT_TOOL_ID, ensureDir, PROJECTS_DIR, readProjectConfig } from "./shared.js";
+import { DEFAULT_TOOL_ID, DOCUMENTS, ensureDir, PROJECTS_DIR, readProjectConfig } from "./shared.js";
 
 const explicitProjectName = process.argv.slice(2).find((arg) => !arg.startsWith("--"));
 const projectName = explicitProjectName || inferProjectName();
@@ -29,11 +29,9 @@ if (!fs.existsSync(outputDir)) {
   process.exit(1);
 }
 
-const markdownFiles = fs
-  .readdirSync(outputDir)
-  .filter((file) => file.endsWith(".md"))
-  .filter((file) => file !== "quality-report.md")
-  .sort();
+const markdownFiles = DOCUMENTS
+  .map(([file]) => file)
+  .filter((file) => fs.existsSync(path.join(outputDir, file)));
 
 if (!markdownFiles.length) {
   console.error(`No markdown files found in ${outputDir}`);
@@ -42,6 +40,7 @@ if (!markdownFiles.length) {
 
 ensureWeasyPrint();
 ensureDir(pdfDir);
+cleanPdfDir(pdfDir);
 
 const combinedHtml = renderHtmlDocument(
   projectName,
@@ -85,7 +84,7 @@ function inferProjectName() {
 }
 
 function ensureWeasyPrint() {
-  const result = spawnSync("weasyprint", ["--version"], { encoding: "utf8" });
+  const result = spawnSync("python", ["-m", "weasyprint", "--version"], { encoding: "utf8" });
 
   if (result.error || result.status !== 0) {
     console.error("WeasyPrint is required but was not found in PATH.");
@@ -96,8 +95,22 @@ function ensureWeasyPrint() {
   }
 }
 
+function cleanPdfDir(dir) {
+  const resolvedDir = path.resolve(dir);
+  const expectedDir = path.resolve(pdfDir);
+  if (resolvedDir !== expectedDir || !resolvedDir.endsWith(`${path.sep}pdf`)) {
+    throw new Error(`Refusing to clean unexpected PDF directory: ${resolvedDir}`);
+  }
+
+  for (const entry of fs.readdirSync(resolvedDir, { withFileTypes: true })) {
+    if (!entry.isFile()) continue;
+    if (!/\.(html|pdf)$/i.test(entry.name)) continue;
+    fs.rmSync(path.join(resolvedDir, entry.name));
+  }
+}
+
 function runWeasyPrint(htmlPath, pdfPath) {
-  const result = spawnSync("weasyprint", [htmlPath, pdfPath], { encoding: "utf8" });
+  const result = spawnSync("python", ["-m", "weasyprint", htmlPath, pdfPath], { encoding: "utf8" });
 
   if (result.status !== 0) {
     console.error(`Failed to generate PDF: ${pdfPath}`);
@@ -115,21 +128,32 @@ function renderHtmlDocument(title, markdown) {
   <style>
     @page { size: A4; margin: 18mm 16mm; }
     body { color: #172033; font-family: Inter, "Noto Sans", Arial, sans-serif; font-size: 11pt; line-height: 1.58; }
-    h1, h2, h3, h4 { color: #111827; line-height: 1.2; page-break-after: avoid; }
+    h1, h2, h3, h4, h5, h6 { color: #111827; line-height: 1.2; page-break-after: avoid; }
     h1 { font-size: 28pt; margin: 0 0 14pt; }
     h2 { font-size: 18pt; margin: 22pt 0 8pt; border-bottom: 1px solid #e5e7eb; padding-bottom: 4pt; }
     h3 { font-size: 14pt; margin: 16pt 0 6pt; }
     h4 { font-size: 12pt; margin: 12pt 0 4pt; }
+    h5, h6 { font-size: 11pt; margin: 10pt 0 4pt; }
     p { margin: 0 0 8pt; }
     ul, ol { margin: 4pt 0 10pt 18pt; padding: 0; }
     li { margin: 2pt 0; }
-    table { border-collapse: collapse; margin: 10pt 0 14pt; width: 100%; font-size: 9.5pt; }
-    th, td { border: 1px solid #d0d5dd; padding: 6pt; vertical-align: top; }
+    table { border-collapse: collapse; margin: 10pt 0 14pt; width: 100%; table-layout: fixed; font-size: 9.2pt; }
+    tr { break-inside: avoid; page-break-inside: avoid; }
+    th, td { border: 1px solid #d0d5dd; padding: 5pt; vertical-align: top; overflow-wrap: anywhere; word-break: normal; hyphens: auto; }
     th { background: #f2f4f7; font-weight: 700; }
+    table.wide-table { font-size: 7.6pt; line-height: 1.35; }
+    table.wide-table th, table.wide-table td { padding: 4pt; }
+    table.very-wide-table { font-size: 6.8pt; line-height: 1.28; }
+    table.very-wide-table th, table.very-wide-table td { padding: 3pt; }
     code { background: #f2f4f7; border-radius: 3pt; color: #344054; font-family: "JetBrains Mono", Consolas, monospace; font-size: 9.5pt; padding: 1pt 3pt; }
     pre { background: #101828; border-radius: 8pt; color: #f9fafb; font-family: "JetBrains Mono", Consolas, monospace; font-size: 9pt; overflow-wrap: break-word; padding: 10pt; white-space: pre-wrap; }
     blockquote { border-left: 4pt solid #7f56d9; color: #475467; margin: 10pt 0; padding: 4pt 0 4pt 10pt; }
     a { color: #5b21b6; text-decoration: none; }
+    img { display: block; margin: 10pt 0; max-width: 100%; }
+    .task { list-style: none; margin-left: 0; }
+    .task li { break-inside: avoid; page-break-inside: avoid; padding-left: 16pt; position: relative; }
+    .checkbox { border: 1pt solid #111827; display: inline-block; height: 8.5pt; left: 0; line-height: 8.5pt; position: absolute; text-align: center; top: 2.5pt; width: 8.5pt; }
+    .checkbox.checked::after { content: "✓"; font-size: 7pt; line-height: 8.5pt; }
     .page-break { break-after: page; height: 0; }
   </style>
 </head>
@@ -183,12 +207,21 @@ function markdownToHtml(markdown) {
       continue;
     }
 
-    const heading = line.match(/^(#{1,4})\s+(.+)$/);
+    const heading = line.match(/^(#{1,6})\s+(.+)$/);
     if (heading) {
       flushParagraph();
       flushList();
       const level = heading[1].length;
       html.push(`<h${level}>${inlineMarkdown(heading[2].trim())}</h${level}>`);
+      continue;
+    }
+
+    const task = line.match(/^\s*[-*]\s+\[([ xX])]\s+(.+)$/);
+    if (task) {
+      flushParagraph();
+      openList("ul", "task");
+      const checked = task[1].toLowerCase() === "x" ? " checked" : "";
+      html.push(`<li><span class="checkbox${checked}" aria-hidden="true"></span>${inlineMarkdown(task[2])}</li>`);
       continue;
     }
 
@@ -215,6 +248,14 @@ function markdownToHtml(markdown) {
       continue;
     }
 
+    const image = line.match(/^!\[([^\]]*)]\(([^)]+)\)$/);
+    if (image) {
+      flushParagraph();
+      flushList();
+      html.push(`<img src="${escapeAttribute(image[2])}" alt="${escapeAttribute(image[1])}">`);
+      continue;
+    }
+
     paragraph.push(line.trim());
   }
 
@@ -230,16 +271,17 @@ function markdownToHtml(markdown) {
     paragraph = [];
   }
 
-  function openList(type) {
-    if (listType === type) return;
+  function openList(type, className = "") {
+    const normalizedType = className ? `${type}.${className}` : type;
+    if (listType === normalizedType) return;
     flushList();
-    listType = type;
-    html.push(`<${type}>`);
+    listType = normalizedType;
+    html.push(`<${type}${className ? ` class="${className}"` : ""}>`);
   }
 
   function flushList() {
     if (!listType) return;
-    html.push(`</${listType}>`);
+    html.push(`</${listType.split(".")[0]}>`);
     listType = null;
   }
 
@@ -262,7 +304,8 @@ function renderTable(lines) {
   if (!rows.length) return "";
 
   const [header, ...body] = rows;
-  return `<table><thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead><tbody>${body
+  const tableClass = header.length >= 8 ? "very-wide-table" : header.length >= 6 ? "wide-table" : "";
+  return `<table${tableClass ? ` class="${tableClass}"` : ""}><thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead><tbody>${body
     .map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join("")}</tr>`)
     .join("")}</tbody></table>`;
 }
@@ -272,7 +315,7 @@ function inlineMarkdown(value = "") {
     .replace(/`([^`]+)`/g, "<code>$1</code>")
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
     .replace(/\*([^*]+)\*/g, "<em>$1</em>")
-    .replace(/\[([^\]]+)]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    .replace(/\[([^\]]+)]\(([^)]+)\)/g, (_match, label, href) => `<a href="${escapeAttribute(href)}">${label}</a>`);
 }
 
 function escapeHtml(value = "") {
@@ -282,4 +325,8 @@ function escapeHtml(value = "") {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function escapeAttribute(value = "") {
+  return escapeHtml(value).replace(/`/g, "&#96;");
 }
