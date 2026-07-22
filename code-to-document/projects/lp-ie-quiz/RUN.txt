@@ -1,0 +1,7 @@
+Read and fully execute: projects/lp-ie-quiz/agent-prompt.md
+
+Rules: follow that file exactly. Load skills/ first (see skills/README.md), analyze code/, read the project input, write BOTH output files under projects/lp-ie-quiz/output/:
+- projects/lp-ie-quiz/output/product-request.vi.md
+- projects/lp-ie-quiz/output/product-request.en.md
+
+Workspace root must be the code-to-document repo.

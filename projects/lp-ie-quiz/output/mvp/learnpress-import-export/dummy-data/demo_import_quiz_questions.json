@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "question_title": "Cell structure basics",
+      "question_content": "",
+      "question_type": "single_choice",
+      "answers": ["Nucleus", "Mitochondria", "Cell wall", "Ribosome"],
+      "correct_answer": "1",
+      "explanation": "Nucleus holds genetic material.",
+      "hint": "",
+      "mark": 1,
+      "status": "publish"
+    },
+    {
+      "question_title": "Select energy organelles",
+      "question_content": "",
+      "question_type": "multi_choice",
+      "answers": ["Chloroplast", "Mitochondria", "Golgi", "Lysosome"],
+      "correct_answer": "1,2",
+      "explanation": "",
+      "hint": "",
+      "mark": 1,
+      "status": "publish"
+    },
+    {
+      "question_title": "DNA is a double helix",
+      "question_content": "",
+      "question_type": "true_or_false",
+      "answers": [],
+      "correct_answer": "true",
+      "explanation": "",
+      "hint": "",
+      "mark": 1,
+      "status": "publish"
+    },
+    {
+      "question_title": "Capital city blank",
+      "question_content": "Paris is the capital of [fib fill=\"France\" id=\"blank_country\" comparison=\"equal\" match_case=\"0\" ].",
+      "question_type": "fill_in_blanks",
+      "answers": [],
+      "correct_answer": "",
+      "explanation": "The expected blank is France.",
+      "hint": "European country",
+      "mark": 1,
+      "status": "publish"
+    },
+    {
+      "question_title": "Water formula",
+      "question_content": "",
+      "question_type": "single_choice",
+      "answers": ["H2O", "CO2", "NaCl", "O2"],
+      "correct_answer": "1",
+      "explanation": "",
+      "hint": "",
+      "mark": 1,
+      "status": "publish"
+    },
+    {
+      "question_title": "Select prime numbers",
+      "question_content": "",
+      "question_type": "multi_choice",
+      "answers": ["2", "3", "4", "5"],
+      "correct_answer": "1,2,4",
+      "explanation": "",
+      "hint": "",
+      "mark": 2,
+      "status": "publish"
+    },
+    {
+      "question_title": "Sun rises in the west",
+      "question_content": "",
+      "question_type": "true_or_false",
+      "answers": [],
+      "correct_answer": "false",
+      "explanation": "",
+      "hint": "",
+      "mark": 1,
+      "status": "publish"
+    }
+  ]
+}

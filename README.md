@@ -186,6 +186,48 @@ projects/<project-name>/create-documents-by-agent.md
 
 Paste prompt này vào AI agent để tạo bản draft đầu tiên.
 
+## Vẽ wireframe HTML (từ output + ảnh demo)
+
+Sau khi đã có bộ tài liệu trong `output/`, chạy:
+
+```bash
+npm run wireframe -- <project-name>
+```
+
+Lệnh này:
+
+1. Tạo/đảm bảo `projects/<project-name>/output/images-demo/` để paste ảnh tham chiếu.
+2. Tạo/đảm bảo `projects/<project-name>/output/wireframes/` (+ `assets/`).
+3. Sinh prompt `projects/<project-name>/create-wireframe-by-agent.md`.
+
+Paste prompt vào AI agent. Agent sẽ:
+
+- Đọc docs trong `output/` (ưu tiên PRD + UX)
+- Đọc ảnh trong `images-demo/`
+- Chọn skill UX + skill từ `all-skills/`
+- Vẽ wireframe **multi-file** (không all-in-one):
+
+```text
+output/wireframes/
+  index.html              ← hub, link tới từng màn
+  s01-....html
+  s02-....html
+  ...
+  assets/app.js           ← JS demo luồng (mock, không backend)
+  assets/flow-data.js     ← mock data (tuỳ chọn)
+  wireframe-index.md
+```
+
+- JS demo: click CTA chuyển step, progress bar giả, filter preview, searchable select, toast/notice — **không** gọi API thật.
+
+Gợi ý: paste ảnh vào `images-demo/` trước, rồi chạy lại `npm run wireframe` để prompt liệt kê đủ file ảnh.
+
+LearnPress / WordPress project có thể ép mode:
+
+```bash
+npm run wireframe -- <project-name> --learnpress
+```
+
 ## Lên kế hoạch code MVP
 
 Sau khi đã có bộ tài liệu sản phẩm trong `output/`, chạy:

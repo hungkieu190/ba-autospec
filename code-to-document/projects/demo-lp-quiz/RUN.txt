@@ -1,0 +1,7 @@
+Read and fully execute: projects/demo-lp-quiz/agent-prompt.md
+
+Rules: follow that file exactly. Load skills/ first (see skills/README.md), analyze code/, read the project input, write BOTH output files under projects/demo-lp-quiz/output/:
+- projects/demo-lp-quiz/output/product-request.vi.md
+- projects/demo-lp-quiz/output/product-request.en.md
+
+Workspace root must be the code-to-document repo.

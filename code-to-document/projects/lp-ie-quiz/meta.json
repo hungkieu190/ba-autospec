@@ -1,0 +1,14 @@
+{
+  "name": "lp-ie-quiz",
+  "title": "Learnpress Import Export Quiz",
+  "note": "ok",
+  "createdAt": "2026-07-14T02:14:22.279Z",
+  "updatedAt": "2026-07-14T02:16:43.161Z",
+  "status": "documented",
+  "paths": {
+    "input": "projects/lp-ie-quiz/input.md",
+    "agentPrompt": "projects/lp-ie-quiz/agent-prompt.md",
+    "outputVi": "projects/lp-ie-quiz/output/product-request.vi.md",
+    "outputEn": "projects/lp-ie-quiz/output/product-request.en.md"
+  }
+}

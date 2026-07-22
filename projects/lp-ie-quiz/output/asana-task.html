@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asana Task - Import Quizzes + Questions</title>
+  <style>
+    body{font-family:Arial,sans-serif;background:#f6f7fb;color:#1f2937;margin:0;line-height:1.55}
+    .shell{max-width:980px;margin:32px auto;padding:0 18px}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:16px}
+    button{border:0;border-radius:8px;background:#2563eb;color:#fff;font-weight:700;padding:12px 16px;cursor:pointer}
+    .card{background:#fff;border:1px solid #d8dee9;border-radius:14px;padding:28px;box-shadow:0 8px 28px rgba(15,23,42,.08)}
+    h2{border-bottom:1px solid #d8dee9;font-size:18px;margin:28px 0 12px;padding-bottom:8px}
+    h2:first-child{margin-top:0}
+    .meta{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;color:#1e3a8a;padding:12px 14px;margin-bottom:18px}
+    .checklist li{list-style:none;margin-left:-20px}
+    .checklist li::before{content:"☐ ";color:#047857;font-weight:700}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="toolbar">
+      <div>
+        <h1 style="margin:0;font-size:24px">Asana Task Preview</h1>
+        <p style="margin:6px 0 0;color:#6b7280;font-size:14px">Copy nội dung dưới để paste Asana.</p>
+      </div>
+      <button id="copy-button" type="button">Copy for Asana</button>
+    </div>
+    <article id="asana-content" class="card">
+      <div class="meta">
+        <strong>Task:</strong> Import Quizzes + Import Questions — Backup &amp; Migration<br>
+        <strong>Recommendation:</strong> Build Now — 2 màn hình riêng trên Import/Export.
+      </div>
+      <h2>1. Business Goal</h2>
+      <p>Cho phép instructor import file nhiều quiz (kèm questions) vào course, và import questions rời vào quiz/content bank — giảm nhập tay, tăng tốc content migration.</p>
+      <h2>2. Problem Statement</h2>
+      <p>Chỉ import questions là chưa đủ: user cần 1 file chứa nhiều quiz + questions, chọn course đích, tạo cả quiz. Hai nhu cầu này phải tách 2 màn hình rõ ràng.</p>
+      <h2>3. Target Users</h2>
+      <ul>
+        <li>Admin / lp_instructor</li>
+        <li>Agency setup course content hàng loạt</li>
+      </ul>
+      <h2>4. Functional Requirements</h2>
+      <ul class="checklist">
+        <li>Tab Import Quizzes: chọn course (bắt buộc) + default section fallback; multi-quiz CSV/JSON có optional section_name.</li>
+        <li>Group theo section_name + quiz_title / quizzes[].section_name + title; tạo/find section, tạo quiz + questions; attach curriculum section.</li>
+        <li>Tab Import Questions: existing quiz hoặc content bank; insert position; override-by-title trong quiz.</li>
+        <li>CSV + JSON samples riêng cho multi-quiz và questions.</li>
+        <li>Validate + preview + text error log + batch progress.</li>
+        <li>Settings: max size/rows/answers/batch (admin).</li>
+        <li>Không entry Tools; caps edit course/quiz hiện có.</li>
+      </ul>
+      <h2>5. UI References</h2>
+      <p><code>output/wireframes/index.html</code> — Flow A (a01–a04), Flow B (b01–b04), S05/S06.</p>
+      <h2>6. Technical Notes</h2>
+      <ul>
+        <li>LP_Quiz_CURD, LP_Question_CURD, LP_Section_CURD::add_items_section</li>
+        <li>AJAX: upload_validate_quizzes, process_quiz_batch (1 quiz/group per request)</li>
+        <li>MVP path: mvp/learnpress-import-export/</li>
+      </ul>
+      <h2>7. Acceptance Criteria</h2>
+      <ul class="checklist">
+        <li>2 tabs riêng Import Quizzes + Import Questions trên Import/Export.</li>
+        <li>Multi-quiz file tạo ≥2 quizzes trong các section khai báo trong file.</li>
+        <li>Same section_name + quiz_title → 1 quiz; questions attach đúng.</li>
+        <li>Questions-only: existing quiz + content bank hoạt động.</li>
+        <li>Không course / không quiz_title → error rõ.</li>
+      </ul>
+      <h2>8. Subtasks</h2>
+      <ul class="checklist">
+        <li>Docs/wireframes đã align 2 flows (output/).</li>
+        <li>QA multi-quiz CSV + JSON + course attach.</li>
+        <li>QA questions-only + permissions instructor.</li>
+        <li>EN docs 2 pages trong add-on docs.</li>
+      </ul>
+      <h2>9. Release Notes</h2>
+      <p>Backup &amp; Migration: Import Quizzes (multi-quiz into a selected course, grouped by section_name + quiz_title) and Import Questions (into a quiz or content bank). CSV/JSON samples, validation, batched progress. Open LearnPress → Import/Export.</p>
+    </article>
+  </main>
+  <script>
+    const button = document.getElementById('copy-button');
+    const content = document.getElementById('asana-content');
+    button.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/html': new Blob([content.innerHTML], { type: 'text/html' }),
+              'text/plain': new Blob([content.innerText], { type: 'text/plain' })
+            })
+          ]);
+        } else {
+          await navigator.clipboard.writeText(content.innerText);
+        }
+        button.textContent = 'Copied';
+        setTimeout(() => { button.textContent = 'Copy for Asana'; }, 1600);
+      } catch (e) {
+        alert('Copy failed');
+      }
+    });
+  </script>
+</body>
+</html>

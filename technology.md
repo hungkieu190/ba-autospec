@@ -21,6 +21,7 @@ scripts/shared.js       — constants, utilities, input templates, skill loaders
 scripts/init.js         — npm run init: create new project
 scripts/start.js        — npm run start: generate question prompt for AI agent
 scripts/create.js       — npm run create: generate document creation prompt for AI agent
+scripts/wireframe.js    — npm run wireframe: generate HTML wireframe agent prompt + images-demo/
 scripts/pdf.js          — npm run pdf: export markdown to PDF via WeasyPrint
 
 product-documentation-generator/skills/    — Tool 1 skill package
@@ -410,6 +411,9 @@ npm run init -- --tool product-content-generator "Name"  — create with specifi
 npm run start -- <slug>                         — generate question prompt
 npm run start -- <slug> --generate-docs         — generate skeleton docs directly (Tool 1 only)
 npm run create -- <slug>                        — generate document creation prompt
+npm run wireframe -- <slug>                     — multi-file HTML wireframe prompt + images-demo/ + wireframes/
+npm run wireframe -- <slug> --learnpress        — force LearnPress/wp-admin wireframe context
+                                                — agent output: index.html + sXX-*.html + assets/app.js (no all-in-one)
 npm run pdf -- <slug>                           — export to PDF
 npm run pdf                                     — export to PDF (auto-detect single project)
 

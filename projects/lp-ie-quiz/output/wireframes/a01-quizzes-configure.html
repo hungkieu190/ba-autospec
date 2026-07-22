@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A01 Import Quizzes — Configure</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .lp-list { display: none; }
+    .lp-list.is-open { display: block; }
+  </style>
+</head>
+<body class="bg-[#f6f7f7] font-sans text-sm text-[#1d2327]">
+  <div id="wp-chrome"></div>
+  <div id="screen-content" class="hidden max-w-6xl">
+    
+    <!-- Visual Progress Stepper -->
+    <div class="grid grid-cols-4 bg-white border border-slate-200 rounded-lg shadow-sm mb-6 overflow-hidden select-none">
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-blue-700 bg-blue-50/50 relative">
+        <span class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[10px]">1</span>
+        <span>Configure</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-blue-50/50 z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white relative">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">2</span>
+        <span>Preview &amp; Validate</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-white z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white relative">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">3</span>
+        <span>Importing</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-white z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">4</span>
+        <span>Completed</span>
+      </div>
+    </div>
+
+    <p class="text-sm text-gray-600 mb-6 max-w-3xl leading-relaxed">
+      Import one or more quizzes (each with its questions) from a CSV or JSON file into a LearnPress course. 
+      Rows with the same <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded text-slate-800">section_name</code> and <code class="font-mono text-xs bg-slate-100 px-1 py-0.5 rounded text-slate-800">quiz_title</code> are automatically merged into a single quiz.
+    </p>
+
+    <!-- Configure Forms Panel -->
+    <div class="grid md:grid-cols-3 gap-6 items-stretch mb-6">
+      
+      <!-- 1. Sample templates -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">1. Sample templates</h2>
+          <p class="text-xs text-gray-500 mb-4 leading-relaxed">
+            Download sample files with the pre-configured headers needed for quizzes and question import operations.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-col gap-2">
+            <button type="button" data-action="downloadMultiCsv" class="w-full text-center border border-blue-600 text-blue-600 hover:bg-blue-50 px-3 py-2 rounded font-semibold text-xs transition duration-150">Download CSV sample</button>
+            <button type="button" data-action="downloadMultiJson" class="w-full text-center border border-blue-600 text-blue-600 hover:bg-blue-50 px-3 py-2 rounded font-semibold text-xs transition duration-150">Download JSON sample</button>
+          </div>
+          <p class="text-[11px] text-gray-400 mt-3 leading-tight">Required per row: quiz_title + question fields.</p>
+        </div>
+      </div>
+
+      <!-- 2. Target course -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">2. Target course</h2>
+          <p class="text-xs text-gray-500 mb-3 leading-relaxed">All quizzes from the uploaded template will be created inside the selected course below.</p>
+          <div class="relative">
+            <input id="course-search" type="search" placeholder="Type to search courses…" class="border border-slate-300 rounded px-3 py-2 w-full text-xs focus:border-blue-500 focus:shadow-sm focus:outline-none transition" autocomplete="off" />
+            <ul id="course-list" class="lp-list absolute left-0 right-0 z-50 mt-1 border border-slate-300 rounded bg-white shadow-lg max-h-40 overflow-y-auto"></ul>
+          </div>
+        </div>
+        <div class="mt-4 space-y-3">
+          <div>
+            <span class="text-xs text-gray-400">Selected course:</span>
+            <div class="mt-1"><span id="selected-course" class="inline-flex items-center bg-blue-50 border border-blue-200 text-blue-700 px-2.5 py-1 rounded text-xs font-semibold">—</span></div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700" for="section-name">Default section name fallback</label>
+            <input id="section-name" type="text" value="Imported quizzes" class="border border-slate-300 rounded px-3 py-1.5 w-full text-xs mt-1 focus:border-blue-500 focus:outline-none transition" />
+            <p class="text-[10px] text-gray-400 mt-1 leading-tight">Used for rows without section_name.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Upload file -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">3. Upload multi-quiz file</h2>
+          <p class="text-xs text-gray-500 mb-4 leading-relaxed">Select a CSV or JSON file from your machine to validate the configuration.</p>
+        </div>
+        <div>
+          <input id="file-input" type="file" accept=".csv,.json" class="text-xs file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer w-full border border-dashed border-slate-300 p-2 rounded" />
+          <p class="text-[11px] text-gray-400 mt-3">Selected file: <span id="file-name" class="font-medium text-slate-700">No file selected</span></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="flex items-center gap-3 border-t pt-4">
+      <button type="button" data-action="validateQuizzes" class="bg-[#2271b1] hover:bg-[#135e96] text-white px-5 py-2.5 rounded font-semibold text-xs transition duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Upload &amp; Validate</button>
+    </div>
+
+  </div>
+  <script src="assets/flow-data.js"></script>
+  <script src="assets/chrome.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      LPChrome.mount({ activeScreen: "a01", ieTab: "import_quizzes" });
+      LPApp.hydrate();
+      const search = document.getElementById("course-search");
+      const list = document.getElementById("course-list");
+      const open = () => { list.classList.add("is-open"); LPApp.renderCourses(search.value); };
+      search.addEventListener("focus", open);
+      search.addEventListener("click", open);
+      search.addEventListener("input", () => { LPApp.renderCourses(search.value); list.classList.add("is-open"); });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#course-search, #course-list")) list.classList.remove("is-open");
+      });
+      document.getElementById("file-input")?.addEventListener("change", function () { LPApp.onFileChange(this); });
+    });
+  </script>
+</body>
+</html>

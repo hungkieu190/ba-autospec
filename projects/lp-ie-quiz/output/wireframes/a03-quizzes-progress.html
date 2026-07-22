@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A03 Import Quizzes — Progress</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f6f7f7] font-sans text-sm text-[#1d2327]">
+  <div id="wp-chrome"></div>
+  <div id="screen-content" class="hidden max-w-xl">
+    
+    <!-- Visual Progress Stepper -->
+    <div class="grid grid-cols-4 bg-white border border-slate-200 rounded-lg shadow-sm mb-6 overflow-hidden select-none">
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-green-700 bg-white relative">
+        <span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold text-[10px]">✓</span>
+        <span>Configure</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-white z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-green-700 bg-white relative">
+        <span class="w-5 h-5 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold text-[10px]">✓</span>
+        <span>Preview</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-white z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-blue-700 bg-blue-50/50 relative">
+        <span class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[10px]">3</span>
+        <span>Importing</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-blue-50/50 z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">4</span>
+        <span>Completed</span>
+      </div>
+    </div>
+
+    <!-- Progress Card -->
+    <div class="bg-white border border-slate-200 rounded-lg shadow-sm p-6" aria-live="polite">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Target Course</span>
+          <p class="text-base font-semibold text-slate-800" data-bind="courseTitle">Biology 101</p>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</span>
+          <p class="text-xs text-blue-600 font-semibold flex items-center gap-1.5 justify-end">
+            <span class="animate-ping inline-flex h-3 w-3 rounded-full bg-blue-500"></span>
+            Importing...
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1.5">
+          <span>Processed quizzes</span>
+          <span id="progress-text">0 / 2</span>
+        </div>
+        <!-- Progress Bar -->
+        <div class="h-3 bg-slate-100 rounded-full overflow-hidden border">
+          <div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-300 ease-out" style="width:0%"></div>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-500 mb-4 bg-slate-50 border p-2.5 rounded leading-relaxed">
+        Current operation group: <span class="font-medium text-slate-700">Week 1 - Biology Midterm</span>
+      </p>
+
+      <!-- Logs statistics -->
+      <div class="border rounded-lg bg-slate-50/20 p-4">
+        <h3 class="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2.5">Live import records</h3>
+        <ul class="space-y-2 text-xs">
+          <li class="flex justify-between border-b border-slate-100 pb-1.5">
+            <span class="text-slate-500">Quizzes created:</span>
+            <strong class="text-slate-800" id="stat-quizzes">0</strong>
+          </li>
+          <li class="flex justify-between border-b border-slate-100 pb-1.5">
+            <span class="text-slate-500">Questions created:</span>
+            <strong class="text-slate-800" id="stat-questions">0</strong>
+          </li>
+          <li class="flex justify-between">
+            <span class="text-slate-500">Failed rows:</span>
+            <strong class="text-red-600">0</strong>
+          </li>
+        </ul>
+      </div>
+      
+      <p class="text-[11px] text-gray-400 mt-4 text-center leading-tight">
+        Quizzes and sections are processed in chunks. Do not close this browser tab.
+      </p>
+    </div>
+
+  </div>
+  <script src="assets/flow-data.js"></script>
+  <script src="assets/chrome.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      LPChrome.mount({ activeScreen: "a03", ieTab: "import_quizzes", roleLabel: "Importing Data" });
+      LPApp.hydrate();
+      setTimeout(() => LPApp.runQuizProgress(), 300);
+    });
+  </script>
+</body>
+</html>

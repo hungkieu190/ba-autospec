@@ -1,0 +1,14 @@
+{
+  "name": "demo-lp-quiz",
+  "title": "Demo LP Quiz",
+  "note": "smoke test",
+  "createdAt": "2026-07-14T02:03:07.654Z",
+  "updatedAt": "2026-07-14T02:03:13.763Z",
+  "status": "prompt-ready",
+  "paths": {
+    "input": "projects/demo-lp-quiz/input.md",
+    "agentPrompt": "projects/demo-lp-quiz/agent-prompt.md",
+    "outputVi": "projects/demo-lp-quiz/output/product-request.vi.md",
+    "outputEn": "projects/demo-lp-quiz/output/product-request.en.md"
+  }
+}

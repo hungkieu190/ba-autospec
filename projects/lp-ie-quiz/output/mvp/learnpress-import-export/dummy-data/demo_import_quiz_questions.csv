@@ -1,0 +1,8 @@
+question_title,question_content,question_type,answers,correct_answer,explanation,hint,mark,status
+Cell structure basics,,single_choice,Nucleus|Mitochondria|Cell wall|Ribosome,1,Nucleus holds genetic material.,,1,publish
+Select energy organelles,,multi_choice,Chloroplast|Mitochondria|Golgi|Lysosome,"1,2",,,1,publish
+DNA is a double helix,,true_or_false,,true,,,1,publish
+Capital city blank,"Paris is the capital of [fib fill=""France"" id=""blank_country"" comparison=""equal"" match_case=""0"" ].",fill_in_blanks,,,"The expected blank is France.",European country,1,publish
+Water formula,,single_choice,H2O|CO2|NaCl|O2,1,,,1,publish
+Select prime numbers,,multi_choice,2|3|4|5,"1,2,4",,,2,publish
+Sun rises in the west,,true_or_false,,false,,,1,publish

@@ -5,364 +5,82 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Asana Task — LearnPress Tutor Booking</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;padding:24px}
-  .wrapper{max-width:820px;margin:0 auto}
-  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
-  h1{font-size:20px;font-weight:700;color:#1d1d35}
-  .badge{background:#4573d2;color:#fff;font-size:12px;padding:4px 10px;border-radius:12px;font-weight:600}
-  #copy-button{background:#1d1d35;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
-  #copy-button:hover{background:#4573d2}
-  #copy-button.copied{background:#35a853}
-  .notice{background:#fff8e1;border:1px solid #f0c040;border-radius:8px;padding:12px 16px;font-size:13px;color:#7a5c00;margin-bottom:20px}
-  .card{background:#fff;border-radius:12px;border:1px solid #e0e0e0;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-  .card-header{background:#f8f8fb;border-bottom:1px solid #e8e8f0;padding:12px 20px;display:flex;align-items:center;gap:10px}
-  .section-num{background:#4573d2;color:#fff;width:24px;height:24px;border-radius:50%;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .card-header h2{font-size:14px;font-weight:700;color:#1d1d35}
-  .card-body{padding:16px 20px}
-  p{font-size:14px;line-height:1.7;margin-bottom:10px;color:#333}
-  ul,ol{padding-left:20px;margin-bottom:10px}
-  li{font-size:14px;line-height:1.8;color:#333}
-  .checklist{list-style:none;padding-left:0}
-  .checklist li{display:flex;align-items:flex-start;gap:8px;padding:3px 0}
-  .checklist li::before{content:'☐';font-size:15px;color:#4573d2;flex-shrink:0;margin-top:1px}
-  .tag{display:inline-block;background:#eef2ff;color:#4573d2;font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;margin:2px}
-  .subtask-group{margin-bottom:14px}
-  .subtask-owner{font-size:12px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-  table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:10px}
-  th{background:#f0f2ff;padding:8px 12px;text-align:left;font-weight:700;color:#1d1d35;border:1px solid #dde}
-  td{padding:8px 12px;border:1px solid #eee;vertical-align:top}
-  code{background:#f4f4f4;padding:2px 6px;border-radius:4px;font-size:12px;font-family:monospace;color:#c00}
-  .highlight{background:#fffbdd;border-left:3px solid #f0c040;padding:8px 12px;border-radius:0 4px 4px 0;margin-bottom:10px;font-size:13px}
+  body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;padding:24px}
+  .wrap{max-width:900px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px}
+  h1{font-size:22px;margin-bottom:8px}
+  h2{font-size:16px;margin:20px 0 10px}
+  p,li{line-height:1.7;font-size:14px}
+  ul{padding-left:20px}
+  .muted{color:#6b7280}
+  .tag{display:inline-block;background:#fef3c7;color:#92400e;font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px;margin-left:8px}
 </style>
 </head>
 <body>
-<div class="wrapper">
-  <header>
-    <div>
-      <h1>Asana Task — LearnPress Tutor Booking</h1>
-      <div style="margin-top:6px"><span class="badge">v1.0 · Draft</span></div>
-    </div>
-    <button id="copy-button" onclick="copyTask()">Copy for Asana</button>
-  </header>
+<div class="wrap">
+  <h1>Asana Task — LearnPress Tutor Booking <span class="tag">v1.2 dual-confirm</span></h1>
+  <p class="muted">Template task triển khai / QA theo logic hiện tại (dual confirmation + delayed revenue).</p>
 
-  <div class="notice">
-    📋 Xem lại nội dung bên dưới, sau đó bấm <strong>Copy for Asana</strong>. Paste vào task description trong Asana. Heading và danh sách sẽ được giữ nguyên.
-  </div>
+  <h2>Business Goal</h2>
+  <p>Mở rộng LearnPress sang booking live tutoring native: instructor có profile, session types, availability, booking, dual-sided session confirmation, trusted payout, review, dispute, email, revenue share, và dashboard trong cùng hệ sinh thái.</p>
 
-  <div id="asana-content">
+  <h2>Core Requirements</h2>
+  <ul>
+    <li>Canonical tutor profile per user.</li>
+    <li>Session type: price, duration, buffer, status, meeting link override.</li>
+    <li>Availability weekly / custom / holiday.</li>
+    <li>Timezone chooser + current datetime preview; admin default = WordPress timezone.</li>
+    <li>Past/started slots disabled.</li>
+    <li>Hold → LP Checkout → booking <strong>confirmed (paid)</strong>.</li>
+    <li><strong>Paid ≠ instructor earned.</strong> Revenue share snapshot on hold; commission credit only after dual confirm or admin release.</li>
+    <li>Instructor <strong>Confirm Taught</strong>; student <strong>Confirm Learned</strong> (optional stars + message).</li>
+    <li>Both confirmed → <code>completed</code> + <code>revenue_released</code> + <code>lp_commission_add_commission</code> once.</li>
+    <li>Student <strong>Complaint</strong> (reason) → <code>disputed</code> → admin resolve: release_revenue / complete / cancel / refund / no_show.</li>
+    <li>Shortcode sessions: tutor name, rating, bio when profile_id set.</li>
+    <li>Tutor Booking confirmation emails in LearnPress Emails tab.</li>
+    <li>Setting <code>lp_tb_meeting_link_visible_minutes</code>: Join/Open Meeting unlocks N minutes before start (0 = show immediately after paid). Locked state shows unlock message. <strong>Default emails do not include the meeting URL</strong> (unlock notice only). Variable <code>{{meeting_link}}</code> still resolves if an admin customizes the LP email body.</li>
+  </ul>
 
-    <!-- SECTION 1 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">1</div><h2>Business Goal</h2></div>
-      <div class="card-body">
-        <p>Mở rộng LearnPress từ nền tảng self-paced learning sang nền tảng học kèm trực tiếp (live tutoring), giúp instructor kiếm thêm doanh thu từ buổi dạy kèm 1-1 và nhóm nhỏ — tất cả trong hệ sinh thái LearnPress, không cần tool booking ngoài.</p>
-        <ul>
-          <li>Tăng ARPU của LearnPress site owner</li>
-          <li>Giảm phụ thuộc vào Calendly, Amelia, Google Form của instructor</li>
-          <li>Tăng giá trị hệ sinh thái ThimPress</li>
-          <li>Tăng retention của instructor trên LearnPress</li>
-        </ul>
-      </div>
-    </div>
+  <h2>Out of Scope</h2>
+  <ul>
+    <li>Group session flow.</li>
+    <li>Auto-generated Zoom / Meet link.</li>
+    <li>Auto-timeout dual-confirm (v1.1+).</li>
+    <li>Webhook system riêng.</li>
+    <li>Multisite support.</li>
+    <li>Comparison pages trong docs nội bộ.</li>
+  </ul>
 
-    <!-- SECTION 2 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">2</div><h2>Problem Statement</h2></div>
-      <div class="card-body">
-        <p>LearnPress không có giải pháp native cho lịch dạy kèm. Instructor đang phải ghép nhiều công cụ rời rạc để quản lý buổi live session:</p>
-        <ul>
-          <li><strong>Email</strong> → nhận yêu cầu đặt lịch thủ công</li>
-          <li><strong>Google Form</strong> → thu thập thông tin học viên</li>
-          <li><strong>Google Calendar</strong> → quản lý lịch</li>
-          <li><strong>Chuyển khoản thủ công</strong> → thu tiền ngoài hệ thống LP</li>
-        </ul>
-        <p>Kết quả: học viên phải rời website để booking, instructor mất thời gian quản lý, không có payment tự động, không có email confirmation tự động.</p>
-      </div>
-    </div>
+  <h2>Acceptance Focus</h2>
+  <ul>
+    <li>Student chỉ book slot hợp lệ; payment → confirmed; commission balance không tăng sớm.</li>
+    <li>Confirm Taught + Confirm Learned → completed + single commission credit.</li>
+    <li>UI: Pending earn vs Earned theo <code>revenue_released</code>.</li>
+    <li>Complaint → admin filters Disputed; resolve actions hoạt động.</li>
+    <li>Meeting link fallback: booking → session type → profile.</li>
+    <li>Admin đổi revenue share chỉ ảnh hưởng booking mới (snapshot).</li>
+    <li>Student Join Session khi confirmed; shortcode hiện stars khi có reviews.</li>
+  </ul>
 
-    <!-- SECTION 3 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">3</div><h2>Target Users</h2></div>
-      <div class="card-body">
-        <p><strong>Primary (người mua add-on):</strong></p>
-        <ul>
-          <li>LearnPress site owner muốn bán live tutoring</li>
-          <li>Individual instructor: gia sư, coach, mentor, consultant dùng LP</li>
-        </ul>
-        <p><strong>Secondary (người dùng cuối):</strong></p>
-        <ul>
-          <li>Student đặt lịch học kèm qua website LP</li>
-        </ul>
-        <p><strong>Roles trong hệ thống:</strong>
-          <span class="tag">Admin</span>
-          <span class="tag">Instructor</span>
-          <span class="tag">Student</span>
-        </p>
-      </div>
-    </div>
+  <h2>Implementation Notes</h2>
+  <ul>
+    <li>DB migration <code>1.0.4</code>: dual-confirm columns + backfill legacy completed as revenue_released.</li>
+    <li>Services: <code>Booking_Service</code> (confirm_taught/learned, open_complaint, admin_resolve, release_revenue), <code>Review_Service</code>.</li>
+    <li>REST: <code>/confirm-taught</code>, <code>/confirm-learned</code>, <code>/complaint</code>, <code>/resolve</code>.</li>
+    <li>Architecture living doc: <code>learnpress-tutor-booking/AI-AGENT-FEATURES-ARCHITECTURE.md</code>.</li>
+  </ul>
 
-    <!-- SECTION 4 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">4</div><h2>Functional Requirements</h2></div>
-      <div class="card-body">
-        <p><strong>Instructor:</strong></p>
-        <ul class="checklist">
-          <li>Tạo tutor profile (tên, bio, ảnh, subjects)</li>
-          <li>Tạo được nhiều tutor profile (ví dụ: Toán và Tiếng Anh)</li>
-          <li>Setup weekly recurring availability schedule</li>
-          <li>Block ngày nghỉ cụ thể mà không ảnh hưởng recurring schedule</li>
-          <li>Tạo session types với tên, giá, duration riêng</li>
-          <li>Set giá khác nhau cho từng session type</li>
-          <li>Nhập meeting link một lần per session type (Zoom / Meet / Jitsi / custom)</li>
-          <li>Set timezone và buffer time giữa các session</li>
-        </ul>
-        <p><strong>Student (phải login):</strong></p>
-        <ul class="checklist">
-          <li>Xem danh sách instructor và từng profile</li>
-          <li>Xem booking calendar theo timezone của student</li>
-          <li>Chọn session type, duration, ngày, slot và đặt lịch</li>
-          <li>Thanh toán qua LearnPress Checkout</li>
-          <li>Cancel booking (trước 24h, configurable)</li>
-          <li>Reschedule booking sang slot còn available</li>
-          <li>Join Meeting qua nút trong dashboard</li>
-          <li>Submit review sau khi session Completed</li>
-        </ul>
-        <p><strong>System:</strong></p>
-        <ul class="checklist">
-          <li>Booking auto-confirm ngay sau payment thành công</li>
-          <li>Prevent double-booking (DB-level lock)</li>
-          <li>Auto No Show sau 30 phút session kết thúc mà không có action</li>
-          <li>Gửi email: booking confirmed, session reminder, cancelled (LP email system)</li>
-          <li>Group session: auto-confirm khi đủ số lượng tối đa</li>
-          <li>Webhook trigger khi booking mới, completed, cancelled</li>
-          <li>Google Calendar sync</li>
-          <li>GDPR: export và xóa booking data theo yêu cầu</li>
-        </ul>
-        <p><strong>Admin:</strong></p>
-        <ul class="checklist">
-          <li>Xem và filter toàn bộ booking trên site</li>
-          <li>Force cancel / force confirm bất kỳ booking</li>
-          <li>Export booking data (CSV)</li>
-          <li>Cấu hình global settings (cancellation policy, reminder timing)</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SECTION 5 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">5</div><h2>UI References</h2></div>
-      <div class="card-body">
-        <p>Chi tiết đầy đủ: <strong>04-ux-and-wireframe.md</strong> và <strong>wireframes/wireframes.html</strong></p>
-        <table>
-          <tr><th>Screen</th><th>Role</th><th>Location</th></tr>
-          <tr><td>Instructor Listing Page</td><td>Student</td><td>Frontend</td></tr>
-          <tr><td>Instructor Profile Page + Booking Calendar</td><td>Student</td><td>Frontend</td></tr>
-          <tr><td>Session Type & Duration Selector</td><td>Student</td><td>Frontend</td></tr>
-          <tr><td>Student Dashboard — My Sessions</td><td>Student</td><td>Frontend (LP dashboard)</td></tr>
-          <tr><td>Instructor Availability Settings</td><td>Instructor</td><td>wp-admin</td></tr>
-          <tr><td>Session Types & Pricing Settings</td><td>Instructor</td><td>wp-admin</td></tr>
-          <tr><td>Instructor Dashboard (Overview)</td><td>Instructor</td><td>Frontend + wp-admin</td></tr>
-          <tr><td>Admin — All Bookings List</td><td>Admin</td><td>wp-admin</td></tr>
-          <tr><td>Admin — Global Settings</td><td>Admin</td><td>wp-admin</td></tr>
-        </table>
-        <div class="highlight">⚠️ Guest phải login trước khi xem calendar. Meeting link chỉ hiển thị với student có booking Confirmed.</div>
-      </div>
-    </div>
-
-    <!-- SECTION 6 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">6</div><h2>Technical Notes</h2></div>
-      <div class="card-body">
-        <p><strong>Dependencies:</strong></p>
-        <ul>
-          <li>LearnPress ≥ 4.4.1, WordPress ≥ 6.0, PHP ≥ 8.0</li>
-          <li>LearnPress Checkout (reuse), LearnPress Email System (reuse)</li>
-          <li>Google Calendar API (OAuth 2.0) — scope cần clarify: v1.0 hay v1.1</li>
-          <li>WordPress Cron → No Show auto-trigger sau 30 phút</li>
-        </ul>
-        <p><strong>Timezone:</strong> Store UTC, hiển thị theo timezone student. Instructor set timezone riêng trong settings.</p>
-        <p><strong>Booking conflict:</strong> Atomic transaction + DB-level lock khi tạo booking. Check cả Google Calendar nếu đã connect.</p>
-        <p><strong>Payment:</strong> Booking auto-confirm sau LP payment hook. Idempotency check để tránh tạo duplicate booking khi webhook đến 2 lần.</p>
-        <p><strong>Webhook:</strong> POST request khi booking_new, booking_completed, booking_cancelled. Admin configure endpoint + secret.</p>
-        <p><strong>GDPR:</strong> Admin có thể export CSV và delete PII của user theo request.</p>
-        <p><strong>Không hỗ trợ:</strong> Multisite, coupon, instructor payout, auto-generate Zoom link, WCAG, developer hooks.</p>
-      </div>
-    </div>
-
-    <!-- SECTION 7 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">7</div><h2>Acceptance Criteria</h2></div>
-      <div class="card-body">
-        <ul class="checklist">
-          <li>Student có thể book session từ đầu đến cuối (select → checkout → confirmed) mà không rời LearnPress</li>
-          <li>Booking tự động Confirmed ngay sau payment — không cần manual approval</li>
-          <li>Không có double-booking: 2 student cùng book 1 slot → chỉ 1 thành công, 1 nhận thông báo "đã đặt"</li>
-          <li>Calendar hiển thị đúng theo timezone student (không phải timezone server)</li>
-          <li>Student nhận email confirmation trong vòng 5 phút sau payment</li>
-          <li>Instructor nhận email thông báo booking mới trong vòng 5 phút</li>
-          <li>Student cancel trước 24h → Cancelled; cancel sau 24h → bị từ chối với thông báo rõ</li>
-          <li>No Show tự động trigger sau 30 phút session end time mà không cần thao tác thủ công</li>
-          <li>Meeting link chỉ visible với student có booking Confirmed — guest và student khác không thấy</li>
-          <li>Admin export CSV booking data thành công</li>
-          <li>Admin force cancel bất kỳ booking bất kỳ lúc nào</li>
-          <li>Mobile responsive trên Chrome, Firefox, Safari, Edge (desktop + mobile)</li>
-          <li>Webhook trigger đúng với payload khi booking_new, booking_completed, booking_cancelled</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SECTION 8 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">8</div><h2>Subtasks</h2></div>
-      <div class="card-body">
-        <div class="subtask-group">
-          <div class="subtask-owner">Product</div>
-          <ul class="checklist">
-            <li>Clarify Google Calendar scope: v1.0 one-way export hay two-way sync?</li>
-            <li>Clarify Tutor listing page: v1.0 hay v1.1?</li>
-            <li>Define meeting link visibility rule (ngay sau confirm hay X giờ trước?)</li>
-            <li>Define reschedule deadline default value</li>
-            <li>Sign off PRD và Acceptance Criteria</li>
-          </ul>
-        </div>
-        <div class="subtask-group">
-          <div class="subtask-owner">Design</div>
-          <ul class="checklist">
-            <li>Review screen list (17 screens) và confirm priority cho v1.0</li>
-            <li>Tạo wireframes.html theo spec trong 04-ux-and-wireframe.md</li>
-            <li>Design mobile responsive layout cho booking calendar</li>
-            <li>Design instructor availability settings UI</li>
-          </ul>
-        </div>
-        <div class="subtask-group">
-          <div class="subtask-owner">Engineering</div>
-          <ul class="checklist">
-            <li>Technical spike: LP Checkout + booking refund/rollback flow</li>
-            <li>Technical spike: Timezone UTC storage + per-user display architecture</li>
-            <li>Technical spike: Google Calendar OAuth + sync scope</li>
-            <li>Build booking core engine (availability, conflict detection, atomic booking)</li>
-            <li>Build LP Checkout integration</li>
-            <li>Build No Show cron job</li>
-            <li>Build webhook system</li>
-            <li>Build GDPR export + delete</li>
-          </ul>
-        </div>
-        <div class="subtask-group">
-          <div class="subtask-owner">QA</div>
-          <ul class="checklist">
-            <li>Setup staging với LP 4.4.1 + test accounts</li>
-            <li>Test double-booking race condition (EC-001)</li>
-            <li>Test timezone mismatch cross-region (EC-002)</li>
-            <li>Test payment success → booking not created (EC-003)</li>
-            <li>Test tất cả permission scenarios (PT-001 đến PT-010)</li>
-            <li>Cross-browser test trên Chrome, Firefox, Safari, Edge</li>
-          </ul>
-        </div>
-        <div class="subtask-group">
-          <div class="subtask-owner">Docs</div>
-          <ul class="checklist">
-            <li>Viết Quick Start Guide cho instructor</li>
-            <li>Viết Student booking guide</li>
-            <li>Viết Admin settings guide</li>
-            <li>Viết Troubleshooting page (timezone, email, Google Calendar)</li>
-            <li>Host docs tại help.thimpress.com</li>
-          </ul>
-        </div>
-        <div class="subtask-group">
-          <div class="subtask-owner">Marketing</div>
-          <ul class="checklist">
-            <li>Tạo pre-launch landing page trên learnpresslms.com để validate $39 pricing</li>
-            <li>Setup demo site với realistic test data</li>
-            <li>Draft blog announcement (template có trong 06-seo-and-marketing.md)</li>
-            <li>Chuẩn bị social media assets (cover image, demo video ngắn)</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTION 9 -->
-    <div class="card">
-      <div class="card-header"><div class="section-num">9</div><h2>Release Notes</h2></div>
-      <div class="card-body">
-        <p><strong>LearnPress Tutor Booking v1.0.0</strong></p>
-        <p>Đây là phiên bản đầu tiên của LearnPress Tutor Booking — add-on native cho phép instructor bán và quản lý buổi dạy kèm trực tiếp trong LearnPress.</p>
-        <p><strong>Tính năng mới:</strong></p>
-        <ul>
-          <li>Instructor Availability Management: weekly recurring, custom dates, holiday blocking, buffer time</li>
-          <li>8 session types: One-to-One, Group, Consultation, Coaching, Mentoring, Office Hour, Interview Prep, Exam Review</li>
-          <li>Flexible pricing: giá riêng cho từng session type và duration</li>
-          <li>Booking calendar cho student với timezone auto-display</li>
-          <li>LearnPress Checkout integration (booking → payment → auto-confirmation)</li>
-          <li>Booking management dashboard: Admin, Instructor (wp-admin + frontend), Student (frontend)</li>
-          <li>Email notifications qua LearnPress email system</li>
-          <li>Meeting link support (Zoom, Google Meet, Jitsi, BigBlueButton, custom URL)</li>
-          <li>Google Calendar sync</li>
-          <li>Review và Rating cho instructor</li>
-          <li>Webhook support (booking_new, booking_completed, booking_cancelled)</li>
-          <li>GDPR compliance: data export và delete</li>
-          <li>Mobile responsive</li>
-        </ul>
-        <p><strong>Yêu cầu hệ thống:</strong> LearnPress 4.4.1+, WordPress 6.0+, PHP 8.0+</p>
-        <p><strong>Giá:</strong> $39 mua một lần / 1 site. Phân phối tại thimpress.com.</p>
-      </div>
-    </div>
-
-  </div><!-- end #asana-content -->
-
-</div><!-- end .wrapper -->
-
-<script>
-function copyTask() {
-  const content = document.getElementById('asana-content');
-  const btn = document.getElementById('copy-button');
-
-  // Try clipboard API with HTML
-  if (navigator.clipboard && window.ClipboardItem) {
-    const htmlContent = content.innerHTML;
-    const textContent = content.innerText;
-    try {
-      const item = new ClipboardItem({
-        'text/html': new Blob([htmlContent], { type: 'text/html' }),
-        'text/plain': new Blob([textContent], { type: 'text/plain' })
-      });
-      navigator.clipboard.write([item]).then(() => {
-        showCopied(btn);
-      }).catch(() => {
-        fallbackCopy(textContent, btn);
-      });
-    } catch(e) {
-      fallbackCopy(textContent, btn);
-    }
-  } else {
-    fallbackCopy(content.innerText, btn);
-  }
-}
-
-function fallbackCopy(text, btn) {
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  try {
-    document.execCommand('copy');
-    showCopied(btn);
-  } catch(e) {
-    alert('Copy thủ công: Ctrl+A rồi Ctrl+C trên nội dung task.');
-  }
-  document.body.removeChild(ta);
-}
-
-function showCopied(btn) {
-  btn.textContent = 'Copied ✓';
-  btn.classList.add('copied');
-  setTimeout(() => {
-    btn.textContent = 'Copy for Asana';
-    btn.classList.remove('copied');
-  }, 2500);
-}
-</script>
+  <h2>QA checklist (copy vào subtasks)</h2>
+  <ul>
+    <li>[ ] FT: paid no early commission</li>
+    <li>[ ] FT: dual confirm releases once</li>
+    <li>[ ] FT: complaint + admin resolve matrix</li>
+    <li>[ ] FT: shortcode rating / bio</li>
+    <li>[ ] FT: snapshot % on release</li>
+    <li>[ ] FT: disabled slots + timezone preview</li>
+    <li>[ ] FT: meeting join unlock N minutes + locked message</li>
+    <li>[ ] FT: default email no URL; custom {{meeting_link}} works</li>
+    <li>[ ] FT: LP Emails tab types</li>
+  </ul>
+</div>
 </body>
 </html>

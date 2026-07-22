@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframes — Import Quizzes + Import Questions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 font-sans text-sm text-gray-800 min-h-screen">
+  <header class="bg-white border-b">
+    <div class="max-w-5xl mx-auto px-6 py-6">
+      <p class="text-xs font-semibold uppercase text-indigo-600">LearnPress – Backup &amp; Migration</p>
+      <h1 class="text-2xl font-semibold mt-1">Wireframe Hub — two import screens</h1>
+      <p class="text-gray-600 mt-2 max-w-2xl">
+        <strong>A. Import Quizzes</strong> — multi-quiz file with <code>section_name</code> → select <em>course</em> → create sections + quizzes + questions.<br>
+        <strong>B. Import Questions</strong> — questions only → existing quiz or content bank.
+      </p>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-6 py-8 space-y-10">
+    <section>
+      <h2 class="text-lg font-semibold mb-3">Flow A — Import Quizzes</h2>
+      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="a01-quizzes-configure.html"><span class="text-xs font-bold text-blue-600">A01</span><p class="font-medium mt-1">Configure</p><p class="text-xs text-gray-500">Course + default section + multi-quiz file</p></a></li>
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="a02-quizzes-preview.html"><span class="text-xs font-bold text-blue-600">A02</span><p class="font-medium mt-1">Preview</p></a></li>
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="a03-quizzes-progress.html"><span class="text-xs font-bold text-blue-600">A03</span><p class="font-medium mt-1">Progress</p></a></li>
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="a04-quizzes-summary.html"><span class="text-xs font-bold text-blue-600">A04</span><p class="font-medium mt-1">Summary</p></a></li>
+      </ol>
+    </section>
+    <section>
+      <h2 class="text-lg font-semibold mb-3">Flow B — Import Questions</h2>
+      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="b01-questions-configure.html"><span class="text-xs font-bold text-emerald-600">B01</span><p class="font-medium mt-1">Configure</p><p class="text-xs text-gray-500">Quiz or content bank</p></a></li>
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="b02-questions-preview.html"><span class="text-xs font-bold text-emerald-600">B02</span><p class="font-medium mt-1">Preview</p></a></li>
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="b03-questions-progress.html"><span class="text-xs font-bold text-emerald-600">B03</span><p class="font-medium mt-1">Progress</p></a></li>
+        <li><a class="block bg-white border rounded-lg p-4 shadow-sm hover:border-blue-400" href="b04-questions-summary.html"><span class="text-xs font-bold text-emerald-600">B04</span><p class="font-medium mt-1">Summary</p></a></li>
+      </ol>
+    </section>
+    <section>
+      <h2 class="text-lg font-semibold mb-3">Shared</h2>
+      <ul class="space-y-2">
+        <li><a class="text-blue-600 hover:underline" href="s05-import-settings.html">S05 Quiz Import Settings</a></li>
+        <li><a class="text-blue-600 hover:underline" href="s06-empty-error-states.html">S06 Empty / Error states</a></li>
+        <li><a class="text-blue-600 hover:underline" href="wireframe-index.md">wireframe-index.md</a></li>
+      </ul>
+      <a href="a01-quizzes-configure.html" class="inline-block mt-4 bg-[#2271b1] text-white px-4 py-2 rounded text-sm">Start Flow A →</a>
+      <a href="b01-questions-configure.html" class="inline-block mt-4 ml-2 border border-[#2271b1] text-[#2271b1] px-4 py-2 rounded text-sm">Start Flow B →</a>
+    </section>
+  </main>
+</body>
+</html>

@@ -9,6 +9,7 @@
     "start": "node scripts/start.js",
     "plan": "node scripts/create.js",
     "mvp:plan": "node scripts/mvp-plan.js",
+    "wireframe": "node scripts/wireframe.js",
     "create": "node scripts/create.js",
     "critique": "node scripts/critique.js",
     "revise": "node scripts/revise.js",

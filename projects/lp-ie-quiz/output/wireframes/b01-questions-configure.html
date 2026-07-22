@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B01 Import Questions — Configure</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .lp-list { display: none; }
+    .lp-list.is-open { display: block; }
+  </style>
+</head>
+<body class="bg-[#f6f7f7] font-sans text-sm text-[#1d2327]">
+  <div id="wp-chrome"></div>
+  <div id="screen-content" class="hidden max-w-6xl">
+
+    <!-- Visual Progress Stepper -->
+    <div class="grid grid-cols-4 bg-white border border-slate-200 rounded-lg shadow-sm mb-6 overflow-hidden select-none">
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-semibold text-blue-700 bg-blue-50/50 relative">
+        <span class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[10px]">1</span>
+        <span>Configure</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-blue-50/50 z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white relative">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">2</span>
+        <span>Preview &amp; Validate</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-white z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white relative">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">3</span>
+        <span>Importing</span>
+        <div class="absolute -right-2.5 top-1/2 -translate-y-1/2 rotate-45 w-5 h-5 border-t border-r border-slate-200 bg-white z-10"></div>
+      </div>
+      <div class="flex items-center justify-center gap-2 py-3.5 text-[13px] font-medium text-gray-500 bg-white">
+        <span class="w-5 h-5 rounded-full bg-slate-100 text-gray-500 flex items-center justify-center font-bold text-[10px]">4</span>
+        <span>Completed</span>
+      </div>
+    </div>
+
+    <p class="text-sm text-gray-600 mb-6 max-w-3xl leading-relaxed">
+      Import questions only from CSV or JSON into an existing quiz, or into the content bank (not assigned to any quiz). 
+      For importing full quizzes into a course, use the <a href="a01-quizzes-configure.html" class="text-blue-600 font-semibold hover:underline">Import Quizzes</a> tab.
+    </p>
+
+    <!-- Configure Forms Panel -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch mb-6">
+      
+      <!-- 1. Sample templates -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">1. Sample templates</h2>
+          <p class="text-xs text-gray-500 mb-4 leading-relaxed">
+            Download template files configured for importing single-question data records.
+          </p>
+        </div>
+        <div>
+          <div class="flex flex-col gap-2">
+            <button type="button" data-action="downloadQCsv" class="w-full text-center border border-blue-600 text-blue-600 hover:bg-blue-50 px-3 py-2 rounded font-semibold text-xs transition duration-150">Download CSV sample</button>
+            <button type="button" data-action="downloadQJson" class="w-full text-center border border-blue-600 text-blue-600 hover:bg-blue-50 px-3 py-2 rounded font-semibold text-xs transition duration-150">Download JSON sample</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Destination -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">2. Destination</h2>
+          <p class="text-xs text-gray-500 mb-3 leading-relaxed">Choose where imported questions will reside.</p>
+          
+          <div class="space-y-2 select-none">
+            <label class="flex items-center gap-2 border border-slate-200 rounded p-2.5 hover:bg-slate-50 cursor-pointer transition">
+              <input type="radio" name="qdest" value="existing" checked class="text-blue-600 focus:ring-blue-500" />
+              <div class="text-xs">
+                <strong class="block text-slate-800">Existing quiz</strong>
+              </div>
+            </label>
+            <label class="flex items-center gap-2 border border-slate-200 rounded p-2.5 hover:bg-slate-50 cursor-pointer transition">
+              <input type="radio" name="qdest" value="bank" class="text-blue-600 focus:ring-blue-500" />
+              <div class="text-xs">
+                <strong class="block text-slate-800">Content bank only</strong>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div id="panel-existing" class="mt-4">
+          <div class="relative">
+            <input id="quiz-search" type="search" placeholder="Type to search quizzes…" class="border border-slate-300 rounded px-2.5 py-1.5 w-full text-xs focus:border-blue-500 focus:outline-none transition" autocomplete="off" />
+            <ul id="quiz-list" class="lp-list absolute left-0 right-0 z-50 mt-1 border border-slate-300 rounded bg-white shadow-lg max-h-40 overflow-y-auto"></ul>
+          </div>
+          <div class="mt-3">
+            <span class="text-xs text-gray-400">Selected:</span>
+            <div class="mt-1"><span id="selected-quiz" class="inline-flex items-center bg-blue-50 border border-blue-200 text-blue-700 px-2.5 py-1 rounded text-xs font-semibold">—</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Insert position -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between" id="pos-card">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">3. Insert position</h2>
+          <p class="text-xs text-gray-500 mb-3 leading-relaxed">Position questions within the destination quiz.</p>
+          
+          <div class="space-y-2 select-none">
+            <label class="flex items-center gap-2 border border-slate-200 rounded p-2 px-3 hover:bg-slate-50 cursor-pointer transition">
+              <input type="radio" name="pos" value="start" class="text-blue-600" />
+              <span class="text-xs font-medium text-slate-700">Start of quiz</span>
+            </label>
+            <label class="flex items-center gap-2 border border-slate-200 rounded p-2 px-3 hover:bg-slate-50 cursor-pointer transition">
+              <input type="radio" name="pos" value="end" checked class="text-blue-600" />
+              <span class="text-xs font-medium text-slate-700">End of quiz (default)</span>
+            </label>
+          </div>
+        </div>
+        <div class="mt-4">
+          <p class="text-[11px] text-gray-400 leading-tight">Ignored when importing to the content bank.</p>
+        </div>
+      </div>
+
+      <!-- 4. Upload file -->
+      <div class="bg-white border border-slate-200 shadow-sm rounded-lg p-5 flex flex-col justify-between">
+        <div>
+          <h2 class="text-sm font-semibold border-b pb-2 mb-3 text-slate-800">4. Upload file</h2>
+          <p class="text-xs text-gray-500 mb-4 leading-relaxed">Select a CSV or JSON questions file to analyze and import.</p>
+        </div>
+        <div>
+          <input id="file-input" type="file" accept=".csv,.json" class="text-xs file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer w-full border border-dashed border-slate-300 p-2 rounded" />
+          <p class="text-[11px] text-gray-400 mt-3">Selected file: <span id="file-name" class="font-medium text-slate-700">No file selected</span></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Actions Bar -->
+    <div class="flex items-center gap-3 border-t pt-4">
+      <button type="button" data-action="validateQuestions" class="bg-[#2271b1] hover:bg-[#135e96] text-white px-5 py-2.5 rounded font-semibold text-xs transition duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Upload &amp; Validate</button>
+    </div>
+
+  </div>
+  <script src="assets/flow-data.js"></script>
+  <script src="assets/chrome.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      LPChrome.mount({ activeScreen: "b01", ieTab: "import_questions" });
+      const search = document.getElementById("quiz-search");
+      const list = document.getElementById("quiz-list");
+      const open = () => { list.classList.add("is-open"); LPApp.renderQuizzes(search.value); };
+      search.addEventListener("focus", open);
+      search.addEventListener("click", open);
+      search.addEventListener("input", () => { LPApp.renderQuizzes(search.value); list.classList.add("is-open"); });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#quiz-search, #quiz-list")) list.classList.remove("is-open");
+      });
+      document.querySelectorAll('input[name="qdest"]').forEach((r) => {
+        r.addEventListener("change", () => {
+          const d = document.querySelector('input[name="qdest"]:checked')?.value;
+          document.getElementById("panel-existing").classList.toggle("hidden", d !== "existing");
+          document.getElementById("pos-card").classList.toggle("hidden", d !== "existing");
+        });
+      });
+      document.getElementById("file-input")?.addEventListener("change", function () { LPApp.onFileChange(this); });
+    });
+  </script>
+</body>
+</html>

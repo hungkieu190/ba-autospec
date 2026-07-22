@@ -8,226 +8,218 @@
 **LearnPress Tutor Booking**
 
 ### Tagline
-*Đặt lịch dạy kèm trực tiếp trong LearnPress — không cần công cụ ngoài.*
+*Đặt lịch dạy kèm trực tiếp trong LearnPress — thanh toán, dual-confirm, email, và revenue split ở cùng một nơi.*
 
 ### Problem Statement
-Instructor trên LearnPress muốn bán dịch vụ dạy kèm 1-1 và nhóm nhỏ, nhưng không có giải pháp native. Họ phải ghép Calendly + Google Form + email + Google Calendar — tạo ra quy trình rời rạc, tốn thời gian và tăng chi phí subscription. Student phải rời khỏi website LearnPress để đặt lịch, làm mất trải nghiệm học.
+Instructor dùng LearnPress thường phải ghép thêm tool ngoài để bán session live: lịch khả dụng ở một nơi, thanh toán ở một nơi khác, email ở một nơi khác nữa. Khi có marketplace-style split, còn thêm bài toán: **student đã trả tiền ≠ instructor đã được cộng commission** — cần xác nhận hai phía đã dạy/đã học, khiếu nại, và admin xử lý dispute.
 
-### Giải pháp được đề xuất
-Add-on LearnPress cho phép instructor public lịch khả dụng, nhận booking, thu tiền qua LP Checkout, quản lý session và nhận review — tất cả trong hệ sinh thái LearnPress. Student đặt lịch, thanh toán, join meeting và review tutor mà không rời khỏi website.
+### Giải pháp
+Add-on native cho LearnPress cho phép instructor:
+
+- Tạo một tutor profile canonical cho user đó.
+- Tạo session type với giá, duration, buffer, status, và meeting link riêng.
+- Cấu hình availability theo tuần, custom date, holiday.
+- Book qua LearnPress Checkout (student trả tiền → booking paid/`confirmed`).
+- **Dual confirmation:** instructor Confirm Taught + student Confirm Learned trước khi session `completed` và instructor được cộng revenue.
+- Student review (sao + message) và complaint khi session không thành công.
+- Admin resolve manual: release pay, force complete, cancel, refund, no-show.
+- Nhận confirmation email từ LearnPress Emails tab.
+- Theo dõi pending vs earned revenue, withdrawals, và payout email trong dashboard.
+- Shortcode sessions hiển thị bio + average rating.
+- Meeting join button unlock N phút trước session (configurable; 0 = immediate after paid).
 
 ### Target Audience
 
-**Primary:**
-- LearnPress site owner muốn mở rộng sang live tutoring
-- Individual instructor, tutor, coach, mentor, consultant dùng LearnPress
-- Online educator muốn bán 1-1 session kèm course
+**Primary**
+- LearnPress site owner muốn bán dịch vụ dạy kèm live (có thể lấy platform share).
+- Instructor / tutor / coach đang dùng LearnPress.
+- Training center muốn kết hợp course + session live.
 
-**Secondary:**
-- Student đang học trên LearnPress muốn book thêm dạy kèm riêng
-- Training center dùng LP để quản lý instructor nội bộ
+**Secondary**
+- Student đang học trên LearnPress và cần book thêm giờ học riêng.
+- Admin cần báo cáo revenue theo tutor và xử lý dispute.
 
 ### User Roles
 
 | Role | Mô tả | Scope chính |
 |---|---|---|
-| Admin | Quản lý toàn bộ hệ thống booking trên site | View all bookings, override status, manage settings, export data |
-| Instructor | Tạo tutor profile, manage availability, nhận booking, host session | Availability, pricing, session management, review reading |
-| Student | Tìm instructor, đặt lịch, thanh toán, join meeting, review | Browse, book, pay, join, review |
-
-### Business Value
-- Tăng ARPU của LearnPress site owner bằng cách enable revenue stream mới (live session)
-- Mở rộng LP ecosystem: instructor không cần rời LP sang SaaS booking
-- Tăng giá trị của LearnPress Pro Bundle nếu tích hợp sau
-- Tăng retention: instructor có thêm công cụ kiếm tiền → ít rời LP hơn
-
-### Scope (v1.0)
-- Instructor availability management (weekly recurring + custom dates + holiday blocking)
-- Multiple session types với pricing riêng
-- Tutor listing page đơn giản (avatar, tên, môn/subject, giá từ, rating, link profile)
-- Booking calendar cho student
-- LP Checkout integration (booking → checkout → payment → confirmation)
-- Booking management dashboard (admin, instructor, student)
-- Meeting link (manual input, nhập 1 lần; hiển thị ngay sau booking Confirmed)
-- Email notification (LP email system)
-- Tutor review & rating (không có reply trong v1.0)
-- Timezone handling (store UTC, display theo student timezone)
-- Conflict detection (internal system)
-- Google Calendar: **one-way export** lịch booking sang Google Calendar của instructor + **ICS export** cho student
-- Webhook support
-- GDPR compliance (data export, delete)
-- Mobile responsive
-- Group session: tự confirm khi đủ slot tối đa; nếu session bắt đầu mà chưa đủ người → **proceed** (không tự cancel)
-- Reschedule: student có thể reschedule, deadline mặc định **24 giờ** trước session (configurable)
-
-### Out of Scope (v1.0)
-- Coupon/discount cho booking
-- Instructor payout / split payment
-- Zoom/Google Meet API auto-generate link
-- Instructor reply review
-- Session packages / credit system
-- Recurring sessions
-- Google Calendar **two-way sync** (sẽ làm v1.1)
-- Conflict detection với Google Calendar (sẽ làm v1.1, sau khi có two-way sync)
-- Apple Calendar / Outlook integration
-- WordPress Multisite
-- Automated testing framework
-- WCAG 2.1 AA compliance
-- Developer hooks/filters/API docs
-- Auto-cancel group session khi chưa đủ người (quá phức tạp: kéo theo refund, reschedule, notification)
+| Admin | Quản lý toàn bộ booking, dispute, cấu hình hệ thống | Settings, revenue share, reports, resolve disputes, all bookings |
+| Instructor | Profile, availability, session types, confirm taught, payout | Own profile, own sessions, confirm taught, pending/earned |
+| Student | Book, pay, join, confirm learned, review, complaint | Browse, book, pay, join, dual-confirm, review, dispute |
 
 ---
 
-## 2. Positioning & USP
+## 2. Product Shape Hiện Tại
+
+Những phần đã khớp với code hiện tại:
+
+- One canonical tutor profile per user.
+- Multiple session types per tutor profile.
+- Temporary hold trước checkout.
+- Revenue share lưu snapshot theo booking.
+- **Revenue release flag** (`revenue_released`) — commission chỉ credit sau dual confirm / admin.
+- Statuses: `hold` → `pending_payment` → `confirmed` → `awaiting_confirmation` → `completed` | `disputed` | `no_show` | `cancelled` | `refunded`.
+- Meeting link fallback chain: booking -> session type -> tutor profile.
+- Timezone preview theo WordPress timezone format.
+- Past/started slots disabled.
+- Student review + public rating on sessions shortcode.
+- Meeting join unlock via `lp_tb_meeting_link_visible_minutes`.
+- Default confirmation emails: unlock notice only; `{{meeting_link}}` optional for admin custom body.
+- Tutor Booking confirmation email types xuất hiện trong LearnPress Emails settings.
+
+---
+
+## 3. Scope v1.0
+
+### In scope
+- Tutor profile management.
+- Session type management.
+- Weekly availability + custom dates + holiday blocks.
+- Timezone-aware slot picker.
+- Hold -> checkout -> paid/confirmed booking flow.
+- **Dual confirmation (taught + learned)** và delayed revenue release.
+- Student review (stars + message) gắn confirm learned / completed.
+- Student complaint + admin manual resolve.
+- Cancel / reschedule / no-show.
+- Revenue tab cho admin và instructor (pending vs earned).
+- Admin revenue share setting + snapshot.
+- Confirmation email configuration trong LearnPress Emails tab.
+- Sessions shortcode: tutor info, bio, rating.
+- Google Calendar sync / busy lookup.
+- Privacy exporter / eraser.
+
+### Out of scope
+- Multi-profile per instructor.
+- Packages / credits / subscriptions cho session.
+- Auto-generated meeting links qua Zoom/Meet API.
+- Recurring sessions.
+- Auto-timeout dual-confirm (admin phải resolve manual ở v1).
+- Webhook framework riêng.
+- Multisite support.
+- Comparison landing pages trong docs nội bộ.
+
+---
+
+## 4. Positioning & USP
 
 ### Positioning Statement
-Dành cho instructor và site owner đang dùng LearnPress, **LearnPress Tutor Booking** là add-on duy nhất cho phép quản lý toàn bộ vòng đời dạy kèm trực tiếp — từ lịch, booking, đến thanh toán và review — ngay trong hệ sinh thái LearnPress, không cần plugin booking ngoài.
+Cho instructor và site owner đang dùng LearnPress, LearnPress Tutor Booking là add-on native cho phép bán và quản lý session live với **thanh toán, dual-sided confirmation, dispute handling, và revenue control** ngay trong hệ sinh thái LearnPress.
 
 ### Unique Selling Proposition
-**"Native LearnPress integration — một hệ thống, không cần ghép tool."**
+**Native LearnPress booking with trusted dual-confirm payout.**
 
-Không như Amelia hay Bookly (generic WP booking), không như Tutor LMS + FluentBooking (cần plugin thứ 3), LearnPress Tutor Booking được xây dựng riêng cho LP: dùng LP checkout, LP email, LP profile, LP dashboard — giảm setup, giảm phí subscription, giảm học công cụ mới.
+Điểm mạnh không chỉ là booking. Nó còn là:
 
-### Product Differentiators
-
-| Differentiator | Mô tả | vs. Competitor |
-|---|---|---|
-| Native LP integration | Checkout, email, profile, dashboard từ LP | Amelia/Bookly dùng stack riêng |
-| LMS-specific session types | Consultation, Mentoring, Exam Review, Office Hour | Generic booking không có vocabulary này |
-| Subscription pricing $39/năm | Rẻ hơn so với các đối thủ | Amelia $79+/năm, WC Bookings $249/năm |
-| Multiple tutor profiles per instructor | Dạy Toán và Tiếng Anh với lịch/giá khác nhau | Hầu hết booking plugin không support |
-| Instructor timezone setting | Student thấy giờ theo timezone của mình | Ít plugin xử lý tốt cả 2 phía |
+- Student paid ≠ instructor earned cho đến khi hai bên xác nhận.
+- Revenue split rõ ràng + snapshot lịch sử.
+- Complaint + admin resolve.
+- Review/rating public trên listing session.
+- Email, profile, checkout, dashboard đồng bộ LearnPress.
 
 ---
 
-## 3. Revenue Model & Pricing
+## 5. Revenue Model & Pricing
 
-### Mô hình hiện tại
-- **Annual Subscription:** $39 / 1 site / năm
-- Không có freemium, không có subscription
-- Phân phối độc quyền qua **thimpress.com**
-- Tương lai có thể tích hợp vào LearnPress Pro Bundle (chưa quyết định)
+- **Annual Subscription:** $39 / site / năm.
+- **Platform share:** Admin cấu hình % chia sẻ doanh thu.
+- **Default behavior:** Platform share = 0% → instructor giữ 100% (sau khi revenue được release).
+- **Snapshot rule:** Khi hold được tạo, share % lưu cố định trên booking row.
+- **Release rule (quan trọng):**
+  1. Student thanh toán → booking `confirmed` — **chưa** cộng commission instructor.
+  2. Instructor Confirm Taught + Student Confirm Learned → `completed` + `revenue_released=1` → `lp_commission_add_commission`.
+  3. Hoặc admin `release_revenue` / `complete` trên disputed/stuck booking.
+  4. `no_show` / `cancelled` / `refunded` → không release (trừ khi admin force release).
 
-### Revenue Projection (Assumption — cần validate)
+### Why this matters
+Instructor luôn biết:
 
-> Dưới đây là ước tính giả định, không phải dự báo có dữ liệu thực.
-
-| Scenario | Sales/tháng | Revenue/tháng | Revenue/năm |
-|---|---|---|---|
-| Conservative | 30 | $1,170 | $14,040 |
-| Base | 80 | $3,120 | $37,440 |
-| Optimistic | 150 | $5,850 | $70,200 |
-
-**Ghi chú:** Với mô hình subscription $39/năm, Life-Time Value (LTV) sẽ cao hơn, nhưng đòi hỏi support và update đều đặn để duy trì tỷ lệ gia hạn (renewal rate).
-
-### Upsell Opportunities (Roadmap)
-- Session packages / credit system
-- Instructor payout / commission management
-- Zoom API auto-generate meeting link
-- White-label booking page
+- Booking nào đang **Pending earn** vs **Earned**.
+- Booking nào thuộc thế hệ revenue share nào (snapshot).
+- Payout email nào đang dùng để rút tiền (commission balance chỉ tăng sau release).
 
 ---
 
-## 4. Roadmap
+## 6. Roadmap
 
-### Version 1.0 — Core Booking (Target: MVP)
+### v1.0
+| Feature | Priority |
+|---|---|
+| Canonical tutor profile | P0 |
+| Session types with price/duration/buffer | P0 |
+| Availability management | P0 |
+| Timezone-aware booking UI | P0 |
+| Hold + checkout + paid/confirmed flow | P0 |
+| Dual confirm taught + learned | P0 |
+| Delayed revenue release to commission | P0 |
+| Student complaint + admin resolve | P0 |
+| Cancel / reschedule / no-show | P0 |
+| Revenue share settings + snapshot | P0 |
+| Student review + rating on shortcode | P0 |
+| LearnPress Emails integration | P0 |
+| Google Calendar sync | P1 |
+| Privacy exporter / eraser | P1 |
 
-**Mục tiêu:** Instructor có thể nhận booking, thu tiền, và quản lý session qua LP. Student đặt lịch và join meeting mà không rời LP.
-
-| Feature | Priority | RICE Score (estimate) |
-|---|---|---|
-| Instructor availability setup (weekly + custom + holiday) | P0 | Cao |
-| Tutor booking calendar (student-facing) | P0 | Cao |
-| Multiple session types + per-type pricing | P0 | Cao |
-| LP Checkout integration (booking → pay → confirm) | P0 | Cao |
-| Booking status management | P0 | Cao |
-| Email notification (new booking, confirmed, cancelled, reminder) | P0 | Cao |
-| Instructor dashboard (wp-admin + frontend) | P0 | Cao |
-| Student dashboard (frontend) | P0 | Cao |
-| Meeting link (manual input, 1 lần per session type) | P0 | Cao |
-| Tutor review & rating (student-side) | P1 | Trung bình |
-| Multiple tutor profiles per instructor | P1 | Trung bình |
-| Timezone handling (UTC store + student display) | P0 | Cao — risk item |
-| Conflict detection (internal) | P0 | Cao — risk item |
-| Google Calendar sync | P1 | Trung bình — cần clarify scope |
-| Webhook support | P1 | Trung bình |
-| GDPR: data export + delete | P1 | Trung bình |
-| Mobile responsive | P0 | Cao |
-
-### Version 1.1 — UX & Integration Polish
-
-| Feature | Priority | Lý do |
-|---|---|---|
-| Google Calendar two-way sync (nếu v1.0 chỉ one-way) | P0 | Complete integration |
-| Conflict detection với Google Calendar | P0 | Risk reduction |
-| Admin booking management (force cancel/confirm, bulk export) | P0 | B2B use case |
-| Instructor review reply | P1 | User request |
-| Configurable cancellation policy (beyond 24h default) | P1 | Site owner flexibility |
-| Reschedule deadline config | P1 | Site owner flexibility |
-| Tutor listing page (browse all instructors) | P0 | Student discovery flow |
-
-### Version 2.0 — Monetization Expansion
-
-| Feature | Priority | Lý do |
-|---|---|---|
-| Session packages (5 sessions, monthly) | P0 | Revenue expansion |
-| Credit system | P1 | Prepay use case |
-| Recurring sessions | P1 | Coaching programs |
-| Zoom API auto-generate meeting link | P1 | UX improvement |
-| Google Meet API auto-generate | P1 | UX improvement |
-| Instructor payout / commission tracking | P1 | B2B marketplace use case |
-| Coupon/discount support | P2 | Promotion capability |
+### v1.1+
+| Feature | Priority |
+|---|---|
+| Auto-timeout dual-confirm (e.g. N days → auto-complete or auto-dispute) | P1 |
+| More email types (taught reminder, dispute notice) | P1 |
+| Richer revenue analytics (pending vs released) | P1 |
+| Improved Google Calendar failure recovery | P1 |
+| Better dashboard filtering/search | P2 |
 
 ---
 
-## 5. Growth Loops
+## 7. Growth Loops
 
-### Loop 1: Content/SEO Loop
-1. Instructor public tutor profile → Trang profile được index bởi Google
-2. Student search "LearnPress tutor" hoặc tên instructor → Tìm thấy profile
-3. Student book → Hệ thống hoạt động → Instructor hài lòng → Review/recommend
-4. Review công khai → Tăng SEO authority cho tutor profile
+### Loop 1: Course -> Session -> Retention
+1. Student mua course.
+2. Instructor bán thêm session.
+3. Student quay lại học 1:1.
+4. Instructor thấy giá trị cao hơn và gắn bó với LearnPress.
 
-**Metric:** Organic traffic đến tutor profile pages; booking từ organic traffic
+### Loop 2: Trusted payout -> More supply
+1. Admin set platform share.
+2. Instructor chỉ được cộng sau dual confirm → giảm “student claim no class, instructor already paid”.
+3. Instructor tin hệ thống và list thêm session.
+4. Booking tăng, platform share tăng.
 
-### Loop 2: Platform Ecosystem Loop
-1. LP site owner mua Tutor Booking → Enable tính năng cho instructor
-2. Instructor invite student book session → Student join LearnPress
-3. Student thấy course của instructor → Mua course
-4. Site owner doanh thu tăng → Đầu tư thêm vào LP ecosystem → Mua thêm add-on
-
-**Metric:** Cross-sell rate (booking → course purchase)
-
-**Lưu ý:** Không force growth loop nếu chưa có evidence về loop mechanics. Cả 2 loop trên là giả thuyết cần validate sau launch.
-
----
-
-## 6. Success Metrics
-
-| Metric | Mục tiêu 3 tháng | Mục tiêu 6 tháng | Ghi chú |
-|---|---|---|---|
-| Số sales | 50 | 200 | Conservative estimate |
-| Active installations | 40 | 160 | ~80% active rate |
-| Số booking được tạo | 500 | 5,000 | Tùy mức độ dùng per site |
-| Session completion rate | > 85% | > 90% | Đo No Show rate |
-| Support ticket / 10 sales | < 2 | < 1.5 | Đo support burden |
-| Churn (uninstall) rate | < 20% | < 15% | Monitor trong dashboard |
+### Loop 3: Review -> Social proof -> Book
+1. Student confirm learned + rate stars.
+2. Shortcode sessions hiển thị average rating.
+3. Student mới book tin cậy hơn.
 
 ---
 
-## Assumptions, Decisions, And Validation Items
+## 8. Success Metrics
 
-- **Assumption:** $39 cho 1 site license là price point launch; cần theo dõi conversion và support cost sau launch.
-- **Decision:** Google Calendar nằm trong v1.0. Scope gồm sync booking và kiểm tra busy time để chống conflict.
-- **Decision:** Add-on được định vị là sản phẩm độc lập ở launch, chưa include trong LearnPress Pro Bundle.
-- **Decision:** Tutor listing page nằm trong v1.0 để student tìm instructor.
-
-## Next Actions
-
-| Action | Owner | Deadline |
+| Metric | Mục tiêu 3 tháng | Ghi chú |
 |---|---|---|
-| Clarify Google Calendar scope (v1.0 vs v1.1) | Product | Ngay |
-| Clarify Tutor listing page scope | Product | Ngay |
-| Design multiple tutor profiles UX | Design | Sprint 2 |
-| Validate $39 pricing via pre-launch page | Marketing | Trước sprint 1 |
-| Define default cancellation deadline (config = bao nhiêu? range?) | Product | Sprint 1 |
+| Booking payment rate | > 75% | hold/checkout → confirmed (paid) |
+| Dual-confirm completion rate | > 70% | confirmed → completed (both sides) |
+| Dispute rate | < 10% | disputed / confirmed past sessions |
+| Double-booking incidents | 0 | hard fail |
+| False payout (paid before dual confirm) | 0 | commission only after release |
+| Support ticket / 10 sales | < 2 | timezone, dual-confirm, dispute |
+| Revenue tab usage | High | pending vs earned clarity |
+
+---
+
+## 9. Assumptions, Decisions, And Validation Items
+
+- **Decision:** Revenue share + delayed release là phần lõi, không phải addon phụ.
+- **Decision:** Dual confirmation bắt buộc trước khi instructor được cộng commission.
+- **Decision:** Confirmation email config sống trong LearnPress Emails tab.
+- **Decision:** Meeting link cấp session type là first-class, profile link chỉ là fallback.
+- **Decision:** Slots past/started phải disabled.
+- **Decision:** Timezone preview dùng WordPress timezone làm chuẩn hiển thị.
+- **Decision:** v1 không auto-timeout dual-confirm; admin resolve manual.
+
+## 10. Next Actions
+
+| Action | Owner | Timing |
+|---|---|---|
+| Chuẩn hóa wording Pending earn / Earned / Paid | Product | Ngay |
+| E2E dual-confirm + commission credit | Engineering + QA | Ngay |
+| Copy dispute / complaint UX | Design + Docs | Sprint hiện tại |
+| Landing copy dual-confirm trust | Marketing | Sprint hiện tại |
