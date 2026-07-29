@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S05: Student Membership Dashboard — Wireframe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
+
+  <!-- Top Wireframe Control Bar -->
+  <div class="bg-slate-900 text-white text-xs px-4 py-2 flex items-center justify-between sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-white px-2.5 py-1 rounded border border-slate-700 font-medium">← Back to Index</a>
+      <span class="font-bold text-indigo-300">WIREFRAME S05</span>
+      <span>Student Membership Dashboard / Profile Tab — Student</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-slate-400">Navigation:</span>
+      <a href="s04-pricing-restricted-cta.html" class="text-slate-300 hover:text-white px-2 py-0.5">← S04</a>
+      <span class="bg-indigo-600 px-2 py-0.5 rounded font-bold">S05</span>
+      <a href="s06-woo-checkout-success.html" class="text-slate-300 hover:text-white px-2 py-0.5">S06 ➔</a>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto p-6 space-y-6">
+    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+      <h1 class="text-2xl font-extrabold text-slate-900 mb-4">LearnPress Student Profile</h1>
+
+      <div class="grid gap-6 lg:grid-cols-[240px_1fr]">
+        <!-- LearnPress Profile Sidebar Navigation -->
+        <aside class="border-r border-slate-200 pr-6">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="h-10 w-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center">JD</div>
+            <div>
+              <div class="text-sm font-bold text-slate-900">John Doe</div>
+              <div class="text-xs text-slate-500">Student Account</div>
+            </div>
+          </div>
+
+          <nav class="space-y-1 text-sm font-medium" aria-label="Account navigation">
+            <a class="block rounded-lg bg-indigo-50 text-indigo-700 px-3.5 py-2 font-semibold" href="#">
+              <span class="mr-2">🎫</span> Membership
+            </a>
+            <a class="block rounded-lg text-slate-600 hover:bg-slate-50 px-3.5 py-2" href="#">
+              <span class="mr-2">📚</span> Enrolled Courses
+            </a>
+            <a class="block rounded-lg text-slate-600 hover:bg-slate-50 px-3.5 py-2" href="#">
+              <span class="mr-2">📜</span> Certificates
+            </a>
+            <a class="block rounded-lg text-slate-600 hover:bg-slate-50 px-3.5 py-2" href="#">
+              <span class="mr-2">🛒</span> WooCommerce Orders
+            </a>
+          </nav>
+        </aside>
+
+        <!-- Main Membership Details Content -->
+        <div class="space-y-6">
+          <div class="border border-slate-200 rounded-xl p-5 bg-white shadow-sm">
+            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between border-b border-slate-100 pb-4">
+              <div>
+                <span class="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Active Plan</span>
+                <h3 class="text-xl font-extrabold text-slate-900 demo-plan-name">Premium Membership</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Purchased via WooCommerce Checkout (#10482)</p>
+              </div>
+              <span class="rounded-full bg-green-100 px-3.5 py-1 text-xs font-bold text-green-800">● Active</span>
+            </div>
+
+            <dl class="grid gap-4 md:grid-cols-3 mt-4 text-sm">
+              <div class="rounded-lg bg-slate-50 p-3.5 border border-slate-100">
+                <dt class="text-xs text-slate-500 font-medium">Activation Date</dt>
+                <dd class="font-bold text-slate-800 mt-1">Jan 15, 2026</dd>
+              </div>
+              <div class="rounded-lg bg-slate-50 p-3.5 border border-slate-100">
+                <dt class="text-xs text-slate-500 font-medium">Expiry / Renewal</dt>
+                <dd class="font-bold text-slate-800 mt-1">Dec 31, 2026</dd>
+              </div>
+              <div class="rounded-lg bg-slate-50 p-3.5 border border-slate-100">
+                <dt class="text-xs text-slate-500 font-medium">Billing Source</dt>
+                <dd class="font-bold text-slate-800 mt-1">WooCommerce</dd>
+              </div>
+            </dl>
+
+            <div class="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
+              <button aria-label="Renew membership" onclick="showDemoToast('Routing to WooCommerce renewal checkout...', 'info');" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-xs rounded-lg px-4 py-2 transition shadow-sm">
+                Renew Membership
+              </button>
+              <a href="#" onclick="showDemoToast('Opening WooCommerce My Account orders...', 'info'); return false;" class="text-xs text-indigo-600 hover:underline font-medium">
+                View WooCommerce Invoice ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Empty State Demo -->
+          <div class="border border-dashed border-slate-300 rounded-xl p-5 bg-slate-50 text-slate-600">
+            <h4 class="font-bold text-slate-800 text-sm">Empty State Preview (No Active Membership)</h4>
+            <p class="text-xs text-slate-500 mt-1">If a student has no active membership plan, this state displays:</p>
+            <div class="mt-3 p-4 bg-white border border-slate-200 rounded-lg text-center">
+              <p class="text-xs text-slate-600">You do not have an active membership plan yet.</p>
+              <a href="s04-pricing-restricted-cta.html" class="mt-3 inline-block bg-slate-900 hover:bg-slate-800 text-white text-xs px-3.5 py-1.5 rounded font-medium">
+                Browse Membership Plans
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

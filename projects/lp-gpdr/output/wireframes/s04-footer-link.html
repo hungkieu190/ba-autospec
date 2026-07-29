@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>s04 - Cookie Settings Link & Methods — LearnPress Cookie Consent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/flow-data.js"></script>
+  <script src="assets/app.js"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 min-h-screen relative pb-24">
+
+  <!-- WIREFRAME NAV BAR HUB HEADER -->
+  <header class="bg-gray-900 text-white px-4 py-2 flex flex-wrap justify-between items-center text-xs sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <span class="bg-blue-600 text-white font-bold px-2 py-0.5 rounded text-[10px] tracking-wider">WIREFRAME</span>
+      <span class="font-semibold text-gray-200">s04 - Cookie Settings Link & Embedding Methods</span>
+      <span class="text-gray-400">| Role: Admin / Developer / Visitor</span>
+    </div>
+    <nav class="flex items-center gap-2">
+      <a href="index.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">← Hub Index</a>
+      <span class="text-gray-600">|</span>
+      <a href="s01-admin-settings.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s01: Admin Settings</a>
+      <a href="s02-frontend-banner.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s02: Frontend Banner</a>
+      <a href="s03-preferences-modal.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s03: Preferences Modal</a>
+      <a href="s04-footer-link.html" class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium">s04: Footer Link</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-4xl mx-auto px-6 py-10">
+    <!-- Header Summary -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-8">
+      <h1 class="text-xl font-bold text-gray-900 mb-2">Re-opening Cookie Preferences (Footer & Widget Methods)</h1>
+      <p class="text-xs text-gray-600 leading-relaxed">Once a visitor accepts or rejects cookies, the banner closes. LearnPress Cookie Consent provides 3 flexible methods to allow visitors to reopen their preferences at any time.</p>
+    </div>
+
+    <!-- 3 EMBEDDING METHODS DEMONSTRATION -->
+    <div class="space-y-6">
+      
+      <!-- Method 1: Footer Link -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full">Method 1</span>
+            <h3 class="text-base font-bold text-gray-900">Standard Footer Navigation Link</h3>
+          </div>
+          <span class="text-xs text-gray-500">HTML / Menu Link</span>
+        </div>
+        <p class="text-xs text-gray-600">Place a text link in your theme footer or Privacy Policy page. Clicking it reopens the modal instantly.</p>
+        
+        <!-- Live Demo Preview Box -->
+        <div class="bg-gray-900 text-gray-300 p-6 rounded-lg text-xs flex justify-between items-center">
+          <span>© 2026 LearnPress Academy. All rights reserved.</span>
+          <div class="flex gap-4">
+            <a href="#" class="hover:underline">Privacy Policy</a>
+            <a href="#" class="hover:underline">Terms of Service</a>
+            <button onclick="window.LP_Cookie.openSettings()" class="text-blue-400 hover:text-blue-300 font-semibold underline flex items-center gap-1">
+              🍪 Cookie Settings
+            </button>
+          </div>
+        </div>
+
+        <!-- Code Snippet -->
+        <div class="bg-gray-50 border border-gray-200 p-3 rounded text-xs font-mono text-gray-700">
+          &lt;a href="#" onclick="LP_Cookie.openSettings(); return false;" class="cookie-settings-link"&gt;Cookie Settings&lt;/a&gt;
+        </div>
+      </div>
+
+      <!-- Method 2: Shortcode / Gutenberg Block -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-2.5 py-0.5 rounded-full">Method 2</span>
+            <h3 class="text-base font-bold text-gray-900">Shortcode & Gutenberg Block Button</h3>
+          </div>
+          <span class="text-xs text-gray-500">[learnpress_cookie_settings]</span>
+        </div>
+        <p class="text-xs text-gray-600">Insert a styled button into any page, sidebar widget, or course description using a shortcode or block.</p>
+        
+        <!-- Live Demo Preview Box -->
+        <div class="bg-gray-50 border border-gray-200 p-6 rounded-lg text-xs flex items-center justify-between">
+          <div>
+            <h4 class="font-bold text-gray-900">Manage Your Privacy Rights</h4>
+            <p class="text-gray-500 mt-0.5">Click the button to update your consent selections anytime.</p>
+          </div>
+          <button onclick="window.LP_Cookie.openSettings()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg shadow-sm flex items-center gap-2 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/></svg>
+            Cookie Preferences
+          </button>
+        </div>
+
+        <!-- Code Snippet -->
+        <div class="bg-gray-50 border border-gray-200 p-3 rounded text-xs font-mono text-gray-700">
+          [learnpress_cookie_settings text="Cookie Preferences" class="btn-primary"]
+        </div>
+      </div>
+
+      <!-- Method 3: Floating Trigger Button -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">Method 3</span>
+            <h3 class="text-base font-bold text-gray-900">Floating Trigger Badge (Fixed Bottom Left)</h3>
+          </div>
+          <span class="text-xs text-gray-500">Floating Badge</span>
+        </div>
+        <p class="text-xs text-gray-600">A discrete floating cookie icon badge fixed at the screen corner (see bottom-left of your screen now!).</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FLOATING BADGE DEMO BUTTON -->
+  <button onclick="window.LP_Cookie.openSettings()" class="fixed bottom-6 left-6 z-40 bg-gray-900 hover:bg-black text-white p-3 rounded-full shadow-2xl border border-gray-700 flex items-center justify-center transition group" title="Cookie Settings">
+    <span class="text-lg">🍪</span>
+    <span class="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 text-xs font-semibold whitespace-nowrap transition-all duration-300">Cookie Settings</span>
+  </button>
+
+</body>
+</html>

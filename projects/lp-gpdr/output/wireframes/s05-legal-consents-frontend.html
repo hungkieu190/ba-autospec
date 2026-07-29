@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>s05 - Legal Consents Frontend Forms — LearnPress Cookie & Legal Consent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/flow-data.js"></script>
+  <script src="assets/app.js"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 antialiased min-h-screen pb-20">
+
+  <!-- WIREFRAME NAV BAR HUB HEADER -->
+  <header class="bg-gray-900 text-white px-4 py-2 flex flex-wrap justify-between items-center text-xs sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <span class="bg-blue-600 text-white font-bold px-2 py-0.5 rounded text-[10px] tracking-wider">WIREFRAME</span>
+      <span class="font-semibold text-gray-200">s05 - Legal Consents Frontend Placements</span>
+      <span class="text-gray-400">| Role: Student / Guest / Instructor</span>
+    </div>
+    <nav class="flex items-center gap-2">
+      <a href="index.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">← Hub Index</a>
+      <span class="text-gray-600">|</span>
+      <a href="s01-admin-settings.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s01: Admin Settings</a>
+      <a href="s05-legal-consents-frontend.html" class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium">s05: Legal Consents Forms</a>
+      <a href="s02-frontend-banner.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s02: Frontend Banner</a>
+      <a href="s03-preferences-modal.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s03: Preferences Modal</a>
+      <a href="s04-footer-link.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s04: Footer Link</a>
+    </nav>
+  </header>
+
+  <main class="max-w-5xl mx-auto p-6 md:p-10 space-y-10">
+
+    <!-- Header Description -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">Legal Consents Module</span>
+        <span class="text-xs text-gray-500">Tutor LMS Feature Counterpart</span>
+      </div>
+      <h1 class="text-xl font-bold text-gray-900">Legal Consents Placement Forms & Audit Logging</h1>
+      <p class="text-xs text-gray-600 mt-1">Legal consents created in wp-admin automatically render on Registration, Login, Checkout, and Instructor Registration forms. Form submission automatically logs Timestamp, IP, and User Agent for audit verification.</p>
+    </div>
+
+    <!-- 4 FORMS GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- FORM 1: REGISTRATION FORM -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h2 class="font-bold text-base text-gray-900">1. Student Registration Form</h2>
+            <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">REGISTRATION</span>
+          </div>
+
+          <form onsubmit="event.preventDefault(); submitFormDemo('Student Registration', 'registration-mandatory-chk');" class="space-y-4 text-xs">
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Username / Email</label>
+              <input type="email" required value="student_new@example.com" class="w-full border rounded px-3 py-2">
+            </div>
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Password</label>
+              <input type="password" required value="••••••••••••" class="w-full border rounded px-3 py-2">
+            </div>
+
+            <!-- Injected Legal Consents -->
+            <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg space-y-2.5">
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Legal Consents</span>
+              
+              <!-- Mandatory -->
+              <label class="flex items-start gap-2 cursor-pointer text-gray-800">
+                <input type="checkbox" id="registration-mandatory-chk" required class="mt-0.5 text-blue-600 rounded">
+                <span><strong class="text-rose-600">*</strong> I agree to the <a href="#" class="underline text-blue-600">Student Terms of Service</a> and Privacy Policy.</span>
+              </label>
+
+              <!-- Optional -->
+              <label class="flex items-start gap-2 cursor-pointer text-gray-600">
+                <input type="checkbox" class="mt-0.5 text-blue-600 rounded">
+                <span>(Optional) Send me weekly course discounts and learning newsletters.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg shadow-sm transition">
+              Register Account
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FORM 2: CHECKOUT FORM -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h2 class="font-bold text-base text-gray-900">2. Course Checkout Form</h2>
+            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">CHECKOUT</span>
+          </div>
+
+          <form onsubmit="event.preventDefault(); submitFormDemo('Checkout Purchase', 'checkout-mandatory-chk');" class="space-y-4 text-xs">
+            <div class="p-3 bg-indigo-50 border border-indigo-100 rounded text-indigo-900 font-medium">
+              🛒 Item: Mastering WordPress LMS ($10.00)
+            </div>
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Cardholder Name</label>
+              <input type="text" required value="Alex Johnson" class="w-full border rounded px-3 py-2">
+            </div>
+
+            <!-- Injected Legal Consents -->
+            <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg space-y-2.5">
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Required Agreements</span>
+              <label class="flex items-start gap-2 cursor-pointer text-gray-800">
+                <input type="checkbox" id="checkout-mandatory-chk" required class="mt-0.5 text-blue-600 rounded">
+                <span><strong class="text-rose-600">*</strong> I confirm I have read and agree to the <a href="#" class="underline text-blue-600">Course Refund Policy</a> and Digital Content Terms.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg shadow-sm transition">
+              Complete Order ($10.00)
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FORM 3: INSTRUCTOR REGISTRATION -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h2 class="font-bold text-base text-gray-900">3. Instructor Application Form</h2>
+            <span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded">INSTRUCTOR REG</span>
+          </div>
+
+          <form onsubmit="event.preventDefault(); submitFormDemo('Instructor Reg Application', 'instructor-mandatory-chk');" class="space-y-4 text-xs">
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Teaching Bio / Resume Link</label>
+              <input type="text" required value="https://linkedin.com/in/instructor" class="w-full border rounded px-3 py-2">
+            </div>
+
+            <!-- Injected Legal Consents -->
+            <div class="p-3 bg-gray-50 border border-gray-200 rounded-lg space-y-2.5">
+              <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Qualification Declaration</span>
+              <label class="flex items-start gap-2 cursor-pointer text-gray-800">
+                <input type="checkbox" id="instructor-mandatory-chk" required class="mt-0.5 text-blue-600 rounded">
+                <span><strong class="text-rose-600">*</strong> I certify under penalty of perjury that all submitted credentials and course materials are my original work.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 rounded-lg shadow-sm transition">
+              Submit Application
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FORM 4: LOGIN FORM -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h2 class="font-bold text-base text-gray-900">4. Student & Instructor Login Form</h2>
+            <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded">LOGIN</span>
+          </div>
+
+          <form onsubmit="event.preventDefault(); submitFormDemo('User Login', null);" class="space-y-4 text-xs">
+            <div>
+              <label class="block font-medium text-gray-700 mb-1">Username</label>
+              <input type="text" required value="student_user" class="w-full border rounded px-3 py-2">
+            </div>
+
+            <!-- Injected Legal Consents (Text Only) -->
+            <div class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-900">
+              <span class="font-bold block mb-0.5">ℹ️ Security Notice</span>
+              <span>Login sessions are monitored for fraud prevention and security audit compliance.</span>
+            </div>
+
+            <button type="submit" class="w-full bg-gray-900 hover:bg-black text-white font-semibold py-2.5 rounded-lg shadow-sm transition">
+              Log In
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function submitFormDemo(formName, mandatoryChkId) {
+      if (mandatoryChkId) {
+        const chk = document.getElementById(mandatoryChkId);
+        if (!chk || !chk.checked) {
+          window.showToast("Please check the mandatory legal agreement before submitting!", "error");
+          return;
+        }
+      }
+
+      // Add to audit log
+      const logRecord = {
+        id: "LOG-" + Math.floor(1000 + Math.random() * 9000),
+        user: "active_user@example.com",
+        type: formName + " Consent",
+        ip: "118.69.182.45",
+        browser: "Chrome 126.0 (Windows 11)",
+        timestamp: new Date().toISOString().replace('T', ' ').slice(0, 19)
+      };
+
+      window.LP_Cookie_Data.addAuditLogRecord(logRecord);
+      window.showToast(`Form submitted! Logged Timestamp, IP, and User Agent to Consent Audit Log.`, "success");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>s01 - Admin Settings — LearnPress Cookie & Legal Consent</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/flow-data.js"></script>
+  <script src="assets/app.js"></script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 antialiased min-h-screen">
+
+  <!-- WIREFRAME NAV BAR HUB HEADER -->
+  <header class="bg-gray-900 text-white px-4 py-2 flex flex-wrap justify-between items-center text-xs sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <span class="bg-blue-600 text-white font-bold px-2 py-0.5 rounded text-[10px] tracking-wider">WIREFRAME</span>
+      <span class="font-semibold text-gray-200">s01 - WP Admin Settings & Legal Consents</span>
+      <span class="text-gray-400">| Role: Administrator</span>
+    </div>
+    <nav class="flex items-center gap-2">
+      <a href="index.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">← Hub Index</a>
+      <span class="text-gray-600">|</span>
+      <a href="s01-admin-settings.html" class="px-2.5 py-1 bg-blue-600 text-white rounded font-medium">s01: Admin Settings</a>
+      <a href="s05-legal-consents-frontend.html" class="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-600 text-white rounded font-medium transition">s05: Legal Consents Forms</a>
+      <a href="s02-frontend-banner.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s02: Frontend Banner</a>
+      <a href="s03-preferences-modal.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s03: Preferences Modal</a>
+      <a href="s04-footer-link.html" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded font-medium transition">s04: Footer Link</a>
+    </nav>
+  </header>
+
+  <!-- WORDPRESS ADMIN CHROME -->
+  <div class="w-full h-8 bg-gray-800 text-gray-200 text-xs flex items-center justify-between px-3 fixed top-8 z-40">
+    <div class="flex items-center gap-4">
+      <span class="font-bold tracking-tight text-white cursor-pointer hover:text-blue-400 flex items-center gap-1">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/></svg>
+        LearnPress Academy
+      </span>
+      <span class="cursor-pointer hover:text-blue-300">⚙️ Dashboard</span>
+      <span class="cursor-pointer hover:text-blue-300">➕ New Course</span>
+      <span class="cursor-pointer hover:text-blue-300">💬 Comments (3)</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="cursor-pointer hover:text-blue-300">Howdy, Administrator 👤</span>
+    </div>
+  </div>
+
+  <div class="flex pt-16">
+    <!-- WP Admin Sidebar -->
+    <aside class="w-48 bg-gray-900 text-gray-200 min-h-[calc(100vh-4rem)] flex-shrink-0 text-sm">
+      <div class="bg-gray-950 px-4 py-3 font-semibold text-xs tracking-wider text-gray-400 border-b border-gray-800">
+        WORDPRESS NAVIGATION
+      </div>
+      <ul class="py-2 text-xs space-y-0.5">
+        <li class="px-4 py-2 hover:bg-gray-800 cursor-pointer text-gray-300 flex items-center gap-2">📊 Dashboard</li>
+        <li class="px-4 py-2 hover:bg-gray-800 cursor-pointer text-gray-300 flex items-center gap-2">📚 Courses</li>
+        
+        <!-- Expanded LearnPress Menu -->
+        <li class="bg-blue-600 text-white font-medium">
+          <div class="px-4 py-2 flex items-center gap-2 font-semibold">🎓 LearnPress</div>
+          <ul class="bg-gray-950 text-gray-300 py-1 space-y-1 text-[11px]">
+            <li class="pl-6 py-1 hover:text-white cursor-pointer">Courses</li>
+            <li class="pl-6 py-1 hover:text-white cursor-pointer">Lessons</li>
+            <li class="pl-6 py-1 hover:text-white cursor-pointer">Quizzes</li>
+            <li class="pl-6 py-1 hover:text-white cursor-pointer">Orders</li>
+            <li class="pl-6 py-1 text-blue-400 font-bold bg-gray-900 border-l-4 border-blue-500">Settings</li>
+            <li class="pl-6 py-1 hover:text-white cursor-pointer">Tools</li>
+          </ul>
+        </li>
+
+        <li class="px-4 py-2 hover:bg-gray-800 cursor-pointer text-gray-300 flex items-center gap-2">🎨 Appearance</li>
+        <li class="px-4 py-2 hover:bg-gray-800 cursor-pointer text-gray-300 flex items-center gap-2">🔌 Plugins</li>
+        <li class="px-4 py-2 hover:bg-gray-800 cursor-pointer text-gray-300 flex items-center gap-2">👥 Users</li>
+        <li class="px-4 py-2 hover:bg-gray-800 cursor-pointer text-gray-300 flex items-center gap-2">⚙️ Settings</li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-6 max-w-5xl">
+      <!-- Header Title & Screen Options -->
+      <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-3">
+        <div>
+          <h1 class="text-2xl font-normal text-gray-900">LearnPress Settings</h1>
+          <p class="text-xs text-gray-500 mt-0.5">Manage global LMS behavior, privacy compliance, legal consents, and audit logs.</p>
+        </div>
+        <div class="flex gap-2 text-xs">
+          <button class="bg-white border border-gray-300 px-3 py-1 rounded text-gray-600 hover:bg-gray-50 shadow-sm">Help ▼</button>
+          <button class="bg-white border border-gray-300 px-3 py-1 rounded text-gray-600 hover:bg-gray-50 shadow-sm">Screen Options ▼</button>
+        </div>
+      </div>
+
+      <!-- Settings Parent Nav Tabs -->
+      <div class="flex border-b border-gray-200 mb-6 text-sm font-medium text-gray-600 gap-1 overflow-x-auto">
+        <span class="px-4 py-2 hover:text-gray-900 cursor-pointer">General</span>
+        <span class="px-4 py-2 hover:text-gray-900 cursor-pointer">Courses</span>
+        <span class="px-4 py-2 hover:text-gray-900 cursor-pointer">Pages</span>
+        <span class="px-4 py-2 hover:text-gray-900 cursor-pointer">Payments</span>
+        <span class="px-4 py-2 hover:text-gray-900 cursor-pointer">Emails</span>
+        <span class="px-4 py-2 text-blue-600 border-b-2 border-blue-600 font-semibold bg-white rounded-t shadow-sm">Privacy & Cookies</span>
+      </div>
+
+      <!-- SUB-TABS NAVIGATION -->
+      <div class="bg-white rounded-t-lg border border-gray-200 p-2 border-b-0 flex gap-2 flex-wrap text-xs font-semibold">
+        <button onclick="switchTab('general')" id="tab-btn-general" class="subtab-btn px-3 py-1.5 rounded bg-blue-600 text-white">General</button>
+        <button onclick="switchTab('appearance')" id="tab-btn-appearance" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Appearance</button>
+        <button onclick="switchTab('content')" id="tab-btn-content" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Content</button>
+        <button onclick="switchTab('behavior')" id="tab-btn-behavior" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Behavior</button>
+        <button onclick="switchTab('legal-consents')" id="tab-btn-legal-consents" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">📜 Legal Consents</button>
+        <button onclick="switchTab('audit-log')" id="tab-btn-audit-log" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">📊 Consent Audit Log</button>
+        <button onclick="switchTab('developer')" id="tab-btn-developer" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Developer API</button>
+        <button onclick="switchTab('compatibility')" id="tab-btn-compatibility" class="subtab-btn px-3 py-1.5 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Compatibility</button>
+      </div>
+
+      <!-- FORM SETTINGS CONTAINER -->
+      <form id="admin-settings-form" onsubmit="event.preventDefault(); saveForm();" class="bg-white border border-gray-200 rounded-b-lg p-6 shadow-sm mb-6">
+        
+        <!-- SUB-TAB 1: GENERAL -->
+        <div id="subtab-general" class="subtab-content space-y-6">
+          <h3 class="text-base font-semibold text-gray-900 border-b pb-2">General Settings</h3>
+          <table class="w-full text-sm">
+            <tr class="border-b border-gray-100">
+              <td class="w-56 font-medium text-gray-700 align-top pt-3">Enable Cookie Consent</td>
+              <td class="py-3">
+                <label class="inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="field-enabled" class="sr-only peer" checked>
+                  <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-blue-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                  <span class="ml-3 text-xs text-gray-600">Turn on native GDPR cookie consent banner on frontend</span>
+                </label>
+              </td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="font-medium text-gray-700 align-top pt-3">Consent Version</td>
+              <td class="py-3">
+                <div class="flex items-center gap-3">
+                  <input type="text" id="field-consentVersion" value="1.0" class="border border-gray-300 rounded px-3 py-1.5 text-sm w-32 focus:outline-none">
+                  <button type="button" onclick="resetAllConsents()" class="bg-amber-100 border border-amber-300 text-amber-800 text-xs px-3 py-1.5 rounded hover:bg-amber-200 font-medium">Reset All Consents Now</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- SUB-TAB 2: APPEARANCE -->
+        <div id="subtab-appearance" class="subtab-content space-y-6 hidden">
+          <h3 class="text-base font-semibold text-gray-900 border-b pb-2">Banner Styling & Position</h3>
+          <table class="w-full text-sm">
+            <tr class="border-b border-gray-100">
+              <td class="w-56 font-medium text-gray-700 align-top pt-3">Banner Position</td>
+              <td class="py-3 space-y-2 text-xs">
+                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="bannerPosition" value="bottom-bar" checked> Bottom Bar (Default)</label>
+                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="bannerPosition" value="top-bar"> Top Bar</label>
+                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="bannerPosition" value="float-left"> Floating Bottom Left</label>
+                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="bannerPosition" value="float-right"> Floating Bottom Right</label>
+                <label class="flex items-center gap-2 cursor-pointer"><input type="radio" name="bannerPosition" value="center-modal"> Center Modal (Blocking)</label>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- SUB-TAB 3: CONTENT -->
+        <div id="subtab-content" class="subtab-content space-y-6 hidden">
+          <h3 class="text-base font-semibold text-gray-900 border-b pb-2">Banner Texts & Links</h3>
+          <table class="w-full text-sm">
+            <tr>
+              <td class="w-56 font-medium text-gray-700 align-top pt-3">Banner Title</td>
+              <td class="py-3"><input type="text" id="field-title" class="border rounded px-3 py-1.5 text-sm w-full max-w-lg"></td>
+            </tr>
+            <tr>
+              <td class="font-medium text-gray-700 align-top pt-3">Banner Description</td>
+              <td class="py-3"><textarea id="field-description" rows="3" class="border rounded px-3 py-1.5 text-sm w-full max-w-lg"></textarea></td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- SUB-TAB 4: BEHAVIOR -->
+        <div id="subtab-behavior" class="subtab-content space-y-6 hidden">
+          <h3 class="text-base font-semibold text-gray-900 border-b pb-2">Cookie Categories Configuration</h3>
+          <p class="text-xs text-gray-500">Configure default categories: Essential (Always ON), Analytics, Marketing, Preferences.</p>
+        </div>
+
+        <!-- SUB-TAB 5: LEGAL CONSENTS (Tutor LMS Counterpart) -->
+        <div id="subtab-legal-consents" class="subtab-content space-y-6 hidden">
+          <div class="flex justify-between items-center border-b pb-3">
+            <div>
+              <h3 class="text-base font-semibold text-gray-900">Legal Consents Management</h3>
+              <p class="text-xs text-gray-500 mt-0.5">Create custom terms and select placement across Registration, Login, Checkout, and Instructor Registration forms.</p>
+            </div>
+            <button type="button" onclick="openAddConsentModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-1.5 rounded text-xs shadow-sm">
+              ➕ Add New Legal Consent
+            </button>
+          </div>
+
+          <!-- Legal Consents Table -->
+          <div class="overflow-x-auto border border-gray-200 rounded-lg">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-gray-50 text-gray-700 font-semibold uppercase border-b border-gray-200">
+                  <th class="p-3">Title & Content</th>
+                  <th class="p-3">Display Location</th>
+                  <th class="p-3">Consent Type</th>
+                  <th class="p-3">Status</th>
+                  <th class="p-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="legal-consents-table-body" class="divide-y divide-gray-200 text-gray-700">
+                <!-- Dynamically Rendered -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Direct Link to Frontend Preview -->
+          <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center justify-between text-xs text-emerald-800">
+            <span>🌐 View live frontend forms preview for Registration, Checkout, Login & Instructor Registration:</span>
+            <a href="s05-legal-consents-frontend.html" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1 rounded font-semibold transition">
+              Open s05 Frontend Forms →
+            </a>
+          </div>
+        </div>
+
+        <!-- SUB-TAB 6: AUDIT LOG (Consent Audit Log & CSV Export) -->
+        <div id="subtab-audit-log" class="subtab-content space-y-6 hidden">
+          <div class="flex justify-between items-center border-b pb-3">
+            <div>
+              <h3 class="text-base font-semibold text-gray-900">Consent Audit Log</h3>
+              <p class="text-xs text-gray-500 mt-0.5">Automated timestamp, IP Address, and Browser User Agent tracking for legal compliance and audit verification.</p>
+            </div>
+            <button type="button" onclick="window.LP_Cookie_Data.exportCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-1.5 rounded text-xs shadow-sm flex items-center gap-1.5">
+              <span>📥 Export CSV Log</span>
+            </button>
+          </div>
+
+          <!-- Audit Log Table -->
+          <div class="overflow-x-auto border border-gray-200 rounded-lg">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-gray-50 text-gray-700 font-semibold uppercase border-b border-gray-200">
+                  <th class="p-3">Log ID</th>
+                  <th class="p-3">User / Email</th>
+                  <th class="p-3">Consent Type / Item</th>
+                  <th class="p-3">IP Address</th>
+                  <th class="p-3">Browser / User Agent</th>
+                  <th class="p-3">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="audit-log-table-body" class="divide-y divide-gray-200 text-gray-700 font-mono text-[11px]">
+                <!-- Dynamically Rendered -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SUB-TAB 7: DEVELOPER -->
+        <div id="subtab-developer" class="subtab-content space-y-6 hidden">
+          <h3 class="text-base font-semibold text-gray-900 border-b pb-2">Developer Integration & Code Snippets</h3>
+          <p class="text-xs text-gray-500">Custom Events and PHP Hooks documentation for GTM & GA4 integration.</p>
+        </div>
+
+        <!-- SUB-TAB 8: COMPATIBILITY -->
+        <div id="subtab-compatibility" class="subtab-content space-y-6 hidden">
+          <h3 class="text-base font-semibold text-gray-900 border-b pb-2">Plugin Compatibility & Status</h3>
+          <p class="text-xs text-gray-500">Detect active cookie plugins (Complianz, Cookiebot, CookieYes) and display notices.</p>
+        </div>
+
+        <!-- SAVE BUTTON BAR -->
+        <div class="mt-8 pt-4 border-t border-gray-200 flex justify-between items-center">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded text-sm shadow-sm transition">Save Changes</button>
+          <span class="text-xs text-gray-500">Settings auto-sync to LocalStorage for prototype demo.</span>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+  <!-- ADD / EDIT LEGAL CONSENT MODAL -->
+  <div id="modal-add-consent" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center hidden p-4">
+    <div class="bg-white rounded-xl shadow-xl max-w-lg w-full p-6 border border-gray-200">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h3 class="text-base font-bold text-gray-900">Add New Legal Consent</h3>
+        <button onclick="closeAddConsentModal()" class="text-gray-400 hover:text-gray-600 font-bold">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); saveNewConsent();" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">Consent Title</label>
+          <input type="text" id="consent-input-title" required class="w-full border rounded px-3 py-1.5 text-sm" placeholder="e.g. Terms of Service Agreement">
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">Display Location</label>
+          <select id="consent-input-location" class="w-full border rounded px-3 py-1.5 text-sm">
+            <option value="registration">Registration Form</option>
+            <option value="login">Login Form</option>
+            <option value="checkout">Checkout Page</option>
+            <option value="instructor_registration">Instructor Registration Form</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">Consent Type</label>
+          <select id="consent-input-type" class="w-full border rounded px-3 py-1.5 text-sm">
+            <option value="mandatory">Mandatory Checkbox (Required for submission)</option>
+            <option value="optional">Optional Checkbox</option>
+            <option value="text_only">Text Only (Informational notice)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-gray-700 mb-1">Consent Content (Rich Text / Description)</label>
+          <textarea id="consent-input-content" rows="3" required class="w-full border rounded px-3 py-1.5 text-sm" placeholder="Enter full legal consent text..."></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-4 border-t">
+          <button type="button" onclick="closeAddConsentModal()" class="px-4 py-2 border rounded text-gray-700 hover:bg-gray-50">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded">Save Consent</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.subtab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.subtab-btn').forEach(el => {
+        el.classList.remove('bg-blue-600', 'text-white');
+        el.classList.add('bg-gray-100', 'text-gray-700');
+      });
+
+      document.getElementById('subtab-' + tabId).classList.remove('hidden');
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-gray-100', 'text-gray-700');
+        activeBtn.classList.add('bg-blue-600', 'text-white');
+      }
+
+      if (tabId === 'legal-consents') renderLegalConsentsTable();
+      if (tabId === 'audit-log') renderAuditLogTable();
+    }
+
+    function renderLegalConsentsTable() {
+      const list = window.LP_Cookie_Data.getLegalConsents();
+      const tbody = document.getElementById('legal-consents-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = list.map(item => `
+        <tr class="hover:bg-gray-50">
+          <td class="p-3">
+            <span class="font-bold text-gray-900 block">${item.title}</span>
+            <span class="text-[11px] text-gray-500">${item.content}</span>
+          </td>
+          <td class="p-3">
+            <span class="bg-gray-100 text-gray-800 px-2 py-0.5 rounded font-semibold capitalize">${item.location.replace('_', ' ')}</span>
+          </td>
+          <td class="p-3">
+            <span class="${item.type === 'mandatory' ? 'bg-rose-100 text-rose-800' : item.type === 'optional' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-700'} px-2 py-0.5 rounded font-semibold capitalize">${item.type.replace('_', ' ')}</span>
+          </td>
+          <td class="p-3">
+            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold uppercase text-[10px]">Active</span>
+          </td>
+          <td class="p-3 text-right space-x-2">
+            <button type="button" onclick="deleteConsent('${item.id}')" class="text-rose-600 hover:underline font-semibold">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderAuditLogTable() {
+      const logs = window.LP_Cookie_Data.getAuditLogs();
+      const tbody = document.getElementById('audit-log-table-body');
+      if (!tbody) return;
+
+      tbody.innerHTML = logs.map(row => `
+        <tr class="hover:bg-gray-50 border-b border-gray-100">
+          <td class="p-3 font-bold text-blue-600">${row.id}</td>
+          <td class="p-3 font-medium text-gray-900">${row.user}</td>
+          <td class="p-3"><span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded border border-indigo-100">${row.type}</span></td>
+          <td class="p-3">${row.ip}</td>
+          <td class="p-3 text-gray-500">${row.browser}</td>
+          <td class="p-3 text-gray-500">${row.timestamp}</td>
+        </tr>
+      `).join('');
+    }
+
+    function openAddConsentModal() {
+      document.getElementById('modal-add-consent').classList.remove('hidden');
+    }
+
+    function closeAddConsentModal() {
+      document.getElementById('modal-add-consent').classList.add('hidden');
+    }
+
+    function saveNewConsent() {
+      const title = document.getElementById('consent-input-title').value;
+      const location = document.getElementById('consent-input-location').value;
+      const type = document.getElementById('consent-input-type').value;
+      const content = document.getElementById('consent-input-content').value;
+
+      const list = window.LP_Cookie_Data.getLegalConsents();
+      list.push({
+        id: "lc_" + Date.now().toString().slice(-4),
+        title,
+        location,
+        type,
+        status: "enabled",
+        content
+      });
+
+      window.LP_Cookie_Data.saveLegalConsents(list);
+      closeAddConsentModal();
+      renderLegalConsentsTable();
+      window.showToast("New Legal Consent added successfully!", "success");
+    }
+
+    function deleteConsent(id) {
+      let list = window.LP_Cookie_Data.getLegalConsents();
+      list = list.filter(item => item.id !== id);
+      window.LP_Cookie_Data.saveLegalConsents(list);
+      renderLegalConsentsTable();
+      window.showToast("Legal consent deleted.", "info");
+    }
+
+    function saveForm() {
+      window.showToast("Settings saved successfully!", "success");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      renderLegalConsentsTable();
+      renderAuditLogTable();
+    });
+  </script>
+</body>
+</html>

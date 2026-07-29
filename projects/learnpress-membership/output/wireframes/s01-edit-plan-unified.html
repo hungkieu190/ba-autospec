@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S01: Edit Plan - Unified Form — Wireframe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
+
+  <!-- Top Wireframe Control Bar -->
+  <div class="bg-slate-900 text-white text-xs px-4 py-2 flex items-center justify-between sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-white px-2.5 py-1 rounded border border-slate-700 font-medium">← Back to Index</a>
+      <span class="font-bold text-indigo-300">WIREFRAME S01</span>
+      <span>Edit Plan: Unified Form (No Sub-tabs) — Admin</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-slate-400">Navigation:</span>
+      <span class="bg-indigo-600 px-2 py-0.5 rounded font-bold">S01</span>
+      <a href="s02-edit-plan-errors.html" class="text-slate-300 hover:text-white px-2 py-0.5">S02 ➔</a>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto p-6">
+    <section class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="bg-indigo-50 border-b border-indigo-100 px-4 py-3 flex justify-between items-center">
+        <h2 class="text-lg font-semibold text-indigo-950">WIREFRAME — Edit Plan: Unified Form (Plan Details + Woo 1-1 Checkout + Restrict Content)</h2>
+        <span class="text-xs bg-indigo-200 text-indigo-900 px-2.5 py-1 rounded font-semibold">WP Admin UI</span>
+      </div>
+
+      <!-- WP Admin Frame Container -->
+      <div class="relative min-h-[950px] bg-gray-100">
+        <!-- WP Top Admin Bar -->
+        <div class="h-8 bg-gray-800 text-gray-200 text-xs flex items-center px-3 gap-4 border-b border-gray-700">
+          <span class="font-bold text-white">WP</span>
+          <span class="hover:text-white cursor-pointer">LearnPress Demo</span>
+          <span class="hover:text-white cursor-pointer">+ New</span>
+          <span class="ml-auto">Howdy, Admin</span>
+        </div>
+
+        <!-- WP Left Sidebar (LearnPress Expanded) -->
+        <aside class="absolute top-8 left-0 w-48 bg-gray-900 text-gray-100 min-h-full">
+          <div class="bg-gray-800 p-3 text-sm font-semibold border-b border-gray-700">WordPress</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Dashboard</div>
+          
+          <!-- LearnPress Parent Menu (Expanded) -->
+          <div class="px-3 py-2 text-sm bg-blue-700 font-semibold text-white flex items-center justify-between cursor-pointer demo-lp-menu">
+            <span>LearnPress</span>
+            <span class="text-xs">▾</span>
+          </div>
+          <div class="demo-lp-submenu">
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Courses</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Lessons</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Quizzes</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Questions</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Orders</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Certificates</div>
+            <!-- Active Sub-menu Item -->
+            <div class="pl-6 py-1 text-xs bg-blue-600 text-white font-bold cursor-pointer border-l-2 border-white">Membership</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Statistics</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Enrolled Students</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Add-ons (1)</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Settings</div>
+            <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Tools</div>
+          </div>
+
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Events Manager</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Posts</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Pages</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">WooCommerce</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Plugins</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Settings</div>
+        </aside>
+
+        <!-- Main WP Content Area -->
+        <div class="ml-48 p-6 bg-gray-100 min-h-[920px]">
+          <div class="flex justify-between text-xs text-gray-500 mb-2">
+            <span></span>
+            <span>Screen Options ▾ &nbsp; Help ▾</span>
+          </div>
+
+          <h1 class="text-2xl font-normal text-gray-900 mb-3">Membership</h1>
+
+          <!-- Top Membership Sub-tabs -->
+          <div class="flex items-center gap-1 border-b border-gray-300 mb-5 text-sm">
+            <span class="bg-white border-t border-l border-r border-gray-300 text-blue-600 font-semibold px-3 py-1.5 rounded-t -mb-px">Membership Plans</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Members</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Transactions</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Settings</span>
+          </div>
+
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-normal text-gray-900">Edit Plan</h2>
+            <div class="flex items-center gap-2">
+              <button type="button" class="px-3 py-1 border border-gray-300 text-gray-700 text-xs rounded bg-white hover:bg-gray-50">Cancel</button>
+              <button type="button" aria-label="Save plan" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3.5 py-1.5 rounded shadow-sm">Save Plan</button>
+            </div>
+          </div>
+
+          <div class="border-l-4 border-green-500 bg-white p-3 text-sm text-green-800 mb-6 shadow-sm">
+            Plan saved successfully. All changes persisted.
+          </div>
+
+          <!-- Section 1: General Plan Details (Matching Screenshot) -->
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-5 mb-6 space-y-4">
+            <h3 class="text-base font-semibold text-gray-800 border-b border-gray-100 pb-2">Plan Details</h3>
+            
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Plan Name <span class="text-red-500">*</span></label>
+              <input type="text" value="Business Team" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            </div>
+
+            <!-- Access Mode Segmented Switch -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wider">Access Mode <span class="text-red-500">*</span></label>
+              <div class="inline-flex p-1 bg-gray-150 border border-gray-200 rounded-lg shadow-sm" style="background-color: #f3f4f6;">
+                <button type="button" id="btn-mode-courses" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-md bg-white text-indigo-700 shadow-sm border border-gray-200/50 transition duration-200 focus:outline-none">
+                  <span>📚</span> Course Access Mode
+                </button>
+                <button type="button" id="btn-mode-restriction" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-md text-gray-500 hover:text-gray-900 transition duration-200 focus:outline-none">
+                  <span>🔒</span> Content Restriction Mode
+                </button>
+              </div>
+              <p id="access-mode-description" class="text-xs text-gray-500 mt-2 font-medium">Directly assign specific courses to this plan. Users purchasing the plan via WooCommerce checkout will be enrolled automatically into selected courses.</p>
+              
+              <!-- Hidden real inputs to trigger standard JS -->
+              <input type="radio" name="access_mode" value="courses" checked class="hidden" id="access-mode-courses-radio">
+              <input type="radio" name="access_mode" value="restriction" class="hidden" id="access-mode-restriction-radio">
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Billing Type</label>
+              <div class="grid grid-cols-2 gap-4">
+                <label class="border-2 border-blue-500 bg-blue-50/50 p-3 rounded flex items-start gap-3 cursor-pointer">
+                  <input type="radio" name="billing_type" checked class="mt-1 text-blue-600 focus:ring-blue-500">
+                  <div>
+                    <div class="text-sm font-semibold text-gray-900">Lifetime</div>
+                    <div class="text-xs text-gray-500">One-time payment. Members keep access forever.</div>
+                  </div>
+                </label>
+                <label class="border border-gray-200 p-3 rounded flex items-start gap-3 cursor-pointer hover:border-gray-300">
+                  <input type="radio" name="billing_type" class="mt-1 text-blue-600 focus:ring-blue-500">
+                  <div>
+                    <div class="text-sm font-semibold text-gray-900">Subscription</div>
+                    <div class="text-xs text-gray-500">Recurring billing (e.g. monthly or yearly).</div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Regular price</label>
+                <input type="text" value="499.00" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Sale price</label>
+                <input type="text" value="399.00" class="w-full border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Slot Limit</label>
+              <input type="text" value="25" class="w-32 border border-gray-300 rounded px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <p class="text-xs text-gray-400 mt-1">0 = unlimited.</p>
+            </div>
+
+            <!-- Courses Selection Box (Course Access: Active by default) -->
+            <div id="courses-selection-box" class="transition-all duration-300">
+              <label class="block text-xs font-semibold text-gray-700 mb-2">Assigned Courses</label>
+              <div class="flex flex-wrap gap-1.5 mb-2">
+                <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full border border-indigo-100 flex items-center gap-1">test course enrolled 1 <span class="cursor-pointer text-indigo-400 hover:text-indigo-600">✕</span></span>
+                <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full border border-indigo-100 flex items-center gap-1">test2 <span class="cursor-pointer text-indigo-400 hover:text-indigo-600">✕</span></span>
+                <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full border border-indigo-100 flex items-center gap-1">webhook 2 <span class="cursor-pointer text-indigo-400 hover:text-indigo-600">✕</span></span>
+                <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full border border-indigo-100 flex items-center gap-1">Complete React & Next.js Bootcamp <span class="cursor-pointer text-indigo-400 hover:text-indigo-600">✕</span></span>
+                <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1 rounded-full border border-indigo-100 flex items-center gap-1">Mastering WordPress Plugin Dev <span class="cursor-pointer text-indigo-400 hover:text-indigo-600">✕</span></span>
+              </div>
+              <button type="button" onclick="showDemoToast('Opening course selector popup...', 'info');" class="text-xs text-blue-600 border border-blue-200 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded">🔍 Browse Courses</button>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1">Description</label>
+              <textarea rows="3" class="w-full border border-gray-300 rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">Team license for up to 25 seats. One-time payment, all courses.</textarea>
+            </div>
+          </div>
+
+          <!-- Section 2: WooCommerce Purchase Integration (ALWAYS ACTIVE FOR BOTH MODES) -->
+          <div id="woo-purchase-box" class="bg-white border border-gray-200 rounded shadow-sm p-5 mb-6">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-3">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">WooCommerce Membership Purchase</h3>
+                <p class="text-xs text-gray-500">Sell this membership plan via WooCommerce cart and checkout payment gateways.</p>
+              </div>
+              <span class="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded font-bold">Woo Checkout Active</span>
+            </div>
+            <table class="w-full text-sm">
+              <tbody>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Enable Woo checkout</td>
+                  <td class="py-2">
+                    <label class="inline-flex items-center gap-2"><input aria-label="Enable Woo checkout" type="checkbox" checked class="h-4 w-4 focus:ring-2 focus:ring-blue-500 focus:outline-none"> Enabled</label>
+                    <p class="text-xs text-gray-500 mt-1">When enabled, Buy buttons route to WooCommerce checkout.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Woo product</td>
+                  <td class="py-2">
+                    <!-- Product Selector 1-1 Mapping -->
+                    <div class="flex items-center gap-2">
+                      <select aria-label="Woo product mapping" class="border border-gray-300 rounded px-2 py-1.5 text-sm w-96 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <option value="4052" selected>#4052 — Premium Membership Product ($49.00)</option>
+                        <option value="4053">#4053 — Monthly Membership Subscription ($9.99/mo)</option>
+                        <option value="4054">#4054 — Annual Pro Membership Pass ($99.00)</option>
+                      </select>
+                      <a href="#" onclick="showDemoToast('Opening WooCommerce Product #4052 in new tab...', 'info'); return false;" class="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 hover:underline bg-slate-100 border border-slate-300 px-2.5 py-1.5 rounded">
+                        <span>Edit Product in Woo</span>
+                        <span class="text-[10px]">↗</span>
+                      </a>
+                    </div>
+
+                    <!-- Mapped Product Details Badge -->
+                    <div class="mt-2 text-xs bg-slate-50 border border-slate-200 rounded p-2.5 text-slate-700 flex flex-wrap items-center gap-x-4 gap-y-1">
+                      <span><strong>Mapped Product ID:</strong> #4052</span>
+                      <span><strong>Type:</strong> Simple Product</span>
+                      <span><strong>Price:</strong> $49.00</span>
+                      <span><strong>Status:</strong> Published</span>
+                    </div>
+
+                    <p class="text-xs text-gray-500 mt-1.5">Each membership plan maps to exactly 1 WooCommerce product (1-1 mapping).</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Guest checkout</td>
+                  <td class="py-2"><span class="inline-flex rounded bg-yellow-100 px-2 py-1 text-xs text-yellow-800 font-medium">Login/register required</span></td>
+                </tr>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-48 align-top pt-2">Success redirect</td>
+                  <td class="py-2">
+                    <select aria-label="Success redirect" class="border border-gray-300 rounded px-2 py-1 text-sm w-80 focus:ring-2 focus:ring-blue-500 focus:outline-none"><option>Membership Dashboard</option></select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section 3: Content Restriction Rules (Hidden by default when Course Access is active) -->
+          <div id="restriction-rules-box" class="bg-white border border-gray-200 rounded shadow-sm p-5 mb-6 hidden transition-all duration-300">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-2 mb-3">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800 flex items-center gap-2">
+                  <span>🔒</span> Content Restriction Rules
+                </h3>
+                <p class="text-xs text-gray-500">Protect specific post types, individual items, or categories for members of this plan.</p>
+              </div>
+              <button type="button" id="add-rule-btn" aria-label="Add restriction rule" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded font-medium shadow-sm transition active:scale-95">+ Add Rule</button>
+            </div>
+            
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse bg-white shadow-sm text-sm">
+                <thead>
+                  <tr class="bg-gray-50 text-xs font-semibold text-gray-600 uppercase tracking-wide border-b border-gray-200">
+                    <th class="px-3.5 py-2.5 border-b border-gray-200 text-left w-36">Content Type</th>
+                    <th class="px-3.5 py-2.5 border-b border-gray-200 text-left">Target Scope & Selection</th>
+                    <th class="px-3.5 py-2.5 border-b border-gray-200 text-left w-48">Restriction Mode</th>
+                    <th class="px-3.5 py-2.5 border-b border-gray-200 text-center w-20">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="restriction-rules-body" class="divide-y divide-gray-100">
+                  <!-- Row 1: Course (All Items) -->
+                  <tr class="hover:bg-slate-50/50 transition">
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Rule content type" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option selected>Course</option>
+                        <option>Lesson</option>
+                        <option>Post</option>
+                        <option>Page</option>
+                        <option>Quiz</option>
+                      </select>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Rule target" onchange="toggleTargetPicker(this)" class="rule-target-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option value="all" selected>All items in post type</option>
+                        <option value="specific">Specific Items / Taxonomy...</option>
+                      </select>
+                      <div class="target-all-hint text-[11px] text-slate-500 mt-1.5 flex items-center gap-1 font-normal">
+                        <span>🌐</span> Restricts ALL published Course items automatically.
+                      </div>
+                      <!-- Hidden Picker Box for Row 1 -->
+                      <div class="target-specific-picker hidden mt-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-2">
+                        <div class="flex items-center gap-3 text-xs font-semibold text-slate-700 border-b border-slate-200 pb-1.5">
+                          <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="scope_r1" value="items" checked class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                            <span>Specific Items</span>
+                          </label>
+                          <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="scope_r1" value="taxonomy" class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                            <span>Taxonomy / Category</span>
+                          </label>
+                        </div>
+                        <div class="scope-items-container">
+                          <div class="flex flex-wrap gap-1 mb-1.5">
+                            <span class="bg-blue-100 text-blue-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium">
+                              🎓 React Basics <button type="button" onclick="this.parentElement.remove();" class="hover:text-red-600">✕</button>
+                            </span>
+                          </div>
+                          <input type="text" placeholder="🔍 Search courses by title (Press Enter to add)..." class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onkeydown="handleItemAdd(event, this)">
+                        </div>
+                        <div class="scope-taxonomy-container hidden">
+                          <div class="flex flex-wrap gap-1 mb-1.5"></div>
+                          <select class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onchange="handleTaxonomyAdd(this)">
+                            <option value="" disabled selected>+ Choose Category or Tag...</option>
+                            <option>Category: Web Development</option>
+                            <option>Category: Data Science</option>
+                            <option>Tag: Premium Course</option>
+                          </select>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Restriction mode" onchange="toggleModeSettings(this)" class="rule-mode-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option value="hide_all" selected>🔒 Hide Full Content</option>
+                        <option value="partial_paywall">📰 Partial Excerpt (Paywall)</option>
+                        <option value="redirect">↪️ Redirect to Pricing</option>
+                      </select>
+                      <div class="mode-hint-all text-[11px] text-slate-500 mt-1.5 font-normal">Replaces content with restriction CTA box.</div>
+                      <div class="mode-paywall-settings hidden mt-2.5 p-2 bg-indigo-50/70 border border-indigo-100 rounded text-xs space-y-1.5 font-normal">
+                        <div class="flex items-center justify-between text-indigo-950 font-medium">
+                          <span>Excerpt limit:</span>
+                          <select class="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 bg-white">
+                            <option selected>First 20% (~150 words)</option>
+                            <option>First 2 paragraphs</option>
+                            <option>WP More Tag (<!--more-->)</option>
+                          </select>
+                        </div>
+                        <label class="inline-flex items-center gap-1.5 text-[11px] text-indigo-800 cursor-pointer">
+                          <input type="checkbox" checked class="rounded border-gray-300 text-indigo-600">
+                          <span>Enable gradient blur fade effect</span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top text-center">
+                      <button type="button" onclick="this.closest('tr').remove(); showDemoToast('Rule removed', 'warning');" aria-label="Delete rule" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-xs">Delete</button>
+                    </td>
+                  </tr>
+
+                  <!-- Row 2: Lesson (Specific Items Active & Partial Paywall Active) -->
+                  <tr class="hover:bg-slate-50/50 transition">
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Rule content type" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option>Course</option>
+                        <option selected>Lesson</option>
+                        <option>Post</option>
+                        <option>Page</option>
+                        <option>Quiz</option>
+                      </select>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Rule target" onchange="toggleTargetPicker(this)" class="rule-target-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option value="all">All items in post type</option>
+                        <option value="specific" selected>Specific Items / Taxonomy...</option>
+                      </select>
+                      <div class="target-all-hint hidden text-[11px] text-slate-500 mt-1.5 flex items-center gap-1 font-normal">
+                        <span>🌐</span> Restricts ALL published Lesson items automatically.
+                      </div>
+                      <!-- Active Picker Box for Row 2 -->
+                      <div class="target-specific-picker mt-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-2">
+                        <div class="flex items-center gap-3 text-xs font-semibold text-slate-700 border-b border-slate-200 pb-1.5">
+                          <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="scope_r2" value="items" checked class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                            <span>Specific Items</span>
+                          </label>
+                          <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="scope_r2" value="taxonomy" class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                            <span>Taxonomy / Category</span>
+                          </label>
+                        </div>
+                        <div class="scope-items-container">
+                          <div class="flex flex-wrap gap-1.5 mb-1.5">
+                            <span class="bg-indigo-100 text-indigo-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-indigo-200">
+                              📄 #101: Environment Setup <button type="button" onclick="this.parentElement.remove(); showDemoToast('Removed Lesson #101', 'info');" class="hover:text-red-600 ml-0.5">✕</button>
+                            </span>
+                            <span class="bg-indigo-100 text-indigo-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-indigo-200">
+                              📄 #104: Advanced State & Custom Hooks <button type="button" onclick="this.parentElement.remove(); showDemoToast('Removed Lesson #104', 'info');" class="hover:text-red-600 ml-0.5">✕</button>
+                            </span>
+                          </div>
+                          <input type="text" placeholder="🔍 Type lesson title or ID (Press Enter to add)..." class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onkeydown="handleItemAdd(event, this)">
+                        </div>
+                        <div class="scope-taxonomy-container hidden">
+                          <div class="flex flex-wrap gap-1 mb-1.5"></div>
+                          <select class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onchange="handleTaxonomyAdd(this)">
+                            <option value="" disabled selected>+ Choose Category or Tag...</option>
+                            <option>Category: Advanced Lessons</option>
+                            <option>Tag: Pro Only</option>
+                          </select>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Restriction mode" onchange="toggleModeSettings(this)" class="rule-mode-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option value="hide_all">🔒 Hide Full Content</option>
+                        <option value="partial_paywall" selected>📰 Partial Excerpt (Paywall)</option>
+                        <option value="redirect">↪️ Redirect to Pricing</option>
+                      </select>
+                      <div class="mode-hint-all hidden text-[11px] text-slate-500 mt-1.5 font-normal">Replaces content with restriction CTA box.</div>
+                      <div class="mode-paywall-settings mt-2.5 p-2 bg-indigo-50/70 border border-indigo-100 rounded text-xs space-y-1.5 font-normal">
+                        <div class="flex items-center justify-between text-indigo-950 font-medium">
+                          <span>Excerpt limit:</span>
+                          <select class="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 bg-white">
+                            <option selected>First 20% (~150 words)</option>
+                            <option>First 2 paragraphs</option>
+                            <option>WP More Tag (<!--more-->)</option>
+                          </select>
+                        </div>
+                        <label class="inline-flex items-center gap-1.5 text-[11px] text-indigo-800 cursor-pointer">
+                          <input type="checkbox" checked class="rounded border-gray-300 text-indigo-600">
+                          <span>Enable gradient blur fade effect</span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top text-center">
+                      <button type="button" onclick="this.closest('tr').remove(); showDemoToast('Rule removed', 'warning');" aria-label="Delete rule" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-xs">Delete</button>
+                    </td>
+                  </tr>
+
+                  <!-- Row 3: Post (Taxonomy Active & Hide Full Content) -->
+                  <tr class="hover:bg-slate-50/50 transition">
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Rule content type" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option>Course</option>
+                        <option>Lesson</option>
+                        <option selected>Post</option>
+                        <option>Page</option>
+                        <option>Quiz</option>
+                      </select>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Rule target" onchange="toggleTargetPicker(this)" class="rule-target-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option value="all">All items in post type</option>
+                        <option value="specific" selected>Specific Items / Taxonomy...</option>
+                      </select>
+                      <div class="target-all-hint hidden text-[11px] text-slate-500 mt-1.5 flex items-center gap-1 font-normal">
+                        <span>🌐</span> Restricts ALL published Post items automatically.
+                      </div>
+                      <!-- Active Picker Box for Row 3 -->
+                      <div class="target-specific-picker mt-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-2">
+                        <div class="flex items-center gap-3 text-xs font-semibold text-slate-700 border-b border-slate-200 pb-1.5">
+                          <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="scope_r3" value="items" class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                            <span>Specific Items</span>
+                          </label>
+                          <label class="inline-flex items-center gap-1 cursor-pointer">
+                            <input type="radio" name="scope_r3" value="taxonomy" checked class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                            <span>Taxonomy / Category</span>
+                          </label>
+                        </div>
+                        <div class="scope-items-container hidden">
+                          <div class="flex flex-wrap gap-1 mb-1.5"></div>
+                          <input type="text" placeholder="🔍 Type post title to add..." class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onkeydown="handleItemAdd(event, this)">
+                        </div>
+                        <div class="scope-taxonomy-container">
+                          <div class="flex flex-wrap gap-1.5 mb-1.5">
+                            <span class="bg-purple-100 text-purple-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-purple-200">
+                              🏷️ Category: VIP Articles <button type="button" onclick="this.parentElement.remove(); showDemoToast('Removed Category: VIP Articles', 'info');" class="hover:text-red-600 ml-0.5">✕</button>
+                            </span>
+                            <span class="bg-purple-100 text-purple-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-purple-200">
+                              🏷️ Tag: Member Only <button type="button" onclick="this.parentElement.remove(); showDemoToast('Removed Tag: Member Only', 'info');" class="hover:text-red-600 ml-0.5">✕</button>
+                            </span>
+                          </div>
+                          <select class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onchange="handleTaxonomyAdd(this)">
+                            <option value="" disabled selected>+ Choose Category or Tag...</option>
+                            <option>Category: Premium Guides</option>
+                            <option>Category: Weekly Digest</option>
+                            <option>Tag: Case Studies</option>
+                          </select>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top">
+                      <select aria-label="Restriction mode" onchange="toggleModeSettings(this)" class="rule-mode-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                        <option value="hide_all" selected>🔒 Hide Full Content</option>
+                        <option value="partial_paywall">📰 Partial Excerpt (Paywall)</option>
+                        <option value="redirect">↪️ Redirect to Pricing</option>
+                      </select>
+                      <div class="mode-hint-all text-[11px] text-slate-500 mt-1.5 font-normal">Replaces content with restriction CTA box.</div>
+                      <div class="mode-paywall-settings hidden mt-2.5 p-2 bg-indigo-50/70 border border-indigo-100 rounded text-xs space-y-1.5 font-normal">
+                        <div class="flex items-center justify-between text-indigo-950 font-medium">
+                          <span>Excerpt limit:</span>
+                          <select class="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 bg-white">
+                            <option selected>First 20% (~150 words)</option>
+                            <option>First 2 paragraphs</option>
+                            <option>WP More Tag (<!--more-->)</option>
+                          </select>
+                        </div>
+                        <label class="inline-flex items-center gap-1.5 text-[11px] text-indigo-800 cursor-pointer">
+                          <input type="checkbox" checked class="rounded border-gray-300 text-indigo-600">
+                          <span>Enable gradient blur fade effect</span>
+                        </label>
+                      </div>
+                    </td>
+                    <td class="px-3.5 py-3 text-gray-700 align-top text-center">
+                      <button type="button" onclick="this.closest('tr').remove(); showDemoToast('Rule removed', 'warning');" aria-label="Delete rule" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-xs">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Global Restricted Messages Configuration (Below Rules Table) -->
+            <div class="mt-6 pt-5 border-t border-gray-200">
+              <div class="mb-4">
+                <h4 class="text-sm font-bold text-gray-800 flex items-center gap-2">
+                  <span>💬</span> Global Restricted Content Messages
+                </h4>
+                <p class="text-xs text-gray-500 mt-0.5">Configure default paywall and restriction messages displayed on protected content for non-members.</p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Option 1 Message Config: Hide Full Content Lock Message -->
+                <div class="bg-amber-50/50 border border-amber-200 rounded-lg p-4 space-y-3">
+                  <div class="flex items-center justify-between border-b border-amber-200/80 pb-2">
+                    <span class="text-xs font-bold text-amber-950 flex items-center gap-1.5">
+                      <span>🔒</span> Full Content Lock Message
+                    </span>
+                    <span class="text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-semibold">Mode: Hide Full Content</span>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Message Title</label>
+                    <input type="text" value="Restricted Lesson Content" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-xs bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Message Description</label>
+                    <textarea rows="3" class="w-full border border-gray-300 rounded p-2 text-xs bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">This lesson is protected and available exclusively to active members of the {{plan_name}} plan. Subscribe or purchase a membership plan to continue learning.</textarea>
+                    <p class="text-[10px] text-gray-400 mt-1">Placeholders: <code>{{plan_name}}</code>, <code>{{user_name}}</code></p>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">CTA Button Label</label>
+                    <input type="text" value="View Membership Plans & Pricing ➔" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-xs bg-white focus:ring-2 focus:ring-amber-500 focus:outline-none">
+                  </div>
+                </div>
+
+                <!-- Option 2 Message Config: Partial Excerpt Paywall Callout -->
+                <div class="bg-indigo-50/50 border border-indigo-200 rounded-lg p-4 space-y-3">
+                  <div class="flex items-center justify-between border-b border-indigo-200/80 pb-2">
+                    <span class="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
+                      <span>📰</span> Partial Excerpt Paywall Callout
+                    </span>
+                    <span class="text-[10px] bg-indigo-200 text-indigo-900 px-2 py-0.5 rounded font-semibold">Mode: Partial Excerpt</span>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Paywall Heading</label>
+                    <input type="text" value="Keep Reading with LearnPress Membership" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Teaser Subtext</label>
+                    <textarea rows="3" class="w-full border border-gray-300 rounded p-2 text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">You've reached the end of your free preview. Subscribe to {{plan_name}} to unlock full access to all lessons, quizzes, and downloadable resources.</textarea>
+                    <p class="text-[10px] text-gray-400 mt-1">Placeholders: <code>{{plan_name}}</code>, <code>{{plan_price}}</code></p>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-700 mb-1">Primary CTA Button</label>
+                      <input type="text" value="Subscribe to Unlock — {{plan_price}}" class="w-full border border-gray-300 rounded px-2 py-1.5 text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-700 mb-1">Secondary Login Link</label>
+                      <input type="text" value="Already a member? Log In" class="w-full border border-gray-300 rounded px-2 py-1.5 text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="flex justify-end items-center gap-3 bg-white p-4 border border-gray-200 rounded shadow-sm">
+            <button type="button" class="px-4 py-1.5 border border-gray-300 text-gray-700 text-sm rounded bg-white hover:bg-gray-50">Cancel</button>
+            <button type="button" aria-label="Save plan" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-5 py-1.5 rounded shadow-sm">Save Plan</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initToasts();
+      initFlowState();
+      initAdminSubmenuToggle();
+      initFormInteractions();
+    });
+
+    function showToast(message, type = 'info') {
+      let toastContainer = document.getElementById('wireframe-toast-container');
+      if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'wireframe-toast-container';
+        toastContainer.className = 'fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none';
+        document.body.appendChild(toastContainer);
+      }
+
+      const toast = document.createElement('div');
+      const typeClasses = {
+        success: 'bg-green-800 text-white border-green-900',
+        warning: 'bg-amber-800 text-white border-amber-900',
+        error: 'bg-red-800 text-white border-red-900',
+        info: 'bg-gray-800 text-white border-gray-900'
+      };
+
+      toast.className = `pointer-events-auto px-4 py-2.5 rounded-lg shadow-lg border text-sm font-medium transition-all duration-300 transform translate-y-2 opacity-0 flex items-center gap-2 ${typeClasses[type] || typeClasses.info}`;
+      toast.innerHTML = `<span>${message}</span>`;
+      toastContainer.appendChild(toast);
+
+      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function initToasts() {
+      window.showDemoToast = showToast;
+    }
+
+    function toggleTargetPicker(selectEl) {
+      const cell = selectEl.closest('td');
+      const hint = cell.querySelector('.target-all-hint');
+      const picker = cell.querySelector('.target-specific-picker');
+      
+      if (selectEl.value === 'specific') {
+        if (hint) hint.classList.add('hidden');
+        if (picker) picker.classList.remove('hidden');
+        showToast('Switched Target to Specific Items / Taxonomy mode', 'info');
+      } else {
+        if (hint) hint.classList.remove('hidden');
+        if (picker) picker.classList.add('hidden');
+        showToast('Switched Target to All items in post type mode', 'info');
+      }
+    }
+
+    function toggleModeSettings(selectEl) {
+      const cell = selectEl.closest('td');
+      const hintAll = cell.querySelector('.mode-hint-all');
+      const paywallSettings = cell.querySelector('.mode-paywall-settings');
+      
+      if (selectEl.value === 'partial_paywall') {
+        if (hintAll) hintAll.classList.add('hidden');
+        if (paywallSettings) paywallSettings.classList.remove('hidden');
+        showToast('Switched Mode to Partial Excerpt (Paywall style)', 'info');
+      } else if (selectEl.value === 'redirect') {
+        if (hintAll) {
+          hintAll.textContent = 'Redirects non-members directly to Membership Pricing page.';
+          hintAll.classList.remove('hidden');
+        }
+        if (paywallSettings) paywallSettings.classList.add('hidden');
+        showToast('Switched Mode to Redirect to Pricing Page', 'info');
+      } else {
+        if (hintAll) {
+          hintAll.textContent = 'Replaces content with restriction CTA box.';
+          hintAll.classList.remove('hidden');
+        }
+        if (paywallSettings) paywallSettings.classList.add('hidden');
+        showToast('Switched Mode to Hide Full Content', 'info');
+      }
+    }
+
+    function toggleScope(radioEl) {
+      const picker = radioEl.closest('.target-specific-picker');
+      const itemsContainer = picker.querySelector('.scope-items-container');
+      const taxonomyContainer = picker.querySelector('.scope-taxonomy-container');
+      
+      if (radioEl.value === 'items') {
+        itemsContainer.classList.remove('hidden');
+        taxonomyContainer.classList.add('hidden');
+        showToast('Scope switched to Specific Items picker', 'info');
+      } else {
+        itemsContainer.classList.add('hidden');
+        taxonomyContainer.classList.remove('hidden');
+        showToast('Scope switched to Taxonomy / Category picker', 'info');
+      }
+    }
+
+    function handleItemAdd(event, inputEl) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const val = inputEl.value.trim();
+        if (!val) return;
+        const container = inputEl.closest('.scope-items-container').querySelector('.flex-wrap');
+        const badge = document.createElement('span');
+        badge.className = 'bg-indigo-100 text-indigo-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-indigo-200';
+        badge.innerHTML = `📄 ${val} <button type="button" onclick="this.parentElement.remove(); showDemoToast('Removed item', 'info');" class="hover:text-red-600 ml-0.5">✕</button>`;
+        container.appendChild(badge);
+        inputEl.value = '';
+        showToast(`Added "${val}" to specific items target`, 'success');
+      }
+    }
+
+    function handleTaxonomyAdd(selectEl) {
+      const val = selectEl.options[selectEl.selectedIndex].text;
+      if (!val || selectEl.selectedIndex === 0) return;
+      const container = selectEl.closest('.scope-taxonomy-container').querySelector('.flex-wrap');
+      const badge = document.createElement('span');
+      badge.className = 'bg-purple-100 text-purple-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-purple-200';
+      badge.innerHTML = `🏷️ ${val} <button type="button" onclick="this.parentElement.remove(); showDemoToast('Removed taxonomy', 'info');" class="hover:text-red-600 ml-0.5">✕</button>`;
+      container.appendChild(badge);
+      selectEl.selectedIndex = 0;
+      showToast(`Added "${val}" to taxonomy target`, 'success');
+    }
+
+    function initFlowState() {
+      const savedPlan = sessionStorage.getItem('lp_plan_name');
+      if (savedPlan) {
+        document.querySelectorAll('.demo-plan-name').forEach(el => el.textContent = savedPlan);
+      }
+    }
+
+    function initAdminSubmenuToggle() {
+      const lpMenuItem = document.querySelector('.demo-lp-menu');
+      if (lpMenuItem) {
+        lpMenuItem.addEventListener('click', () => {
+          const submenu = document.querySelector('.demo-lp-submenu');
+          if (submenu) submenu.classList.toggle('hidden');
+        });
+      }
+    }
+
+    function initFormInteractions() {
+      const btnCourses = document.getElementById('btn-mode-courses');
+      const btnRestriction = document.getElementById('btn-mode-restriction');
+      const descEl = document.getElementById('access-mode-description');
+      const radioCourses = document.getElementById('access-mode-courses-radio');
+      const radioRestriction = document.getElementById('access-mode-restriction-radio');
+
+      const coursesBox = document.getElementById('courses-selection-box');
+      const wooBox = document.getElementById('woo-purchase-box');
+      const restrictionBox = document.getElementById('restriction-rules-box');
+
+      const activeClasses = ['bg-white', 'text-indigo-700', 'shadow-sm', 'border', 'border-gray-200/50'];
+      const inactiveClasses = ['text-gray-500', 'hover:text-gray-900'];
+
+      function setMode(mode) {
+        if (mode === 'courses') {
+          if (btnCourses) { btnCourses.classList.add(...activeClasses); btnCourses.classList.remove(...inactiveClasses); }
+          if (btnRestriction) { btnRestriction.classList.remove(...activeClasses); btnRestriction.classList.add(...inactiveClasses); }
+          if (coursesBox) coursesBox.classList.remove('hidden');
+          if (wooBox) wooBox.classList.remove('hidden');
+          if (restrictionBox) restrictionBox.classList.add('hidden');
+          if (descEl) descEl.textContent = 'Directly assign specific courses to this plan. Users purchasing the plan via WooCommerce checkout will be enrolled automatically into selected courses.';
+          if (radioCourses) radioCourses.checked = true;
+          showToast('Switched to Course Access Mode (Assigned Courses & WooCommerce Purchase active)', 'info');
+        } else {
+          if (btnRestriction) { btnRestriction.classList.add(...activeClasses); btnRestriction.classList.remove(...inactiveClasses); }
+          if (btnCourses) { btnCourses.classList.remove(...activeClasses); btnCourses.classList.add(...inactiveClasses); }
+          if (coursesBox) coursesBox.classList.add('hidden');
+          if (wooBox) wooBox.classList.add('hidden');
+          if (restrictionBox) restrictionBox.classList.remove('hidden');
+          if (descEl) descEl.textContent = 'Protect posts, pages, lessons, or quizzes via rules. Users with this active plan will automatically get access to the protected content.';
+          if (radioRestriction) radioRestriction.checked = true;
+          showToast('Switched to Content Restriction Mode (Content protection rules active)', 'info');
+        }
+      }
+
+      if (btnCourses) btnCourses.addEventListener('click', () => setMode('courses'));
+      if (btnRestriction) btnRestriction.addEventListener('click', () => setMode('restriction'));
+
+      const savePlanButtons = document.querySelectorAll('button[aria-label="Save plan"]');
+      savePlanButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const planInput = document.querySelector('input[value="Business Team"]');
+          if (planInput && planInput.value) {
+            sessionStorage.setItem('lp_plan_name', planInput.value);
+          }
+          showToast('Plan saved successfully! WooCommerce checkout and restriction settings persisted.', 'success');
+        });
+      });
+
+      const wooSelect = document.querySelector('select[aria-label="Woo product mapping"]');
+      if (wooSelect) {
+        wooSelect.addEventListener('change', (e) => {
+          const selectedOption = e.target.options[e.target.selectedIndex];
+          showToast(`Mapped to WooCommerce Product: ${selectedOption.text}`, 'info');
+        });
+      }
+
+      const addRuleBtn = document.getElementById('add-rule-btn') || document.querySelector('button[aria-label="Add restriction rule"]');
+      if (addRuleBtn) {
+        addRuleBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const tableBody = document.getElementById('restriction-rules-body');
+          if (tableBody) {
+            const rowCount = tableBody.querySelectorAll('tr').length + 1;
+            const uniqueId = 'scope_dyn_' + Date.now();
+            const newRow = document.createElement('tr');
+            newRow.className = 'hover:bg-slate-50/50 transition bg-blue-50/40';
+            newRow.innerHTML = `
+              <td class="px-3.5 py-3 text-gray-700 align-top">
+                <select aria-label="Rule content type" class="w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                  <option value="Lesson" selected>Lesson</option>
+                  <option value="Course">Course</option>
+                  <option value="Post">Post</option>
+                  <option value="Page">Page</option>
+                  <option value="Quiz">Quiz</option>
+                </select>
+              </td>
+              <td class="px-3.5 py-3 text-gray-700 align-top">
+                <select aria-label="Rule target" onchange="toggleTargetPicker(this)" class="rule-target-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                  <option value="all">All items in post type</option>
+                  <option value="specific" selected>Specific Items / Taxonomy...</option>
+                </select>
+                <div class="target-all-hint hidden text-[11px] text-slate-500 mt-1.5 flex items-center gap-1 font-normal">
+                  <span>🌐</span> Restricts ALL published items automatically.
+                </div>
+                <div class="target-specific-picker mt-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-md space-y-2">
+                  <div class="flex items-center gap-3 text-xs font-semibold text-slate-700 border-b border-slate-200 pb-1.5">
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="${uniqueId}" value="items" checked class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                      <span>Specific Items</span>
+                    </label>
+                    <label class="inline-flex items-center gap-1 cursor-pointer">
+                      <input type="radio" name="${uniqueId}" value="taxonomy" class="text-blue-600 focus:ring-blue-500" onchange="toggleScope(this)">
+                      <span>Taxonomy / Category</span>
+                    </label>
+                  </div>
+                  <div class="scope-items-container">
+                    <div class="flex flex-wrap gap-1.5 mb-1.5">
+                      <span class="bg-indigo-100 text-indigo-800 text-[11px] px-2 py-0.5 rounded flex items-center gap-1 font-medium border border-indigo-200">
+                        📄 New Lesson #${rowCount} <button type="button" onclick="this.parentElement.remove();" class="hover:text-red-600 ml-0.5">✕</button>
+                      </span>
+                    </div>
+                    <input type="text" placeholder="🔍 Type item title (Press Enter to add)..." class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onkeydown="handleItemAdd(event, this)">
+                  </div>
+                  <div class="scope-taxonomy-container hidden">
+                    <div class="flex flex-wrap gap-1 mb-1.5"></div>
+                    <select class="w-full text-xs border border-gray-300 rounded px-2 py-1 bg-white focus:ring-1 focus:ring-blue-500" onchange="handleTaxonomyAdd(this)">
+                      <option value="" disabled selected>+ Choose Category or Tag...</option>
+                      <option>Category: General</option>
+                      <option>Tag: Recommended</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              <td class="px-3.5 py-3 text-gray-700 align-top">
+                <select aria-label="Restriction mode" onchange="toggleModeSettings(this)" class="rule-mode-select w-full border border-gray-300 rounded px-2.5 py-1.5 text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none font-medium">
+                  <option value="hide_all" selected>🔒 Hide Full Content</option>
+                  <option value="partial_paywall">📰 Partial Excerpt (Paywall)</option>
+                  <option value="redirect">↪️ Redirect to Pricing</option>
+                </select>
+                <div class="mode-hint-all text-[11px] text-slate-500 mt-1.5 font-normal">Replaces content with restriction CTA box.</div>
+                <div class="mode-paywall-settings hidden mt-2.5 p-2 bg-indigo-50/70 border border-indigo-100 rounded text-xs space-y-1.5 font-normal">
+                  <div class="flex items-center justify-between text-indigo-950 font-medium">
+                    <span>Excerpt limit:</span>
+                    <select class="text-[11px] border border-gray-300 rounded px-1.5 py-0.5 bg-white">
+                      <option selected>First 20% (~150 words)</option>
+                      <option>First 2 paragraphs</option>
+                      <option>WP More Tag (<!--more-->)</option>
+                    </select>
+                  </div>
+                  <label class="inline-flex items-center gap-1.5 text-[11px] text-indigo-800 cursor-pointer">
+                    <input type="checkbox" checked class="rounded border-gray-300 text-indigo-600">
+                    <span>Enable gradient blur fade effect</span>
+                  </label>
+                </div>
+              </td>
+              <td class="px-3.5 py-3 text-gray-700 align-top text-center">
+                <button type="button" onclick="this.closest('tr').remove(); showDemoToast('Rule #${rowCount} removed', 'warning');" aria-label="Delete rule" class="bg-red-600 hover:bg-red-700 text-white text-xs px-2.5 py-1.5 rounded font-medium shadow-xs">Delete</button>
+              </td>
+            `;
+            tableBody.appendChild(newRow);
+            showToast(`Restriction Rule #${rowCount} added to table!`, 'success');
+            setTimeout(() => newRow.classList.remove('bg-blue-50/40'), 1500);
+          }
+        });
+      }
+    }
+  </script>
+</body>
+</html>

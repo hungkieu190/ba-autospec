@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wireframes Index — LearnPress Membership</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 px-6 py-5 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="bg-indigo-600 text-white text-xs font-bold px-2.5 py-0.5 rounded">v2.0 Multi-File</span>
+          <h1 class="text-xl font-bold text-slate-900">LearnPress Membership — Wireframes Inventory</h1>
+        </div>
+        <p class="text-sm text-slate-500 mt-1">Interactive HTML5 + Tailwind CSS Wireframe Prototype (Woo Commerce Checkout & Restrict Content Phases)</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="wireframe-index.md" target="_blank" rel="noopener noreferrer" class="text-xs bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 px-3 py-1.5 rounded font-medium transition">
+          📄 View Wireframe Spec Docs
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto p-6 space-y-8">
+    <!-- Notice Banner -->
+    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-indigo-900 flex items-start gap-3">
+      <span class="text-xl">💡</span>
+      <div class="text-sm">
+        <strong class="font-semibold">Interactive Prototype Demo:</strong> Click any screen link below to open it in a <strong>new tab</strong>. All WP Admin screens feature full <code>wp-admin</code> chrome, <code>LearnPress ➔ Membership</code> sub-menu structure, and unified non-tabbed forms matching production UI.
+      </div>
+    </div>
+
+    <!-- Flow Map Section -->
+    <section class="bg-white border border-slate-200 rounded-lg shadow-sm p-6">
+      <h2 class="text-lg font-bold mb-3 text-slate-900 flex items-center gap-2">
+        <span>🗺️</span> User Flow Map
+      </h2>
+      <p class="text-sm text-slate-600 mb-4">Click any step in the journey below to launch that wireframe screen in a new tab:</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <a href="s01-edit-plan-unified.html" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-indigo-50/50 transition group">
+          <span class="text-xs font-bold text-indigo-600 block mb-1">STEP 1 (ADMIN) ↗</span>
+          <span class="text-sm font-semibold group-hover:text-indigo-700 block">S01: Edit Plan</span>
+          <span class="text-xs text-slate-500 mt-1 block">Unified form with Woo 1-1 mapping & Restrict Content.</span>
+        </a>
+
+        <a href="s02-edit-plan-errors.html" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-indigo-50/50 transition group">
+          <span class="text-xs font-bold text-amber-600 block mb-1">STEP 1b (WARNINGS) ↗</span>
+          <span class="text-sm font-semibold group-hover:text-indigo-700 block">S02: Validation Views</span>
+          <span class="text-xs text-slate-500 mt-1 block">Dependency missing & re-assignment alerts.</span>
+        </a>
+
+        <a href="s03-membership-settings.html" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-indigo-50/50 transition group">
+          <span class="text-xs font-bold text-indigo-600 block mb-1">STEP 2 (CONFIG) ↗</span>
+          <span class="text-sm font-semibold group-hover:text-indigo-700 block">S03: Settings</span>
+          <span class="text-xs text-slate-500 mt-1 block">Checkout dependencies health check.</span>
+        </a>
+
+        <a href="s04-pricing-restricted-cta.html" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-indigo-50/50 transition group">
+          <span class="text-xs font-bold text-green-600 block mb-1">STEP 3 (VISITOR) ↗</span>
+          <span class="text-sm font-semibold group-hover:text-indigo-700 block">S04: Pricing & CTA</span>
+          <span class="text-xs text-slate-500 mt-1 block">Buy buttons & restricted content message.</span>
+        </a>
+
+        <a href="s06-woo-checkout-success.html" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-indigo-50/50 transition group">
+          <span class="text-xs font-bold text-green-600 block mb-1">STEP 4 (CHECKOUT) ↗</span>
+          <span class="text-sm font-semibold group-hover:text-indigo-700 block">S06: Woo Success</span>
+          <span class="text-xs text-slate-500 mt-1 block">Order complete & instant plan activation.</span>
+        </a>
+
+        <a href="s05-membership-dashboard.html" target="_blank" rel="noopener noreferrer" class="p-3 bg-slate-50 border border-slate-200 rounded-lg hover:border-indigo-500 hover:bg-indigo-50/50 transition group">
+          <span class="text-xs font-bold text-indigo-600 block mb-1">STEP 5 (STUDENT) ↗</span>
+          <span class="text-sm font-semibold group-hover:text-indigo-700 block">S05: Dashboard</span>
+          <span class="text-xs text-slate-500 mt-1 block">Student LP profile tab & status.</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Screen Catalog Table -->
+    <section class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+        <h2 class="text-lg font-bold text-slate-900">Screen Catalog & Specification Mapping</h2>
+        <span class="text-xs bg-slate-200 text-slate-700 font-semibold px-2.5 py-1 rounded">6 Screens Total</span>
+      </div>
+      <table class="w-full text-sm text-left">
+        <thead class="bg-slate-100 text-slate-700 font-semibold border-b border-slate-200">
+          <tr>
+            <th class="px-4 py-3">ID</th>
+            <th class="px-4 py-3">Screen Name</th>
+            <th class="px-4 py-3">Target Role</th>
+            <th class="px-4 py-3">WP Admin?</th>
+            <th class="px-4 py-3">Key Features & Highlights</th>
+            <th class="px-4 py-3 text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          <tr class="hover:bg-slate-50/80">
+            <td class="px-4 py-3.5 font-bold text-indigo-600">S01</td>
+            <td class="px-4 py-3.5 font-semibold text-slate-900">Edit Plan - Unified Form</td>
+            <td class="px-4 py-3.5"><span class="bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded font-medium">Admin</span></td>
+            <td class="px-4 py-3.5"><span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-medium">Yes (WP Admin)</span></td>
+            <td class="px-4 py-3.5 text-slate-600 text-xs">Unified non-tabbed form: Plan Details + Woo 1-1 Product Mapping (#4052) + Restrict Content Table (Dual Target Scope & Excerpt Paywall Mode) + Global Restricted Messages Config Section.</td>
+            <td class="px-4 py-3.5 text-right"><a href="s01-edit-plan-unified.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded font-medium">Launch S01 ↗</a></td>
+          </tr>
+
+          <tr class="hover:bg-slate-50/80">
+            <td class="px-4 py-3.5 font-bold text-indigo-600">S02</td>
+            <td class="px-4 py-3.5 font-semibold text-slate-900">Edit Plan - Validation & Warnings</td>
+            <td class="px-4 py-3.5"><span class="bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded font-medium">Admin</span></td>
+            <td class="px-4 py-3.5"><span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-medium">Yes (WP Admin)</span></td>
+            <td class="px-4 py-3.5 text-slate-600 text-xs">Dependency error banners (Woo Subscriptions missing), Product re-assignment warning, and Rule validation errors.</td>
+            <td class="px-4 py-3.5 text-right"><a href="s02-edit-plan-errors.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-slate-800 hover:bg-slate-900 text-white text-xs px-3 py-1.5 rounded font-medium">Launch S02 ↗</a></td>
+          </tr>
+
+          <tr class="hover:bg-slate-50/80">
+            <td class="px-4 py-3.5 font-bold text-indigo-600">S03</td>
+            <td class="px-4 py-3.5 font-semibold text-slate-900">Membership Settings - Dependencies</td>
+            <td class="px-4 py-3.5"><span class="bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded font-medium">Admin</span></td>
+            <td class="px-4 py-3.5"><span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded font-medium">Yes (WP Admin)</span></td>
+            <td class="px-4 py-3.5 text-slate-600 text-xs">Health check list for WooCommerce, LP Woo Payment, Woo Subscriptions, Guest checkout enforcement, and Success page redirect.</td>
+            <td class="px-4 py-3.5 text-right"><a href="s03-membership-settings.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-slate-800 hover:bg-slate-900 text-white text-xs px-3 py-1.5 rounded font-medium">Launch S03 ↗</a></td>
+          </tr>
+
+          <tr class="hover:bg-slate-50/80">
+            <td class="px-4 py-3.5 font-bold text-indigo-600">S04</td>
+            <td class="px-4 py-3.5 font-semibold text-slate-900">Pricing / Restricted Message CTA</td>
+            <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-medium">Guest / Student</span></td>
+            <td class="px-4 py-3.5"><span class="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded font-medium">No (Frontend)</span></td>
+            <td class="px-4 py-3.5 text-slate-600 text-xs">Frontend pricing table with Buy Now CTAs + Dual Frontend Restriction Mode Previews (Partial Excerpt Paywall & Full Content Lock).</td>
+            <td class="px-4 py-3.5 text-right"><a href="s04-pricing-restricted-cta.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded font-medium">Launch S04 ↗</a></td>
+          </tr>
+
+          <tr class="hover:bg-slate-50/80">
+            <td class="px-4 py-3.5 font-bold text-indigo-600">S05</td>
+            <td class="px-4 py-3.5 font-semibold text-slate-900">Membership Dashboard / Profile</td>
+            <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-medium">Student</span></td>
+            <td class="px-4 py-3.5"><span class="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded font-medium">No (Frontend)</span></td>
+            <td class="px-4 py-3.5 text-slate-600 text-xs">Student account profile tab showing active plan expiry, auto-renew status, renewal action button, and empty state.</td>
+            <td class="px-4 py-3.5 text-right"><a href="s05-membership-dashboard.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded font-medium">Launch S05 ↗</a></td>
+          </tr>
+
+          <tr class="hover:bg-slate-50/80">
+            <td class="px-4 py-3.5 font-bold text-indigo-600">S06</td>
+            <td class="px-4 py-3.5 font-semibold text-slate-900">Woo Checkout Success</td>
+            <td class="px-4 py-3.5"><span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded font-medium">Student / Customer</span></td>
+            <td class="px-4 py-3.5"><span class="bg-gray-100 text-gray-700 text-xs px-2 py-0.5 rounded font-medium">No (Frontend)</span></td>
+            <td class="px-4 py-3.5 text-slate-600 text-xs">Post-purchase order completion screen with instant LP membership activation message and link to student dashboard.</td>
+            <td class="px-4 py-3.5 text-right"><a href="s06-woo-checkout-success.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded font-medium">Launch S06 ↗</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-6 py-8 text-xs text-slate-500 border-t border-slate-200 mt-12 flex justify-between items-center">
+    <span>LearnPress Membership UI/UX Wireframe Package — AntiGravity AutoSpec Generator</span>
+    <span>Browser Ready (No Build Step Required)</span>
+  </footer>
+
+</body>
+</html>

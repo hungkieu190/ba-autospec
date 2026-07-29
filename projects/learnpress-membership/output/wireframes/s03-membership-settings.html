@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S03: Membership Settings - Dependencies — Wireframe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
+
+  <!-- Top Wireframe Control Bar -->
+  <div class="bg-slate-900 text-white text-xs px-4 py-2 flex items-center justify-between sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-white px-2.5 py-1 rounded border border-slate-700 font-medium">← Back to Index</a>
+      <span class="font-bold text-indigo-300">WIREFRAME S03</span>
+      <span>Membership Settings: Dependencies & Global Config — Admin</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-slate-400">Navigation:</span>
+      <a href="s02-edit-plan-errors.html" class="text-slate-300 hover:text-white px-2 py-0.5">← S02</a>
+      <span class="bg-indigo-600 px-2 py-0.5 rounded font-bold">S03</span>
+      <a href="s04-pricing-restricted-cta.html" class="text-slate-300 hover:text-white px-2 py-0.5">S04 ➔</a>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto p-6">
+    <section class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="bg-indigo-50 border-b border-indigo-100 px-4 py-3 flex justify-between items-center">
+        <h2 class="text-lg font-semibold text-indigo-950">WIREFRAME — Membership Settings: Dependencies & Global Checkout Config</h2>
+        <span class="text-xs bg-indigo-200 text-indigo-900 px-2.5 py-1 rounded font-semibold">WP Admin UI</span>
+      </div>
+
+      <!-- WP Admin Frame Container -->
+      <div class="relative min-h-[620px] bg-gray-100">
+        <!-- WP Top Admin Bar -->
+        <div class="h-8 bg-gray-800 text-gray-200 text-xs flex items-center px-3 gap-4 border-b border-gray-700">
+          <span class="font-bold text-white">WP</span>
+          <span class="hover:text-white cursor-pointer">LearnPress Demo</span>
+          <span class="hover:text-white cursor-pointer">+ New</span>
+          <span class="ml-auto">Howdy, Admin</span>
+        </div>
+
+        <!-- WP Left Sidebar -->
+        <aside class="absolute top-8 left-0 w-48 bg-gray-900 text-gray-100 min-h-full">
+          <div class="bg-gray-800 p-3 text-sm font-semibold border-b border-gray-700">WordPress</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Dashboard</div>
+          <div class="px-3 py-2 text-sm bg-blue-700 font-semibold text-white flex items-center justify-between cursor-pointer">
+            <span>LearnPress</span>
+            <span class="text-xs">▾</span>
+          </div>
+          <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Courses</div>
+          <div class="pl-6 py-1 text-xs bg-blue-600 text-white font-bold cursor-pointer border-l-2 border-white">Membership</div>
+          <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Settings</div>
+        </aside>
+
+        <!-- Main WP Content Area -->
+        <div class="ml-48 p-6 bg-gray-100 min-h-[590px]">
+          <div class="flex justify-between text-xs text-gray-500 mb-2">
+            <span></span>
+            <span>Screen Options ▾ &nbsp; Help ▾</span>
+          </div>
+
+          <h1 class="text-2xl font-normal text-gray-900 mb-3">Membership</h1>
+
+          <!-- Top Membership Sub-tabs -->
+          <div class="flex items-center gap-1 border-b border-gray-300 mb-5 text-sm">
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Membership Plans</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Members</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Transactions</span>
+            <span class="bg-white border-t border-l border-r border-gray-300 text-blue-600 font-semibold px-3 py-1.5 rounded-t -mb-px">Settings</span>
+          </div>
+
+          <h2 class="text-xl font-normal text-gray-900 mb-4">Membership Settings</h2>
+
+          <!-- Dependencies Status Card -->
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-4 mb-5">
+            <h3 class="text-base font-semibold text-gray-800 mb-3 border-b border-gray-100 pb-2">Checkout Dependencies Health Check</h3>
+            <ul class="space-y-2.5 text-sm">
+              <li class="flex items-center justify-between border-b border-gray-100 py-1.5">
+                <div>
+                  <span class="font-medium text-gray-800">WooCommerce</span>
+                  <p class="text-xs text-gray-500">Core eCommerce payment engine</p>
+                </div>
+                <span class="rounded bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-800">Active (v8.5)</span>
+              </li>
+
+              <li class="flex items-center justify-between border-b border-gray-100 py-1.5">
+                <div>
+                  <span class="font-medium text-gray-800">LearnPress Woo Payment Add-on</span>
+                  <p class="text-xs text-gray-500">Links LearnPress order processing with Woo gateways</p>
+                </div>
+                <span class="rounded bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-800">Active (v4.0)</span>
+              </li>
+
+              <li class="flex items-center justify-between py-1.5">
+                <div>
+                  <span class="font-medium text-gray-800">Woo Subscriptions</span>
+                  <p class="text-xs text-gray-500">Required for recurring subscription membership plans</p>
+                </div>
+                <span class="rounded bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-800">Missing / Inactive</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="border-l-4 border-amber-500 bg-white p-3 text-sm text-amber-800 mb-5 shadow-sm">
+            <strong>Warning:</strong> Subscription plans require Woo Subscriptions plugin active before selling recurring memberships.
+          </div>
+
+          <!-- Global Settings Form Table -->
+          <div class="bg-white border border-gray-200 rounded shadow-sm p-4">
+            <h3 class="text-base font-semibold text-gray-800 mb-3 border-b border-gray-100 pb-2">Global Checkout & Access Options</h3>
+            <table class="w-full text-sm">
+              <tbody>
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-56 align-top p-3 border-b border-gray-100">Guest checkout behavior</td>
+                  <td class="p-3 border-b border-gray-100">
+                    <label class="inline-flex items-center gap-2">
+                      <input aria-label="Require login register" type="checkbox" checked class="h-4 w-4 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                      <span class="font-medium text-gray-800">Require login or registration before membership activation</span>
+                    </label>
+                    <p class="text-xs text-gray-500 mt-1">Ensures every purchased membership attaches to a valid user account.</p>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-sm font-medium text-gray-700 w-56 align-top p-3">Default success page</td>
+                  <td class="p-3">
+                    <select aria-label="Default success page" class="border border-gray-300 rounded px-2.5 py-1.5 text-sm w-80 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                      <option selected>Membership Dashboard</option>
+                      <option>My Account / Orders</option>
+                      <option>Course Catalog</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Destination page after successful WooCommerce membership checkout.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end">
+              <button type="button" onclick="showDemoToast('Settings saved successfully!', 'success');" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-1.5 rounded shadow-sm font-medium">Save Settings</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lpMenuItem = document.querySelector('.demo-lp-menu');
+      if (lpMenuItem) {
+        lpMenuItem.addEventListener('click', () => {
+          const submenu = document.querySelector('.demo-lp-submenu');
+          if (submenu) submenu.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

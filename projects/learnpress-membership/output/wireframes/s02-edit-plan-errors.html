@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S02: Edit Plan - Validation & Dependency Warnings — Wireframe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-900 font-sans min-h-screen">
+
+  <!-- Top Wireframe Control Bar -->
+  <div class="bg-slate-900 text-white text-xs px-4 py-2 flex items-center justify-between sticky top-0 z-50 shadow-md">
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="bg-slate-800 hover:bg-slate-700 text-white px-2.5 py-1 rounded border border-slate-700 font-medium">← Back to Index</a>
+      <span class="font-bold text-amber-300">WIREFRAME S02</span>
+      <span>Edit Plan: Validation Errors & Dependency Warnings View — Admin</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-slate-400">Navigation:</span>
+      <a href="s01-edit-plan-unified.html" class="text-slate-300 hover:text-white px-2 py-0.5">← S01</a>
+      <span class="bg-amber-600 px-2 py-0.5 rounded font-bold">S02</span>
+      <a href="s03-membership-settings.html" class="text-slate-300 hover:text-white px-2 py-0.5">S03 ➔</a>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto p-6">
+    <section class="bg-white border border-slate-200 rounded-lg shadow-sm overflow-hidden">
+      <div class="bg-amber-50 border-b border-amber-100 px-4 py-3 flex justify-between items-center">
+        <h2 class="text-lg font-semibold text-amber-950">WIREFRAME — Edit Plan: Validation Errors & Dependency Warnings View</h2>
+        <span class="text-xs bg-amber-200 text-amber-900 px-2.5 py-1 rounded font-semibold">Error States Demo</span>
+      </div>
+
+      <!-- WP Admin Frame Container -->
+      <div class="relative min-h-[700px] bg-gray-100">
+        <!-- WP Top Admin Bar -->
+        <div class="h-8 bg-gray-800 text-gray-200 text-xs flex items-center px-3 gap-4 border-b border-gray-700">
+          <span class="font-bold text-white">WP</span>
+          <span class="hover:text-white cursor-pointer">LearnPress Demo</span>
+          <span class="hover:text-white cursor-pointer">+ New</span>
+          <span class="ml-auto">Howdy, Admin</span>
+        </div>
+
+        <!-- WP Left Sidebar -->
+        <aside class="absolute top-8 left-0 w-48 bg-gray-900 text-gray-100 min-h-full">
+          <div class="bg-gray-800 p-3 text-sm font-semibold border-b border-gray-700">WordPress</div>
+          <div class="px-3 py-2 text-sm hover:bg-gray-700 cursor-pointer">Dashboard</div>
+          <div class="px-3 py-2 text-sm bg-blue-700 font-semibold text-white flex items-center justify-between cursor-pointer">
+            <span>LearnPress</span>
+            <span class="text-xs">▾</span>
+          </div>
+          <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Courses</div>
+          <div class="pl-6 py-1 text-xs bg-blue-600 text-white font-bold cursor-pointer border-l-2 border-white">Membership</div>
+          <div class="pl-6 py-1 text-xs text-gray-300 hover:text-white cursor-pointer">Settings</div>
+        </aside>
+
+        <!-- Main WP Content Area -->
+        <div class="ml-48 p-6 bg-gray-100 min-h-[670px]">
+          <div class="flex justify-between text-xs text-gray-500 mb-2">
+            <span></span>
+            <span>Screen Options ▾ &nbsp; Help ▾</span>
+          </div>
+
+          <h1 class="text-2xl font-normal text-gray-900 mb-3">Membership</h1>
+
+          <!-- Top Membership Sub-tabs -->
+          <div class="flex items-center gap-1 border-b border-gray-300 mb-5 text-sm">
+            <span class="bg-white border-t border-l border-r border-gray-300 text-blue-600 font-semibold px-3 py-1.5 rounded-t -mb-px">Membership Plans</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Members</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Transactions</span>
+            <span class="text-gray-600 hover:text-gray-900 px-3 py-1.5 cursor-pointer">Settings</span>
+          </div>
+
+          <h2 class="text-xl font-normal text-gray-900 mb-4">Edit Plan (Validation & Warning View)</h2>
+
+          <!-- Error Alert 1: Dependency Missing -->
+          <div class="border-l-4 border-red-500 bg-white p-4 text-sm text-red-800 mb-4 shadow-sm rounded-r flex items-start gap-3">
+            <span class="text-lg">🚫</span>
+            <div>
+              <strong>Dependency Error:</strong> Woo Subscriptions plugin is inactive on this site. Subscription billing type cannot be enabled or saved until the Woo Subscriptions plugin is activated.
+            </div>
+          </div>
+
+          <!-- Warning Alert 2: Re-assignment Notice -->
+          <div class="border-l-4 border-amber-500 bg-white p-4 text-sm text-amber-900 mb-4 shadow-sm rounded-r flex items-start gap-3">
+            <span class="text-lg">⚠️</span>
+            <div>
+              <strong>Re-assignment Notice:</strong> WooCommerce Product "#4052 (Premium Membership Product)" is currently mapped to another plan ("Basic Membership Plan"). Saving will re-assign checkout mapping to this plan.
+            </div>
+          </div>
+
+          <!-- Error Alert 3: Form Field Validation Error -->
+          <div class="border-l-4 border-red-500 bg-white p-4 text-sm text-red-800 mb-6 shadow-sm rounded-r flex items-start gap-3">
+            <span class="text-lg">❗</span>
+            <div>
+              <strong>Validation Error:</strong> Content type is required for restriction rule #1 before saving. Please select a post type.
+            </div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded p-6 shadow-sm text-sm text-gray-600 space-y-3">
+            <h3 class="font-semibold text-gray-800">Validation & Recovery Action Flow:</h3>
+            <p>1. Admin must fix missing fields or resolve product mapping conflicts highlighted in red/amber above.</p>
+            <p>2. If Woo Subscriptions is missing, admin is instructed to activate the plugin under <code>Plugins ➔ Installed Plugins</code> before switching billing type to Subscription.</p>
+            <p>3. Clicking <strong>Save Plan</strong> will re-validate the entire form.</p>
+            <div class="pt-2">
+              <a href="s01-edit-plan-unified.html" class="inline-flex items-center gap-1 text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded font-medium">
+                Return to S01 (Valid Form)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lpMenuItem = document.querySelector('.demo-lp-menu');
+      if (lpMenuItem) {
+        lpMenuItem.addEventListener('click', () => {
+          const submenu = document.querySelector('.demo-lp-submenu');
+          if (submenu) submenu.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

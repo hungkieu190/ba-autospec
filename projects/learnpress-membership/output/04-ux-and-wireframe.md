@@ -4,10 +4,11 @@
 
 | Area | Decision |
 | --- | --- |
+| Access Mode selection | Either Course Access Mode OR Content Restriction Mode per plan (radio choice); WooCommerce Checkout applies to both modes. |
 | Phase order | WooCommerce checkout first, Restrict Content later. |
 | Admin configuration | Admin-only. |
-| Restrict Content location | Plan edit tab. |
-| Restrict Content UI | Table rule builder. |
+| Restrict Content location | Single-page Plan edit form (inline, no sub-tabs). |
+| Restrict Content UI | Table rule builder inside plan edit form. |
 | Purchase CTA locations | Pricing block, shortcode, course page, restricted message, profile renew button, email. |
 | Post-purchase destination | Membership dashboard. |
 | Student status locations | LearnPress profile tab and Woo account page. |
@@ -19,7 +20,7 @@ Use the screenshots in `projects/learnpress-membership/images/` as visual refere
 
 | File | Purpose |
 | --- | --- |
-| `LearnPress membership plan edit.png` | Existing plan edit structure; use for Woo checkout and Restrict Content tab placement. |
+| `LearnPress membership plan edit.png` | Existing single-page plan edit structure; integrate Woo checkout and Restrict Content sections inline without sub-tabs. |
 | `all-plans-table.png` | Existing admin table style. |
 | `settings.png` | Settings page visual baseline. |
 | `member-list-detail.png` | Member management/support context. |
@@ -53,7 +54,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  A[Admin opens Plan Edit] --> B[Open Restrict Content tab]
+  A[Admin opens Plan Edit] --> B[Scroll to Restrict Content section]
   B --> C[Add table rule row]
   C --> D[Choose content type]
   D --> E[Choose restriction mode: hide content only]
@@ -77,32 +78,33 @@ flowchart TD
 
 ## Screen List
 
-| ID | Screen Name | Module | Role | WP Admin? | Wireframe |
+| ID | Screen Name | Module | Role | WP Admin? | Wireframe File |
 | --- | --- | --- | --- | --- | --- |
-| S01 | Plan Edit - Woo Checkout | Woo Membership Checkout | Admin | Yes | `output/wireframes/wireframes.html#s01` |
-| S02 | Plan Edit - Restrict Content | Restrict Content | Admin | Yes | `output/wireframes/wireframes.html#s02` |
-| S03 | Membership Settings - Dependencies | Settings | Admin | Yes | `output/wireframes/wireframes.html#s03` |
-| S04 | Pricing / Restricted Message CTA | Frontend Purchase | Guest/Student | No | `output/wireframes/wireframes.html#s04` |
-| S05 | Membership Dashboard / Profile | Student Account | Student/Customer | No | `output/wireframes/wireframes.html#s05` |
-| S06 | Woo Checkout Success | Purchase | Student/Customer | No | `output/wireframes/wireframes.html#s06` |
+| Hub | Wireframes Inventory Index | Hub / Catalog | All Roles | Yes | `output/wireframes/index.html` |
+| S01 | Edit Plan - Unified Form | Membership Plan Edit | Admin | Yes | `output/wireframes/s01-edit-plan-unified.html` |
+| S02 | Edit Plan - Error & Dependency Warnings | Membership Plan Edit | Admin | Yes | `output/wireframes/s02-edit-plan-errors.html` |
+| S03 | Membership Settings - Dependencies | Settings | Admin | Yes | `output/wireframes/s03-membership-settings.html` |
+| S04 | Pricing / Restricted Message CTA | Frontend Purchase | Guest/Student | No | `output/wireframes/s04-pricing-restricted-cta.html` |
+| S05 | Membership Dashboard / Profile | Student Account | Student/Customer | No | `output/wireframes/s05-membership-dashboard.html` |
+| S06 | Woo Checkout Success | Purchase | Student/Customer | No | `output/wireframes/s06-woo-checkout-success.html` |
 
 ## Per-Screen Requirements
 
-### S01 - Plan Edit - Woo Checkout
+### S01 - Edit Plan - Unified Form
 
 | Requirement | Detail |
 | --- | --- |
-| Components | WP admin chrome, plan tabs, Woo checkout toggle/status, Woo product mapping selector, subscription dependency notice, save button. |
-| States | Normal, WooCommerce inactive, LearnPress Woo Payment inactive, Woo Subscriptions missing, duplicate product mapping warning. |
-| Navigation | From plan edit; save returns to same screen with notice. |
+| Components | WP admin chrome, top Membership tabs, Plan Details box (Name, Billing Type, Price, Slot Limit, Courses tags, Description), WooCommerce Purchase Settings box (Woo checkout toggle, Woo product 1-1 selector with ID & price, direct Woo edit link, mapped product badge), Content Restriction Rules box (Rule table builder, Add Rule button, rule rows), top & bottom Cancel / Save Plan action buttons. |
+| States | Normal populated state, WooCommerce enabled, 1-1 product mapped. |
+| Navigation | From Membership Plans table; save returns to same screen with success notice. |
 
-### S02 - Plan Edit - Restrict Content
+### S02 - Edit Plan - Error & Dependency Warnings
 
 | Requirement | Detail |
 | --- | --- |
-| Components | Plan tabs, rule table, add row, content type selector, target selector, restriction mode selector, message preview, pricing page CTA selector. |
-| States | Empty rules, validation error, permission denied for non-admin. |
-| Navigation | From plan edit tab; save with plan. |
+| Components | WP admin chrome, top Membership tabs, error alerts for missing Woo Subscriptions plugin, duplicate product re-assignment warning banner, content restriction validation error banner. |
+| States | Dependency missing alert, duplicate mapping warning, validation failure. |
+| Navigation | From plan edit submit when errors or warnings occur. |
 
 ### S03 - Membership Settings - Dependencies
 
@@ -151,7 +153,7 @@ The file includes WP admin chrome for admin screens and frontend layout for visi
 | Item | Status |
 | --- | --- |
 | Exact current UI component classes | Assumption based on screenshots; final design should inspect plugin UI directly. |
-| Whether Woo product mapping is one product per plan or multiple products per plan | Open; user mentioned plan can add multiple products in earlier context, backend/product should confirm final UX. |
+| Woo product mapping model | Confirmed: 1-to-1 mapping (1 WooCommerce product per Membership Plan). |
 | Refund/cancel dashboard copy | Open until lifecycle decision is final. |
 
 ## Next Actions
@@ -160,5 +162,5 @@ The file includes WP admin chrome for admin screens and frontend layout for visi
 | --- | --- |
 | Design | Review `wireframes.html` with the screenshots and adjust labels/fields to match actual plugin admin UI. |
 | Product | Confirm final labels for Woo mode and dependency warnings. |
-| Engineering | Confirm if Woo product mapping UI needs single select, multi-select or auto-generated mapping. |
+| Engineering | Implement 1-to-1 Woo product mapping dropdown in plan edit page. |
 | QA | Derive UI state tests from the screen state table. |
